@@ -4,7 +4,7 @@ import { User } from '@prisma/client';
 import * as bcrypt from 'bcryptjs';
 import { UserWithRole } from './users.types';
 import { PrismaService } from '../prisma/prisma.service';
-import { CreateUserDto, PartialUserDto } from './dto/users.dto';
+import { CreateUserDto, UpdateUserDto } from './dto';
 
 @Injectable()
 export class UsersService {
@@ -26,7 +26,7 @@ export class UsersService {
     });
   };
 
-  async update(id: number, data: PartialUserDto): Promise<User | void> {
+  async update(id: number, data: UpdateUserDto): Promise<User | void> {
     return this.prisma.user.update({
       where: { id },
       data

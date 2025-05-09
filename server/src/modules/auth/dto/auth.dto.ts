@@ -8,6 +8,7 @@ export class PayloadDto {
 
   @IsEmail()
   email: string;
+
   @IsString()
   @IsNotEmpty()
   role: string;

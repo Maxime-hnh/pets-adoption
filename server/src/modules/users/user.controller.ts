@@ -2,9 +2,9 @@ import { Body, Controller, ForbiddenException, Get, NotFoundException, Param, Po
 import { UsersService } from './users.service';
 import { User } from '@prisma/client';
 import { UserWithRole } from './users.types';
-import { CreateUserDto, PartialUserDto } from './dto/users.dto';
 import { JwtAuthGuard } from '../auth/auth.guard';
 import { CurrentUser } from '../auth/current-user.decorator';
+import { CreateUserDto, PartialUserDto } from './dto';
 
 
 @Controller('user')
