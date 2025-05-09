@@ -6,7 +6,6 @@ import { AuthModule } from './modules/auth/auth.module';
 import { UsersModule } from './modules/users/users.module';
 import { RolesModule } from './modules/roles/roles.module';
 import { PrismaModule } from './modules/prisma/prisma.module';
-import { UserController } from './modules/users/user.controller';
 import { UsersController } from './modules/users/users.controller';
 import { AnimalsModule } from './modules/animals/animals.module';
 import { FavoritesModule } from './modules/favorites/favorites.module';
@@ -32,7 +31,7 @@ import { AuditLogsModule } from './modules/audit-logs/audit-logs.module';
     IncompatibilitiesModule,
     AuditLogsModule
   ],
-  controllers: [AppController, UserController, UsersController],
+  controllers: [AppController, UsersController],
   providers: [AppService],
 })
 export class AppModule { }
