@@ -1,6 +1,7 @@
-import { Species, Gender, AnimalStatus, PlacementType } from '@prisma/client';
-import { Exclude, Expose, Type } from 'class-transformer';
-import { IsString, IsNotEmpty, IsOptional, IsBoolean, IsEnum, IsDate, IsInt, IsUUID } from 'class-validator';
+import { Species, Gender, AnimalStatus, PlacementType, AnimalIncompatibility } from '@prisma/client';
+import { Exclude, Expose, Transform, Type } from 'class-transformer';
+import { IsString, IsNotEmpty, IsOptional, IsBoolean, IsEnum, IsDate, IsInt, IsUUID, IsArray, ValidateNested } from 'class-validator';
+import { AnimalIncompatibilityDto } from './animal-incompatibility.dto';
 
 export class AnimalDto {
   @Expose()
@@ -96,6 +97,18 @@ export class AnimalDto {
   @IsDate()
   @IsNotEmpty()
   updatedAt: Date;
+
+  @Expose()
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => AnimalIncompatibilityDto)
+  animalIncompatibilities: AnimalIncompatibilityDto[]
+
+  @Expose()
+  @IsArray()
+  @IsString({ each: true })
+  @Transform(({ obj }) => obj.animalIncompatibilities?.map((ai) => ai.incompatibility.label))
+  incompatibilityLabels: string[];
 
   @Exclude()
   deletedAt?: Date;

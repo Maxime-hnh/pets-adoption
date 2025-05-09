@@ -12,6 +12,32 @@ export class AnimalsController {
   constructor(private readonly animalsService: AnimalsService) {
   }
 
+  @Get('/species/dogs')
+  async getDogs(): Promise<AnimalDto[]> {
+    return await this.animalsService.findAllBySpecies(Species.DOG);
+  }
+
+  @Get('/species/cats')
+  async getCats(): Promise<AnimalDto[]> {
+    return await this.animalsService.findAllBySpecies(Species.CAT);
+  }
+
+  @Get('/species/others')
+  async getOthers(): Promise<AnimalDto[]> {
+    return await this.animalsService.findAllBySpecies(Species.OTHER);
+  }
+
+
+  @Get('all')
+  async getAll(): Promise<AnimalDto[]> {
+    return await this.animalsService.findAll();
+  }
+
+  @Get('filtered')
+  async getAllWithFilters(@Body() where: any): Promise<AnimalDto[]> {
+    return await this.animalsService.findAllWithFilters(where);
+  }
+
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles("SUPERADMIN")
   @Post()
@@ -22,45 +48,19 @@ export class AnimalsController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles("SUPERADMIN")
   @Put(':id')
-  async update(@Param() id: string, @Body() body: UpdateAnimalDto): Promise<AnimalDto> {
+  async update(@Param('id') id: string, @Body() body: UpdateAnimalDto): Promise<AnimalDto> {
     return await this.animalsService.updateById(+id, body);
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles("SUPERADMIN")
   @Delete(':id')
-  async delete(@Param() id: string): Promise<void> {
+  async delete(@Param('id') id: string): Promise<void> {
     return await this.animalsService.deleteById(+id);
   }
 
   @Get(':id')
-  async getById(@Param() id: string): Promise<AnimalDto> {
-    return await this.animalsService.findById(+id);
+  async getById(@Param('id') id: string): Promise<AnimalDto> {
+    return await this.animalsService.findByIdOrThrow(+id);
   }
-
-  @Get('all')
-  async getAll(): Promise<AnimalDto[]> {
-    return await this.animalsService.findAll();
-  }
-
-  @Get('dogs')
-  async getDogs(): Promise<AnimalDto[]> {
-    return await this.animalsService.findAllBySpecies(Species.DOG);
-  }
-
-  @Get('cats')
-  async getCats(): Promise<AnimalDto[]> {
-    return await this.animalsService.findAllBySpecies(Species.CAT);
-  }
-
-  @Get('others')
-  async getOthers(): Promise<AnimalDto[]> {
-    return await this.animalsService.findAllBySpecies(Species.OTHER);
-  }
-
-  @Get('filtered')
-  async getAllWithFilters(@Body() where: any): Promise<AnimalDto[]> {
-    return await this.animalsService.findAllWithFilters(where);
-  }
-
 }

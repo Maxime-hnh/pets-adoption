@@ -1,4 +1,4 @@
-import { IsBoolean, IsDate, IsEnum, IsOptional, IsString, MaxLength, MinLength } from 'class-validator';
+import { IsArray, IsBoolean, IsDate, IsEnum, IsOptional, IsString, MaxLength, MinLength } from 'class-validator';
 import { Species, Gender, AnimalStatus, PlacementType } from '@prisma/client';
 import { Type } from 'class-transformer';
 
@@ -59,4 +59,8 @@ export class CreateAnimalDto {
   @IsBoolean()
   @IsOptional()
   isArchived?: boolean = false;
+
+  @IsArray()
+  @IsOptional()
+  incompatibilityIds?: number[];
 }

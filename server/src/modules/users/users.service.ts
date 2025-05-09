@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { User } from '@prisma/client';
 import * as bcrypt from 'bcryptjs';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateUserDto, UpdateUserDto, UserDto } from './dto';
 import { toDto } from 'src/utils/dto-transformer';
 import { toDtos } from 'src/utils/dtos-transfomer';
+import { UserWithRole } from './users.types';
 
 @Injectable()
 export class UsersService {
@@ -49,21 +49,19 @@ export class UsersService {
     return toDto(UserDto, user)
   };
 
-  async findById(id: number): Promise<UserDto> {
-    const user = await this.prisma.user.findUniqueOrThrow({
+  async findById(id: number): Promise<UserWithRole> {
+    return await this.prisma.user.findUniqueOrThrow({
       where: { id },
       include: { role: true }
     });
-    return toDto(UserDto, user)
   };
 
 
-  async findByEmail(email: string): Promise<UserDto> {
-    const user = await this.prisma.user.findUnique({
+  async findByEmail(email: string): Promise<UserWithRole> {
+    return await this.prisma.user.findUniqueOrThrow({
       where: { email },
       include: { role: true }
     });
-    return toDto(UserDto, user);
   };
 
 
@@ -72,7 +70,7 @@ export class UsersService {
     return await bcrypt.hash(password, +saltRounds!);
   };
 
-  async validPassword(password: string, user: UserDto): Promise<boolean> {
+  async validPassword(password: string, user: UserWithRole): Promise<boolean> {
     return bcrypt.compare(password, user.password);
   };
 
