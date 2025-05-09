@@ -1,0 +1,298 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Species {
+  DOG
+  CAT
+  OTHER
+}
+
+enum Gender {
+  MALE
+  FEMALE
+}
+
+enum AnimalStatus {
+  AVAILABLE
+  RESERVED
+  ADOPTED
+  UNAVAILABLE
+  PENDING
+  SOS
+}
+
+enum MessageStatus {
+  RECEIVED
+  OPENED
+  DELETED
+  SPAM
+}
+
+enum PlacementType {
+  STANDARD // Adoptions normales
+  SOS // Adoptions prioritaires (urgence)
+  FAD // Famille d’accueil définitive
+}
+
+enum EventType {
+  FUNDRAISING
+  OPEN_HOUSE
+  RAFFLE // TOMBOLA
+  TRAINING_SESSION
+  OTHER
+}
+
+enum Currency {
+  EUR
+  USD
+}
+
+enum DonationStatus {
+  PENDING
+  COMPLETED
+}
+
+enum AuditAction {
+  // --- Animaux ---
+  CREATE_ANIMAL
+  UPDATE_ANIMAL
+  DELETE_ANIMAL
+  CHANGE_ANIMAL_STATUS
+  UPDATE_PLACEMENT_TYPE
+
+  // --- Utilisateurs ---
+  CREATE_USER
+  UPDATE_USER
+  DELETE_USER
+  UPDATE_ROLE
+
+  // --- Messages ---
+  MARK_MESSAGE_OPENED
+  MARK_MESSAGE_SPAM
+  DELETE_MESSAGE
+
+  // --- Dons ---
+  MARK_DONATION_COMPLETED
+  UPDATE_DONATION_STATUS
+
+  // --- Événements ---
+  CREATE_EVENT
+  UPDATE_EVENT
+  DELETE_EVENT
+}
+
+enum AuditEntity {
+  ANIMAL
+  USER
+  MESSAGE
+  DONATION
+  EVENT
+}
+
+model User {
+  id           Int     @id @default(autoincrement())
+  uid          String  @unique @default(uuid())
+  firstName    String
+  lastName     String
+  email        String  @unique
+  password     String
+  refreshToken String?
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  roleId    Int
+  role      Role       @relation(fields: [roleId], references: [id], onDelete: Restrict)
+  favorites Favorite[]
+  messages  Message[]
+  donations Donation[]
+  auditLogs AuditLog[]
+
+  @@map("users")
+}
+
+model Role {
+  id   Int    @id @default(autoincrement())
+  uid  String @unique @default(uuid())
+  name String @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  users User[]
+
+  @@map("roles")
+}
+
+model Animal {
+  id            Int           @id @default(autoincrement())
+  uid           String        @unique @default(uuid())
+  icadNumber    String?       @unique
+  name          String
+  isSterilized  Boolean       @default(false)
+  species       Species
+  breed         String
+  gender        Gender
+  birthDate     DateTime
+  description   String?       @db.Text
+  status        AnimalStatus  @default(AVAILABLE)
+  placementType PlacementType @default(STANDARD)
+  adoptionDate  DateTime?
+  photos        String[]
+  internalNotes String?       @db.Text
+  isArchived    Boolean       @default(false)
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  favorites               Favorite[]
+  animalIncompatibilities AnimalIncompatibility[]
+
+  @@index([species])
+  @@index([breed])
+  @@index([gender])
+  @@index([status])
+  @@index([placementType])
+  @@map("animals")
+}
+
+model Incompatibility {
+  id    Int    @id @default(autoincrement())
+  uid   String @unique @default(uuid())
+  label String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  animalIncompatibilities AnimalIncompatibility[]
+
+  @@map("incompatibilities")
+}
+
+model Favorite {
+  userId   Int
+  animalId Int
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  animal Animal @relation(fields: [animalId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@id([userId, animalId])
+  @@index([userId])
+  @@map("favorites")
+}
+
+model AnimalIncompatibility {
+  animalId          Int
+  incompatibilityId Int
+
+  animal          Animal          @relation(fields: [animalId], references: [id], onDelete: Cascade)
+  incompatibility Incompatibility @relation(fields: [incompatibilityId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@id([animalId, incompatibilityId])
+  @@index([incompatibilityId])
+  @@index([animalId])
+  @@map("animal_incompatibilities")
+}
+
+model Donation {
+  id  Int    @id @default(autoincrement())
+  uid String @unique @default(uuid())
+
+  amount     Int
+  currency   Currency       @default(EUR)
+  donorEmail String
+  donorName  String?
+  message    String?        @db.Text
+  status     DonationStatus @default(PENDING)
+
+  userId Int?
+
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("donations")
+}
+
+model Event {
+  id  Int    @id @default(autoincrement())
+  uid String @unique @default(uuid())
+
+  title       String
+  description String?   @db.Text
+  type        EventType
+  startDate   DateTime?
+  endDate     DateTime?
+
+  startTime String?
+  endTime   String?
+
+  price   Int?
+  address String?
+  city    String?
+  zipCode String?
+  photos  String[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("events")
+}
+
+model Message {
+  id            Int           @id @default(autoincrement())
+  uid           String        @unique @default(uuid())
+  subject       String
+  content       String        @db.Text
+  emailSender   String
+  nameSender    String
+  status        MessageStatus @default(RECEIVED)
+  internalNotes String?       @db.Text
+  userId        Int?
+
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  @@map("messages")
+}
+
+model AuditLog {
+  id          Int         @id @default(autoincrement())
+  uid         String      @unique @default(uuid())
+  action      AuditAction
+  entity      AuditEntity
+  entityId    Int
+  description String?     @db.Text
+  performedAt DateTime    @default(now())
+
+  performedById Int?
+  performedBy   User? @relation(fields: [performedById], references: [id], onDelete: SetNull)
+
+  @@index([performedById])
+  @@map("audit_logs")
+}
