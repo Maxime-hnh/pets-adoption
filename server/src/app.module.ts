@@ -8,6 +8,13 @@ import { RolesModule } from './modules/roles/roles.module';
 import { PrismaModule } from './modules/prisma/prisma.module';
 import { UserController } from './modules/users/user.controller';
 import { UsersController } from './modules/users/users.controller';
+import { AnimalsModule } from './modules/animals/animals.module';
+import { FavoritesModule } from './modules/favorites/favorites.module';
+import { MessagesModule } from './modules/messages/messages.module';
+import { DonationsModule } from './modules/donations/donations.module';
+import { EventsModule } from './modules/events/events.module';
+import { IncompatibilitiesModule } from './modules/incompatibilities/incompatibilities.module';
+import { AuditLogsModule } from './modules/audit-logs/audit-logs.module';
 
 
 @Module({
@@ -16,7 +23,14 @@ import { UsersController } from './modules/users/users.controller';
     UsersModule,
     RolesModule,
     AuthModule,
-    PrismaModule
+    PrismaModule,
+    AnimalsModule,
+    FavoritesModule,
+    MessagesModule,
+    DonationsModule,
+    EventsModule,
+    IncompatibilitiesModule,
+    AuditLogsModule
   ],
   controllers: [AppController, UserController, UsersController],
   providers: [AppService],
