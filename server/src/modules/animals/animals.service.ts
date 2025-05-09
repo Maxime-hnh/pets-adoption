@@ -1,25 +1,42 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { AnimalDto, CreateAnimalDto, UpdateAnimalDto } from './dto';
-import { Animal, Prisma, Species } from '@prisma/client';
-import { plainToInstance } from 'class-transformer';
+import { AuditAction, AuditEntity, Prisma, Species } from '@prisma/client';
 import { toDto } from 'src/utils/dto-transformer';
 import { toDtos } from 'src/utils/dtos-transfomer';
 import { AnimalsWithIncompatibility } from './animals.type';
+import { AuditLogsService } from '../audit-logs/audit-logs.service';
 
 @Injectable()
 export class AnimalsService {
 
   constructor(
-    private readonly prisma: PrismaService
+    private readonly prisma: PrismaService,
+    private readonly auditLogsService: AuditLogsService
   ) { }
 
-  async create(data: CreateAnimalDto): Promise<AnimalDto> {
-    const animal = await this.prisma.animal.create({ data })
+  async create(data: CreateAnimalDto, userId: number): Promise<AnimalDto> {
+    const { incompatibilityIds, ...animalData } = data;
+    const animal = await this.prisma.animal.create({ data: animalData })
+    if (incompatibilityIds && incompatibilityIds.length > 0) {
+      await this.prisma.animalIncompatibility.createMany({
+        data: incompatibilityIds.map(incompatibilityId => ({
+          animalId: animal.id,
+          incompatibilityId
+        }))
+      })
+    }
+    await this.auditLogsService.create({
+      action: AuditAction.CREATE_ANIMAL,
+      entity: AuditEntity.ANIMAL,
+      entityId: animal.id,
+      description: `Animal ${animal.id} created`,
+      performedById: userId
+    })
     return toDto(AnimalDto, animal);
   };
 
-  async updateById(id: number, data: UpdateAnimalDto): Promise<AnimalDto> {
+  async updateById(id: number, data: UpdateAnimalDto, userId: number): Promise<AnimalDto> {
 
     const { incompatibilityIds, ...animalData } = data;
 
@@ -56,20 +73,43 @@ export class AnimalsService {
     };
 
     const updatedAnimal = await this.findById(id);
+    await this.auditLogsService.create({
+      action: AuditAction.UPDATE_ANIMAL,
+      entity: AuditEntity.ANIMAL,
+      entityId: id,
+      description: `Animal ${id} updated`,
+      performedById: userId
+    })
     return toDto(AnimalDto, updatedAnimal);
   };
 
-  async deleteById(id: number): Promise<void> {
+  async deleteById(id: number, userId: number): Promise<void> {
     await this.prisma.animal.delete({ where: { id } })
+    await this.auditLogsService.create({
+      action: AuditAction.DELETE_ANIMAL,
+      entity: AuditEntity.ANIMAL,
+      entityId: id,
+      description: `Animal ${id} deleted`,
+      performedById: userId
+    })
   };
 
-  async deleteMany(ids: number[]): Promise<void> {
+  async deleteMany(ids: number[], userId: number): Promise<void> {
     await this.prisma.animal.deleteMany({
       where: {
         id: {
           in: ids
         }
       }
+    })
+    ids.forEach(id => {
+      this.auditLogsService.create({
+        action: AuditAction.DELETE_ANIMAL,
+        entity: AuditEntity.ANIMAL,
+        entityId: id,
+        description: `Animal ${id} deleted`,
+        performedById: userId
+      })
     })
   };
 

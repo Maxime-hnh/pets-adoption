@@ -5,13 +5,10 @@ export const softDeleteExtension = Prisma.defineExtension((client: any) => {
   return client.$extends({
     query: {
       animal: {
-        async delete({ args, query }) {
-          // Au lieu de supprimer, on fait une mise à jour pour définir deletedAt
-          // On modifie args pour qu'il utilise update au lieu de delete
-          return query({
-            ...args,
-            data: { deletedAt: new Date() },
-            __operation: 'update' // Indique que nous voulons faire un update, pas un delete
+        delete: async ({ args, query }) => {
+          return query.update({
+            where: args.where,
+            data: { deletedAt: new Date() }
           });
         }
       }

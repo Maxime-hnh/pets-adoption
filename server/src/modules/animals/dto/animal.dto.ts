@@ -1,4 +1,4 @@
-import { Species, Gender, AnimalStatus, PlacementType, AnimalIncompatibility } from '@prisma/client';
+import { Species, Gender, AnimalStatus, PlacementType } from '@prisma/client';
 import { Exclude, Expose, Transform, Type } from 'class-transformer';
 import { IsString, IsNotEmpty, IsOptional, IsBoolean, IsEnum, IsDate, IsInt, IsUUID, IsArray, ValidateNested } from 'class-validator';
 import { AnimalIncompatibilityDto } from './animal-incompatibility.dto';

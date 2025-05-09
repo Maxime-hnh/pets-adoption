@@ -5,6 +5,8 @@ import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
 import { AnimalDto, CreateAnimalDto, UpdateAnimalDto } from './dto';
 import { Species } from '@prisma/client';
+import { UserWithRole } from '../users/users.types';
+import { CurrentUser } from '../auth/current-user.decorator';
 
 @Controller('animals')
 export class AnimalsController {
@@ -41,22 +43,32 @@ export class AnimalsController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles("SUPERADMIN")
   @Post()
-  async create(@Body() body: CreateAnimalDto): Promise<AnimalDto> {
-    return await this.animalsService.create(body);
+  async create(
+    @Body() body: CreateAnimalDto,
+    @CurrentUser() admin: UserWithRole
+  ): Promise<AnimalDto> {
+    return await this.animalsService.create(body, admin.id);
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles("SUPERADMIN")
   @Put(':id')
-  async update(@Param('id') id: string, @Body() body: UpdateAnimalDto): Promise<AnimalDto> {
-    return await this.animalsService.updateById(+id, body);
+  async update(
+    @Param('id') id: string,
+    @Body() body: UpdateAnimalDto,
+    @CurrentUser() admin: UserWithRole
+  ): Promise<AnimalDto> {
+    return await this.animalsService.updateById(+id, body, admin.id);
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles("SUPERADMIN")
   @Delete(':id')
-  async delete(@Param('id') id: string): Promise<void> {
-    return await this.animalsService.deleteById(+id);
+  async delete(
+    @Param('id') id: string,
+    @CurrentUser() admin: UserWithRole
+  ): Promise<void> {
+    return await this.animalsService.deleteById(+id, admin.id);
   }
 
   @Get(':id')
