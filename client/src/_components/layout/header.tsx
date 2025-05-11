@@ -7,16 +7,19 @@ import { ModeToggle } from '../ui/theme-toggle';
 import { useState } from 'react';
 import Link from 'next/link';
 import { Button } from '../ui/button';
-import { IntlToggle } from '../ui/intl-toggle';
+import { useUIStore } from "@/_stores/ui.store"
+import { cn } from "@/_helpers/cn"
 
 
 export default function Header() {
 
   const [opened, setOpened] = useState(false);
   const toggle = () => setOpened((o) => !o);
+  const showHeader = useUIStore((state) => state.showHeader);
+
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 border-b flex items-center justify-between h-[60px] py-0 sm:py-1 px-0 sm:px-4 md:px-24 lg:px-40">
+    <header className={cn("fixed top-0 left-0 right-0 z-50 border-b flex items-center justify-between h-[60px] py-0 sm:py-1 px-0 sm:px-4 md:px-24 lg:px-40", showHeader ? "" : "hidden")}>
       {/* Desktop */}
       <div className="hidden sm:flex items-center gap-8 w-full justify-between">
         <div className='flex items-center gap-4'>

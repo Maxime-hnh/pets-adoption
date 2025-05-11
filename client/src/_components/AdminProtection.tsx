@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { jwtDecode } from 'jwt-decode';
 import { useAuthStore } from "@/_stores/auth.store"
 import { Role } from "@/_types/role.interface";
+import { useUIStore } from "@/_stores/ui.store"
 
 interface AdminProtectionProps {
   children: React.ReactNode;
@@ -14,7 +15,8 @@ export default function AdminProtection({ children }: AdminProtectionProps) {
 
   const router = useRouter();
   const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null);
-  const loggedUser = useAuthStore((state) => state.loggedUser)
+  const loggedUser = useAuthStore((state) => state.loggedUser);
+  const setShowHeader = useUIStore((state) => state.setShowHeader);
 
 
   useEffect(() => {
@@ -39,7 +41,9 @@ export default function AdminProtection({ children }: AdminProtectionProps) {
           router.push('/');
           return;
         }
+
         setIsAuthorized(true);
+        setShowHeader(false);
       } catch (error) {
         router.push('/signin');
       }
