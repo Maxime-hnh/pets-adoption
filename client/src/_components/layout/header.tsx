@@ -23,12 +23,19 @@ export default function Header() {
           <Image src="/favicon.ico" width={40} height={40} alt="logo" className="rounded-full" />
           <span className="font-bold text-xl">AppName.</span>
         </div>
-        <nav className="flex items-center gap-12">
-          <Link href="/template-page">link 1</Link>
-          <Link href="/">link 2</Link>
-          <Link href="/">link 3</Link>
-          <IntlToggle />
+        <nav className="flex items-center gap-12 w-full justify-between">
+          <div className="flex gap-12">
+            <Link href="/template-page">Comment adopter ?</Link>
+            <Link href="/">Évènements</Link>
+            <Link href="/">Animaux</Link>
+            <Link href="/">A propos</Link>
+            <Link href="/">Contact</Link>
+          </div>
+          {/* <IntlToggle /> */}
           <ModeToggle />
+          <div>
+            <Button>Connexion</Button>
+          </div>
         </nav>
         <div></div>
       </div>

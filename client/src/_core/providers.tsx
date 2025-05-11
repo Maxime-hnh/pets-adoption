@@ -9,9 +9,11 @@ import IsMobileObserver from "@/_core/is-mobile-observer";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "@/_core/query-client";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { useAuthHydration } from "@/_hooks/use-auth-hydration";
 
 export function Providers(props: PropsWithChildren) {
-
+  useAuthHydration();
+  
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider
@@ -22,7 +24,7 @@ export function Providers(props: PropsWithChildren) {
         storageKey="theme"
       >
         <IsMobileObserver />
-        <Toaster />
+        <Toaster richColors />
         <div className="flex min-h-screen flex-col" id="rootLayout">
           <Header />
 
