@@ -20,7 +20,7 @@ export class AuthController {
     return this.authService.login(user)
   }
 
-  @Post('refresh')
+  @Post('refreshToken')
   @HttpCode(200)
   async refresh(@Headers('x-refresh-token') refreshToken: string): Promise<AuthDto | void> {
     if (!refreshToken) throw new UnauthorizedException('Refresh token is missing');

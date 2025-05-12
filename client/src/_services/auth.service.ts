@@ -13,9 +13,7 @@ class AuthService {
   login = async (values: AuthRequest): Promise<AuthenticatedUser> => {
     const requestOptions = {
       method: 'POST',
-      headers: {
-        ...authHeader()
-      },
+      headers: authHeader(),
       body: JSON.stringify(values),
     };
     return await handleResponse(await fetch(`/api/auth/login`, requestOptions));

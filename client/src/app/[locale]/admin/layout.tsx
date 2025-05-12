@@ -13,10 +13,8 @@ export default function AdminLayout({
       <div className="admin-layout">
         <SidebarProvider>
           <AppSidebar />
-          <main>
-            {/* <SidebarTrigger /> */}
-            {children}
-          </main>
+          {/* <SidebarTrigger /> */}
+          {children}
         </SidebarProvider>
       </div>
     </AdminProtection>

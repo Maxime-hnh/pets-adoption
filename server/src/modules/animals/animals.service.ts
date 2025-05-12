@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { AnimalDto, CreateAnimalDto, UpdateAnimalDto } from './dto';
-import { AuditAction, AuditEntity, Prisma, Species } from '@prisma/client';
+import { AnimalStatus, AuditAction, AuditEntity, Prisma, Species } from '@prisma/client';
 import { toDto } from 'src/utils/dto-transformer';
 import { toDtos } from 'src/utils/dtos-transfomer';
 import { AnimalsWithIncompatibility } from './animals.type';
@@ -43,7 +43,7 @@ export class AnimalsService {
     await this.prisma.animal.update({
       where: { id },
       data: animalData
-    })
+    });
 
     if (incompatibilityIds) {
       const currentLinks = await this.prisma.animalIncompatibility.findMany({
@@ -137,7 +137,7 @@ export class AnimalsService {
   };
 
   async findAll(): Promise<AnimalDto[]> {
-    const animals = await this.prisma.animal.findMany();
+    const animals = await this.prisma.animal.findMany({ orderBy: { createdAt: 'desc' } });
     return toDtos(AnimalDto, animals)
   };
 

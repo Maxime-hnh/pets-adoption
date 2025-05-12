@@ -31,7 +31,7 @@ export function Providers(props: PropsWithChildren) {
         <div className="flex min-h-screen flex-col" id="rootLayout">
           <Header />
 
-          <main className={cn(showHeader ? "flex-1 mt-4 pt-[60px] px-1 lg:px-4" : "pt-4")}>{props.children}</main>
+          <main className={cn(showHeader ? "flex-1 mt-4 pt-[60px] px-1 lg:px-4" : "")}>{props.children}</main>
 
           <Footer />
         </div>
