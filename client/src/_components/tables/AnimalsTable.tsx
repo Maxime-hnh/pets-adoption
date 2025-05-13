@@ -24,10 +24,11 @@ import {
 } from "@/_components/ui/table"
 import { Input } from "../ui/input"
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from "../ui/dropdown-menu"
-import { ChevronDown, Plus } from "lucide-react"
+import { ChevronDown, PawPrint, Plus } from "lucide-react"
 import { Button } from "../ui/button"
 import { useState } from "react"
 import { cn } from "@/_helpers/cn"
+import Link from "next/link"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -67,7 +68,9 @@ export function AnimalsTable<TData, TValue>({ columns, data }: DataTableProps<TD
   return (
     <div className="w-full">
       <div className="flex items-center py-4">
-        <Button className="mr-4 bg-emerald-500"><Plus /> Nouveau</Button>
+        <Link href={"/admin/animals/create"}>
+          <Button className="mr-4 bg-emerald-500"><PawPrint /> Nouveau</Button>
+        </Link>
         <Input
           placeholder="Rechercher un nom ..."
           value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}

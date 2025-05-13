@@ -13,7 +13,6 @@ import {
   SidebarFooter,
 } from "@/_components/ui/sidebar"
 import { LayoutDashboard, Calendar, User, Settings, PawPrint } from "lucide-react"
-import Image from "next/image"
 import { Button } from "./button"
 import { usePathname } from 'next/navigation'
 import Link from "next/link"
@@ -21,7 +20,7 @@ import Link from "next/link"
 export function AppSidebar() {
 
   const pathname = usePathname()
-
+const cleanedPathname = pathname.replace(/^\/(fr|en)/, '');
   const items = [
     {
       title: "Dashboard",
@@ -52,7 +51,6 @@ export function AppSidebar() {
   return (
     <Sidebar>
       <SidebarHeader className="flex items-center my-4">
-        <Image src="/favicon.ico" width={50} height={50} alt="logo" />
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
@@ -61,7 +59,7 @@ export function AppSidebar() {
             <SidebarMenu className="gap-4">
               {items.map((item, index) => (
                 <SidebarMenuItem key={index}>
-                  <SidebarMenuButton asChild isActive={`/fr${pathname}` === item.url}>
+                  <SidebarMenuButton asChild isActive={cleanedPathname === item.url}>
                     <Link href={item.url}>
                       <item.icon />
                       <span>{item.title}</span>
@@ -74,7 +72,6 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
-        <Button variant="ghost">Déconnexion</Button>
       </SidebarFooter>
     </Sidebar>
   )
