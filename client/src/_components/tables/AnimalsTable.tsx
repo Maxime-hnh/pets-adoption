@@ -3,6 +3,7 @@
 import {
   ColumnDef,
   ColumnFiltersState,
+  ColumnPinningState,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
@@ -26,6 +27,7 @@ import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMe
 import { ChevronDown, Plus } from "lucide-react"
 import { Button } from "../ui/button"
 import { useState } from "react"
+import { cn } from "@/_helpers/cn"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -35,16 +37,18 @@ interface DataTableProps<TData, TValue> {
 export function AnimalsTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
 
 
-  const [sorting, setSorting] = useState<SortingState>([])
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
-  const [rowSelection, setRowSelection] = useState({})
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const [columnPinning, setColumnPinning] = useState<ColumnPinningState>({ left: [], right: ["actions"] })
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+  const [rowSelection, setRowSelection] = useState({});
 
   const table = useReactTable({
     data,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
+    onColumnPinningChange: setColumnPinning,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
@@ -53,6 +57,7 @@ export function AnimalsTable<TData, TValue>({ columns, data }: DataTableProps<TD
     onRowSelectionChange: setRowSelection,
     state: {
       sorting,
+      columnPinning,
       columnFilters,
       columnVisibility,
       rowSelection,
@@ -62,7 +67,7 @@ export function AnimalsTable<TData, TValue>({ columns, data }: DataTableProps<TD
   return (
     <div className="w-full">
       <div className="flex items-center py-4">
-        <Button className="mr-4 bg-emerald-500"><Plus/> Nouveau</Button>
+        <Button className="mr-4 bg-emerald-500"><Plus /> Nouveau</Button>
         <Input
           placeholder="Rechercher un nom ..."
           value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
@@ -104,16 +109,21 @@ export function AnimalsTable<TData, TValue>({ columns, data }: DataTableProps<TD
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
+                  const pinningSide = header.column.getIsPinned();
+
                   return (
-                    <TableHead key={header.id}>
+                    <TableHead
+                      key={header.id}
+                      className={cn(
+                        pinningSide === 'left' && 'sticky left-0 z-10 bg-white sticky-left-shadow',
+                        pinningSide === 'right' && 'sticky right-0 z-10 bg-white sticky-right-shadow'
+                      )}
+                    >
                       {header.isPlaceholder
                         ? null
-                        : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
+                        : flexRender(header.column.columnDef.header, header.getContext())}
                     </TableHead>
-                  )
+                  );
                 })}
               </TableRow>
             ))}
@@ -125,14 +135,21 @@ export function AnimalsTable<TData, TValue>({ columns, data }: DataTableProps<TD
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
                 >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </TableCell>
-                  ))}
+                  {row.getVisibleCells().map((cell) => {
+                    const pinningSide = cell.column.getIsPinned();
+
+                    return (
+                      <TableCell
+                        key={cell.id}
+                        className={cn(
+                          pinningSide === 'left' && 'sticky left-0 z-10 bg-white sticky-left-shadow',
+                          pinningSide === 'right' && 'sticky right-0 z-10 bg-white sticky-right-shadow'
+                        )}
+                      >
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </TableCell>
+                    );
+                  })}
                 </TableRow>
               ))
             ) : (

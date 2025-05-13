@@ -230,6 +230,7 @@ export const columns: ColumnDef<Partial<Animal>>[] = [
   {
     id: "actions",
     enableHiding: false,
+    enablePinning: true,
     cell: ({ row }) => {
       const animal = row.original
       const deleteAnimal = useDeleteAnimal();

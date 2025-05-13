@@ -14,7 +14,7 @@ export default function AnimalsPage() {
     <Skeleton className="rounded-xl w-full h-[500px]" />
   </div>
   return (
-    <div className=" w-full p-4">
+    <div className=" w-full p-4 overflow-x-hidden">
 
       <AnimalsTable columns={columns} data={data as any} />
     </div>
