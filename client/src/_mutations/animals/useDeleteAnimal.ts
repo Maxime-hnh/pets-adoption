@@ -1,5 +1,6 @@
 import { animalsService } from '@/_services/animals.service';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { toast } from 'sonner';
 
 export const useDeleteAnimal = () => {
   const queryClient = useQueryClient();
@@ -9,6 +10,7 @@ export const useDeleteAnimal = () => {
     mutationFn: (id: number) => deleteById(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['animals'] });
+      toast.success(`Suppression réussie !`)
     },
   });
 };
