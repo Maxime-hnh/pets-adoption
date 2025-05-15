@@ -5,6 +5,7 @@ type GroupProps = HTMLAttributes<HTMLDivElement> & {
   justify?: "start" | "center" | "end" | "between"
   align?: "start" | "center" | "end"
   gap?: string
+  wrap?: "wrap" | "nowrap"
 }
 
 export function Group({
@@ -13,6 +14,7 @@ export function Group({
   justify = "start",
   align = "start",
   gap = "gap-2",
+  wrap = "nowrap",
   ...props
 }: GroupProps) {
   const justifyClass = {
@@ -28,12 +30,17 @@ export function Group({
     end: "items-end",
   }[align]
 
+  const wrapClass = {
+    wrap: "flex-wrap",
+    nowrap: "flex-nowrap"
+  }
+
   return (
     <div className={cn(
       "flex",
-      "flex-wrap",
       justifyClass,
       alignClass,
+      wrapClass,
       gap,
       className
     )}

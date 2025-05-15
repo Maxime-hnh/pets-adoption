@@ -29,13 +29,14 @@ import { Button } from "../ui/button"
 import { useState } from "react"
 import { cn } from "@/_helpers/cn"
 import Link from "next/link"
+import { useAllAnimalsQuery } from "@/_queries/animals/useAnimalsQuery"
+import { Skeleton } from "../ui/skeleton"
 
-interface DataTableProps<TData, TValue> {
+export interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
-  data: TData[]
 }
 
-export function AnimalsTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
+export function AnimalsTable<TData, TValue>({ columns }: DataTableProps<TData, TValue>) {
 
 
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -43,6 +44,9 @@ export function AnimalsTable<TData, TValue>({ columns, data }: DataTableProps<TD
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
+  const { data, isLoading }: { data: any, isLoading: boolean } = useAllAnimalsQuery();
+
+
 
   const table = useReactTable({
     data,
@@ -65,11 +69,18 @@ export function AnimalsTable<TData, TValue>({ columns, data }: DataTableProps<TD
     },
   });
 
+
+  if (isLoading) return <div className="w-full p-4">
+    <Skeleton className="rounded-xl w-full h-[500px]" />
+  </div>
+
+
+
   return (
     <div className="w-full">
       <div className="flex items-center py-4">
         <Link href={"/admin/animals/create"}>
-          <Button className="mr-4 bg-emerald-500"><PawPrint /> Nouveau</Button>
+          <Button className="mr-4"><PawPrint /> Nouveau</Button>
         </Link>
         <Input
           placeholder="Rechercher un nom ..."

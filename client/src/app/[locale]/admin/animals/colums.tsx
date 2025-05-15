@@ -1,16 +1,16 @@
 "use client"
-import { Animal, AnimalStatus, AnimalStatusConfiglMap, AnimalStatusLabelMap, Gender, GenderConfigMap, GenderLabelMap, PlacementType, PlacementTypeConfiglMap, PlacementTypeLabelMap, Species, SpeciesConfigMap, SpeciesLabelMap } from "@/_schemas/animal.schema"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/_components/ui/select"
+import { Animal, AnimalStatusConfiglMap, AnimalStatusLabelMap, GenderConfigMap, GenderLabelMap, PlacementTypeConfiglMap, PlacementTypeLabelMap, SpeciesConfigMap, SpeciesLabelMap } from "@/_schemas/animal.schema"
 import { ColumnDef } from "@tanstack/react-table"
 import { useUpdateAnimal } from "@/_mutations/animals/useUpdateAnimal"
 import { DatePicker } from "@/_components/DatePicker";
 import { useState } from "react";
 import { Checkbox } from "@/_components/ui/checkbox";
 import { Button } from "@/_components/ui/button"
-import { ArrowUpDown, Eye, MoreHorizontal, PenLine, Plus, Trash2 } from "lucide-react"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/_components/ui/dropdown-menu"
+import { ArrowUpDown, Eye, MoreHorizontal, PenLine, Trash2 } from "lucide-react"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/_components/ui/dropdown-menu"
 import { useDeleteAnimal } from "@/_mutations/animals/useDeleteAnimal"
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/_components/ui/alert-dialog"
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/_components/ui/alert-dialog"
+import SelectCell from "./SelectCell"
 
 export const columns: ColumnDef<Partial<Animal>>[] = [
   {
@@ -56,41 +56,15 @@ export const columns: ColumnDef<Partial<Animal>>[] = [
         </Button>
       )
     },
-    cell: ({ row }) => {
-
-      const updateAnimalMutation = useUpdateAnimal();
-      const animal = row.original;
-
-      const handleChangeSpecies = (species: Species) => {
-        updateAnimalMutation.mutate({
-          id: animal.id!,
-          values: { species },
-        });
-      };
-
-      return (
-        <Select value={animal.species} onValueChange={handleChangeSpecies}>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            {Object.entries(SpeciesLabelMap).map(([value, label]) => {
-              const config = SpeciesConfigMap[value as Species];
-              const Icon = config.icon;
-
-              return (
-                <SelectItem value={value} key={value} className="w-full flex items-center">
-                  <Icon className={`mr-4 ${config.color}`} />
-                  <span className={config.color}>
-                    {label}
-                  </span>
-                </SelectItem>
-              );
-            })}
-          </SelectContent>
-        </Select >
-      )
-    }
+    cell: ({ row }) => (
+      <SelectCell
+        animal={row.original}
+        initialValue={row.original.species}
+        keyName="species"
+        labelMap={SpeciesLabelMap}
+        configMap={SpeciesConfigMap}
+      />
+    )
   },
   {
     accessorKey: "breed",
@@ -99,39 +73,17 @@ export const columns: ColumnDef<Partial<Animal>>[] = [
   {
     accessorKey: "gender",
     header: "Sexe",
-    cell: ({ row }) => {
-      const updateAnimalMutation = useUpdateAnimal();
-      const animal = row.original;
+    cell: ({ row }) =>
 
-      const handleChangeSpecies = (gender: Gender) => {
-        updateAnimalMutation.mutate({
-          id: animal.id!,
-          values: { gender },
-        });
-      };
-
-      return (
-        <Select value={animal.gender} onValueChange={handleChangeSpecies}>
-          <SelectTrigger className="w-full">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            {Object.entries(GenderLabelMap).map(([value, label]) => {
-              const config = GenderConfigMap[value as Gender]
-              const Icon = config.icon
-              return (
-                <SelectItem value={value} key={value} className="w-full flex items-center">
-                  <Icon className={`mr-2 ${config.color}`} />
-                  <span className={config.color}>
-                    {label}
-                  </span>
-                </SelectItem>
-              )
-            })}
-          </SelectContent>
-        </Select>
-      )
-    }
+    (
+      <SelectCell
+        animal={row.original}
+        initialValue={row.original.gender}
+        keyName="gender"
+        labelMap={GenderLabelMap}
+        configMap={GenderConfigMap}
+      />
+    )
   },
   {
     accessorKey: "birthDate",
@@ -158,74 +110,28 @@ export const columns: ColumnDef<Partial<Animal>>[] = [
   {
     accessorKey: "status",
     header: "Statut",
-    cell: ({ row }) => {
-      const animal = row.original;
-      const updateAnimalMutation = useUpdateAnimal();
-
-      const handleChangeSpecies = (status: AnimalStatus) => {
-        updateAnimalMutation.mutate({
-          id: animal.id!,
-          values: { status },
-        });
-      };
-
-      return (
-        <Select value={animal.status} onValueChange={handleChangeSpecies}>
-          <SelectTrigger className="w-full">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            {Object.entries(AnimalStatusLabelMap).map(([value, label]) => {
-              const config = AnimalStatusConfiglMap[value as AnimalStatus]
-              return (
-                <SelectItem value={value} key={value} className="w-full flex items-center">
-                  <span className={config.color}>
-                    {label}
-                  </span>
-                </SelectItem>
-              )
-            })}
-
-          </SelectContent>
-        </Select>
-      )
-    }
+    cell: ({ row }) => (
+      <SelectCell
+        animal={row.original}
+        initialValue={row.original.status}
+        keyName="status"
+        labelMap={AnimalStatusLabelMap}
+        configMap={AnimalStatusConfiglMap}
+      />
+    )
   },
   {
     accessorKey: "placementType",
     header: "Type",
-    cell: ({ row }) => {
-      const animal = row.original;
-      const updateAnimalMutation = useUpdateAnimal();
-
-      const handleChangeSpecies = (placementType: PlacementType) => {
-        updateAnimalMutation.mutate({
-          id: animal.id!,
-          values: { placementType },
-        });
-      };
-
-      return (
-        <Select value={animal.placementType} onValueChange={handleChangeSpecies}>
-          <SelectTrigger className="w-full">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            {Object.entries(PlacementTypeLabelMap).map(([value, label]) => {
-              const config = PlacementTypeConfiglMap[value as PlacementType]
-              return (
-                <SelectItem value={value} key={value} className="w-full flex items-center">
-                  <span className={`${config.color}`}>
-                    {label}
-                  </span>
-                </SelectItem>
-              )
-            })}
-
-          </SelectContent>
-        </Select>
-      )
-    }
+    cell: ({ row }) => (
+      <SelectCell
+        animal={row.original}
+        initialValue={row.original.placementType}
+        keyName="placementType"
+        labelMap={PlacementTypeLabelMap}
+        configMap={PlacementTypeConfiglMap}
+      />
+    )
   },
   {
     id: "actions",

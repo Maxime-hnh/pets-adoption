@@ -1,6 +1,5 @@
 import AdminProtection from '@/_components/AdminProtection';
 import { SidebarProvider } from "@/_components/ui/sidebar";
-import { SidebarTrigger } from "@/_components/ui/sidebar";
 import { AppSidebar } from "@/_components/ui/app-sidebar";
 import Image from 'next/image';
 import { Button } from '@/_components/ui/button';
@@ -31,7 +30,6 @@ export default function AdminLayout({
       <div className="admin-layout">
         <SidebarProvider>
           <AppSidebar />
-          {/* <SidebarTrigger /> */}
           {children}
         </SidebarProvider>
       </div>

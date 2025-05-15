@@ -37,7 +37,9 @@ export default function Header() {
           {/* <IntlToggle /> */}
           <ModeToggle />
           <div>
+            <Link href={"/signin"}>
             <Button>Connexion</Button>
+            </Link>
           </div>
         </nav>
         <div></div>

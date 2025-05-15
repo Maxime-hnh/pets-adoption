@@ -87,7 +87,7 @@ export const PlacementTypeSchema = z.nativeEnum(PlacementType);
 export const AnimalSchema = z.object({
   id: z.number(),
   uid: z.number(),
-  icadNumber: z.number().optional(),
+  icadNumber: z.string().optional(),
   name: z.string(),
   isSterilized: z.boolean(),
   species: SpeciesSchema,
