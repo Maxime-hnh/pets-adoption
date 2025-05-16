@@ -48,6 +48,67 @@ export default function AnimalsForm() {
   console.log(form.getValues())
 
 
+
+  const radioComponent = (name: any, formLabel: string, col: number, labelMap: Record<string, string>, configMap: Record<string, any>) => (
+    <FormField
+      control={form.control}
+      name={name}
+      render={({ field }) => (
+        <FormItem className="w-full mb-4">
+          <FormLabel>{formLabel}</FormLabel>
+          <FormControl>
+            <RadioGroup
+              value={field.value}
+              onValueChange={field.onChange}
+              className={`grid grid-cols-${col} gap-4`}
+            >
+              {Object.entries(labelMap).map(([value, label]) => {
+                const config = configMap[value as any];
+                const Icon = config.icon;
+                const isSelected = field.value === value;
+
+                return (
+                  <div key={value} className="relative">
+                    <RadioGroupItem
+                      value={value}
+                      id={value}
+                      className="sr-only peer"
+                    />
+                    <Label
+                      htmlFor={value}
+                    >
+                      <Paper
+                        key={value}
+                        className={cn("w-full p-0 cursor-pointer", isSelected ? 'border-2 border-primary' : 'border')}
+                      >
+                        <div className="flex flex-col space-x-2 relative h-[100px] p-2">
+                          <div className="flex items-center justify-center flex-col gap-2 h-full">
+                            <div className="border p-2 rounded-full bg-(--secondary)">
+                              <Icon />
+                            </div>
+                            <span>{label}</span>
+                          </div>
+                          <RadioGroupItem
+                            className="absolute top-2 right-1"
+                            onClick={(e) => e.stopPropagation()}
+                            value={value} id={value}
+                          />
+                        </div>
+                      </Paper>
+                    </Label>
+                  </div>
+                )
+              })}
+            </RadioGroup>
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+
+  )
+
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -69,73 +130,9 @@ export default function AnimalsForm() {
                 )}
               />
 
-              <FormField
-                control={form.control}
-                name="species"
-                render={({ field }) => (
-                  <FormItem className="w-full mb-4">
-                    <FormLabel className="text-lg font-medium mb-2">Espèce</FormLabel>
-                    <FormControl>
-                      <RadioGroup 
-                        value={field.value} 
-                        onValueChange={field.onChange} 
-                        className="grid grid-cols-3 gap-4"
-                      >
-                        {Object.entries(SpeciesLabelMap).map(([value, label]) => {
-                          const config = SpeciesConfigMap[value as Species];
-                          const Icon = config.icon;
-                          const isSelected = field.value === value;
+              {radioComponent("species", "Espèce", 3, SpeciesLabelMap, SpeciesConfigMap)}
 
-                          return (
-                            <div key={value} className="relative">
-                              <RadioGroupItem 
-                                value={value} 
-                                id={value} 
-                                className="sr-only peer" 
-                              />
-                              <Label 
-                                htmlFor={value} 
-                                className={cn(
-                                  "flex flex-col items-center justify-center h-[120px] w-full rounded-lg border-2 cursor-pointer",
-                                  "transition-all duration-200 ease-in-out",
-                                  "hover:border-primary/70 hover:bg-primary/5",
-                                  "peer-focus-visible:ring-2 peer-focus-visible:ring-primary peer-focus-visible:ring-offset-2",
-                                  isSelected 
-                                    ? "border-primary bg-primary/10 shadow-sm" 
-                                    : "border-muted bg-background"
-                                )}
-                              >
-                                <div className={cn(
-                                  "p-3 rounded-full mb-2",
-                                  "transition-all duration-200",
-                                  isSelected ? "bg-primary/20" : "bg-muted"
-                                )}>
-                                  <Icon className={cn(
-                                    "h-8 w-8",
-                                    isSelected ? "text-primary" : "text-muted-foreground"
-                                  )} />
-                                </div>
-                                <span className={cn(
-                                  "font-medium text-lg",
-                                  isSelected ? "text-primary" : "text-foreground"
-                                )}>
-                                  {label}
-                                </span>
-                                {isSelected && (
-                                  <div className="absolute top-2 right-2 h-4 w-4 rounded-full bg-primary animate-pulse" />
-                                )}
-                              </Label>
-                            </div>
-                          )
-                        })}
-                      </RadioGroup>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-
+              {radioComponent("gender", "Sexe", 2, GenderLabelMap, GenderConfigMap)}
               <Group className="mt-4">
                 <FormField
                   control={form.control}
@@ -164,50 +161,6 @@ export default function AnimalsForm() {
                   )}
                 />
               </Group>
-
-
-              <FormField
-                control={form.control}
-                name="gender"
-                render={({ field }) => (
-                  <FormItem className="w-full mt-4">
-                    <FormLabel>Sexe</FormLabel>
-                    <FormControl>
-                      <RadioGroup value={field.value} onValueChange={field.onChange} className="flex flex-row">
-                        {Object.entries(GenderLabelMap).map(([value, label]) => {
-                          const config = GenderConfigMap[value as Gender]
-                          const Icon = config.icon
-                          const isSelected = field.value === value;
-                          const radio = document.getElementById(value) as HTMLInputElement;
-
-                          return (
-                            <Paper
-                              key={value}
-                              className={cn("w-full p-0 cursor-pointer", isSelected ? 'border-2 border-primary' : 'border')}
-                              onClick={() => radio.click()}
-                            >
-                              <div className="flex flex-col space-x-2 relative h-[90px] p-2">
-                                <div className="flex justify-between">
-                                  <div className="border p-2 rounded-xl bg-(--secondary)">
-                                    <Icon />
-                                  </div>
-                                  <RadioGroupItem
-                                    onClick={(e) => e.stopPropagation()}
-                                    value={value} id={value}
-                                  />
-
-                                </div>
-                                <Label className="m-auto">{label}</Label>
-                              </div>
-                            </Paper>
-                          )
-                        })}
-                      </RadioGroup>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
             </Paper>
             <Paper>
 
