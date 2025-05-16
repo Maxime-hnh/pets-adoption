@@ -13,7 +13,7 @@ import IsMobileObserver from "@/_core/is-mobile-observer";
  * @param props The props to pass to the component.
  * @returns The rendered component. 
  */
-export function Providers(props: PropsWithChildren) {
+export function PublicProviders(props: PropsWithChildren) {
   return (
     <>
       <IsMobileObserver />

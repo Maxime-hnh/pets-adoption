@@ -3,8 +3,7 @@ import { useTranslations } from "next-intl";
 export default function HomePage() {
   const t = useTranslations('HomePage');
 
-
-
+console.log("home page")
   return (
     <div>
 

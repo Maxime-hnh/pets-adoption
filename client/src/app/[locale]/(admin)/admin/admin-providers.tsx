@@ -48,7 +48,7 @@ export function AdminProviders(props: PropsWithChildren) {
   }, [router, setLoggedUser]);
 
   if (isAuthorized === null) {
-    return <div>Loading...</div>;
+    return null;
   }
   return (
     <>

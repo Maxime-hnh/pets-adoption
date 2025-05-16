@@ -3,9 +3,8 @@ import { hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { CommonLayoutWrapper } from "@/_core/common-layout-wrapper";
-import { Providers } from "@/_core/providers";
+import { PublicProviders } from "@/_core/public-providers";
 import '../globals.css';
-import { getMessages } from "next-intl/server";
 
 export const metadata: Metadata = {
   title: "Title",
@@ -30,9 +29,9 @@ export default async function RootLayout({
 
   return (
     <CommonLayoutWrapper locale={locale}>
-      <Providers>
+      <PublicProviders>
       {children}
-      </Providers>
+      </PublicProviders>
     </CommonLayoutWrapper>
   );
 }

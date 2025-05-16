@@ -1,5 +1,5 @@
 import { SidebarProvider } from "@/_components/ui/sidebar";
-import { AppSidebar } from "@/_components/ui/app-sidebar";
+import { AppSidebar } from "@/app/[locale]/(admin)/admin/app-sidebar";
 import Image from 'next/image';
 import { Button } from '@/_components/ui/button';
 import PageBreadcrumbs from '@/_components/PageBreadcrumbs';

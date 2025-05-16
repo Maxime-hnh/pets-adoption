@@ -13,13 +13,31 @@ import {
   SidebarFooter,
 } from "@/_components/ui/sidebar"
 import { LayoutDashboard, Calendar, User, Settings, PawPrint } from "lucide-react"
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import Link from "next/link"
+import { useEffect, useState, useTransition } from "react"
+import { cn } from "@/_helpers/cn"
 
 export function AppSidebar() {
 
   const pathname = usePathname()
-const cleanedPathname = pathname.replace(/^\/(fr|en)/, '');
+  const cleanedPathname = pathname.replace(/^\/(fr|en)/, '');
+  const router = useRouter();
+  const [activeItem, setActiveItem] = useState<string | null>(null);
+  const [isPending, startTransition] = useTransition();
+
+  const handleClick = (url: string) => {
+    setActiveItem(url);
+    startTransition(() => {
+      router.push(url);
+    });
+  };
+
+  useEffect(() => {
+    setActiveItem(cleanedPathname);
+  }, [cleanedPathname]);
+
+
   const items = [
     {
       title: "Dashboard",
@@ -58,11 +76,16 @@ const cleanedPathname = pathname.replace(/^\/(fr|en)/, '');
             <SidebarMenu className="gap-4">
               {items.map((item, index) => (
                 <SidebarMenuItem key={index}>
-                  <SidebarMenuButton asChild isActive={cleanedPathname === item.url}>
-                    <Link href={item.url}>
+                  <SidebarMenuButton
+                    className={cn("cursor-pointer", { "animate-pulse": isPending && activeItem === item.url })}
+                    asChild
+                    isActive={activeItem === item.url}
+                    onClick={() => handleClick(item.url)}
+                  >
+                    <div className="flex items-center gap-2">
                       <item.icon />
                       <span>{item.title}</span>
-                    </Link>
+                    </div>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
