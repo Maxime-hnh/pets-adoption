@@ -6,7 +6,6 @@ import { CommonLayoutWrapper } from "@/_core/common-layout-wrapper";
 import { Providers } from "@/_core/providers";
 import '../globals.css';
 import { getMessages } from "next-intl/server";
-import { NextIntlClientProvider } from "next-intl";
 
 export const metadata: Metadata = {
   title: "Title",
@@ -15,7 +14,6 @@ export const metadata: Metadata = {
     icon: '/favicon.ico'
   },
 };
-
 
 export default async function RootLayout({
   children,
@@ -29,8 +27,6 @@ export default async function RootLayout({
   if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
-
-  const messages = await getMessages(locale as any);
 
   return (
     <CommonLayoutWrapper locale={locale}>
