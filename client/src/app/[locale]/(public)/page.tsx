@@ -1,14 +1,12 @@
-"use client";
-
 import { useTranslations } from "next-intl";
 
-export default function Home() {
+export default function HomePage() {
   const t = useTranslations('HomePage');
 
 
 
   return (
-    <div className="h-[calc(100dvh-60px-1rem)]">
+    <div>
 
       <div className="grid grid-cols-2">
         <div>

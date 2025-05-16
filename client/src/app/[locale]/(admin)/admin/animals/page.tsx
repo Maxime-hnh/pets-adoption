@@ -1,4 +1,4 @@
-import { AnimalsTable } from "@/_components/tables/AnimalsTable";
+import { AnimalsTable } from "./AnimalsTable";
 import { columns } from "./colums";
 
 export default function AnimalsPage() {

@@ -1,10 +1,8 @@
-"use client"
-
 export default function AdminPage() {
 
   return (
     <div>
-      fezfze
+      Bienvenue dans l'admin
     </div>
   )
 };

@@ -22,15 +22,15 @@ import {
   TableHeader,
   TableRow,
 } from "@/_components/ui/table"
-import { Input } from "../ui/input"
-import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from "../ui/dropdown-menu"
+import { Input } from "@/_components/ui/input"
+import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from "@/_components/ui/dropdown-menu"
 import { ChevronDown, PawPrint, Plus } from "lucide-react"
-import { Button } from "../ui/button"
+import { Button } from "@/_components/ui/button"
 import { useState } from "react"
 import { cn } from "@/_helpers/cn"
 import Link from "next/link"
 import { useAllAnimalsQuery } from "@/_queries/animals/useAnimalsQuery"
-import { Skeleton } from "../ui/skeleton"
+import { Skeleton } from "@/_components/ui/skeleton"
 
 export interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -45,8 +45,6 @@ export function AnimalsTable<TData, TValue>({ columns }: DataTableProps<TData, T
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
   const { data, isLoading }: { data: any, isLoading: boolean } = useAllAnimalsQuery();
-
-
 
   const table = useReactTable({
     data,
@@ -73,8 +71,6 @@ export function AnimalsTable<TData, TValue>({ columns }: DataTableProps<TData, T
   if (isLoading) return <div className="w-full p-4">
     <Skeleton className="rounded-xl w-full h-[500px]" />
   </div>
-
-
 
   return (
     <div className="w-full">

@@ -3,7 +3,7 @@ import { Animal, AnimalStatusConfiglMap, AnimalStatusLabelMap, GenderConfigMap, 
 import { ColumnDef } from "@tanstack/react-table"
 import { useUpdateAnimal } from "@/_mutations/animals/useUpdateAnimal"
 import { DatePicker } from "@/_components/DatePicker";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { Checkbox } from "@/_components/ui/checkbox";
 import { Button } from "@/_components/ui/button"
 import { ArrowUpDown, Eye, MoreHorizontal, PenLine, Trash2 } from "lucide-react"
@@ -11,6 +11,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSepara
 import { useDeleteAnimal } from "@/_mutations/animals/useDeleteAnimal"
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/_components/ui/alert-dialog"
 import SelectCell from "./SelectCell"
+import { Skeleton } from "@/_components/ui/skeleton";
 
 export const columns: ColumnDef<Partial<Animal>>[] = [
   {
@@ -57,13 +58,15 @@ export const columns: ColumnDef<Partial<Animal>>[] = [
       )
     },
     cell: ({ row }) => (
-      <SelectCell
-        animal={row.original}
-        initialValue={row.original.species}
-        keyName="species"
-        labelMap={SpeciesLabelMap}
-        configMap={SpeciesConfigMap}
-      />
+      <Suspense fallback={<Skeleton className="h-8 w-full" />}>
+        <SelectCell
+          animal={row.original}
+          initialValue={row.original.species}
+          keyName="species"
+          labelMap={SpeciesLabelMap}
+          configMap={SpeciesConfigMap}
+        />
+      </Suspense>
     )
   },
   {
@@ -73,16 +76,16 @@ export const columns: ColumnDef<Partial<Animal>>[] = [
   {
     accessorKey: "gender",
     header: "Sexe",
-    cell: ({ row }) =>
-
-    (
-      <SelectCell
-        animal={row.original}
-        initialValue={row.original.gender}
-        keyName="gender"
-        labelMap={GenderLabelMap}
-        configMap={GenderConfigMap}
-      />
+    cell: ({ row }) => (
+      <Suspense fallback={<Skeleton className="h-8 w-full" />}>
+        <SelectCell
+          animal={row.original}
+          initialValue={row.original.gender}
+          keyName="gender"
+          labelMap={GenderLabelMap}
+          configMap={GenderConfigMap}
+        />
+      </Suspense>
     )
   },
   {
@@ -111,26 +114,30 @@ export const columns: ColumnDef<Partial<Animal>>[] = [
     accessorKey: "status",
     header: "Statut",
     cell: ({ row }) => (
-      <SelectCell
-        animal={row.original}
-        initialValue={row.original.status}
-        keyName="status"
-        labelMap={AnimalStatusLabelMap}
-        configMap={AnimalStatusConfiglMap}
-      />
+      <Suspense fallback={<Skeleton className="h-8 w-full" />}>
+        <SelectCell
+          animal={row.original}
+          initialValue={row.original.status}
+          keyName="status"
+          labelMap={AnimalStatusLabelMap}
+          configMap={AnimalStatusConfiglMap}
+        />
+      </Suspense>
     )
   },
   {
     accessorKey: "placementType",
     header: "Type",
     cell: ({ row }) => (
-      <SelectCell
-        animal={row.original}
-        initialValue={row.original.placementType}
-        keyName="placementType"
-        labelMap={PlacementTypeLabelMap}
-        configMap={PlacementTypeConfiglMap}
-      />
+      < Suspense fallback={<Skeleton className="h-8 w-full" />}>
+        <SelectCell
+          animal={row.original}
+          initialValue={row.original.placementType}
+          keyName="placementType"
+          labelMap={PlacementTypeLabelMap}
+          configMap={PlacementTypeConfiglMap}
+        />
+      </Suspense>
     )
   },
   {

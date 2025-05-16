@@ -11,7 +11,10 @@ export const useAllAnimalsQuery = (): UseQueryResult<Animal[], Error> => {
   return useQuery({
     queryKey: ['animals', 'all'],
     queryFn: getAll,
-    staleTime: 1000 * 60 * 5
+    staleTime: 1000 * 60 * 5, // 5 minutes
+    gcTime: 1000 * 60 * 30, // 30 minutes
+    refetchOnWindowFocus: false,
+    refetchOnMount: false
   })
 };
 

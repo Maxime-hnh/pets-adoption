@@ -1,0 +1,42 @@
+import type { Metadata } from "next";
+import { hasLocale } from "next-intl";
+import { notFound } from "next/navigation";
+import { routing } from "@/i18n/routing";
+import { CommonLayoutWrapper } from "@/_core/common-layout-wrapper";
+import { Providers } from "@/_core/providers";
+import '../globals.css';
+import { getMessages } from "next-intl/server";
+import { NextIntlClientProvider } from "next-intl";
+
+export const metadata: Metadata = {
+  title: "Title",
+  description: "Description",
+  icons: {
+    icon: '/favicon.ico'
+  },
+};
+
+
+export default async function RootLayout({
+  children,
+  params
+}: Readonly<{
+  children: React.ReactNode;
+  params: Promise<{ locale: string }>;
+}>) {
+
+  const { locale } = await params;
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
+
+  const messages = await getMessages(locale as any);
+
+  return (
+    <CommonLayoutWrapper locale={locale}>
+      <Providers>
+      {children}
+      </Providers>
+    </CommonLayoutWrapper>
+  );
+}

@@ -3,12 +3,12 @@
 import Image from 'next/image';
 import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from '@/_components/ui/sheet';
 import { Menu } from 'lucide-react';
-import { ModeToggle } from '../ui/theme-toggle';
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import Link from 'next/link';
 import { Button } from '../ui/button';
 import { useUIStore } from "@/_stores/ui.store"
 import { cn } from "@/_helpers/cn"
+import { ThemeToggle } from '../ui/theme-toggle'
 
 
 export default function Header() {
@@ -19,7 +19,7 @@ export default function Header() {
 
 
   return (
-    <header className={cn("fixed top-0 left-0 right-0 z-50 border-b flex items-center justify-between h-[60px] py-0 sm:py-1 px-0 sm:px-4 md:px-24 lg:px-40", showHeader ? "" : "hidden")}>
+    <header className={cn("fixed top-0 left-0 right-0 z-50 border-b flex items-center justify-between h-[60px] py-0 sm:py-1 px-0 sm:pl-4 md:pl-24 lg:pl-40", showHeader ? "" : "hidden")}>
       {/* Desktop */}
       <div className="hidden sm:flex items-center gap-8 w-full justify-between">
         <div className='flex items-center gap-4'>
@@ -27,18 +27,19 @@ export default function Header() {
           <span className="font-bold text-xl">AppName.</span>
         </div>
         <nav className="flex items-center gap-12 w-full justify-between">
-          <div className="flex gap-12">
-            <Link href="/template-page">Comment adopter ?</Link>
-            <Link href="/">Évènements</Link>
+          <div></div>
+          <div className="flex gap-12 items-center">
+            {/* <Link href="/template-page">Comment adopter ?</Link> */}
+            {/* <Link href="/">Évènements</Link> */}
             <Link href="/">Animaux</Link>
             <Link href="/">A propos</Link>
             <Link href="/">Contact</Link>
+            <ThemeToggle />
           </div>
           {/* <IntlToggle /> */}
-          <ModeToggle />
           <div>
             <Link href={"/signin"}>
-            <Button>Connexion</Button>
+              <Button>Connexion</Button>
             </Link>
           </div>
         </nav>

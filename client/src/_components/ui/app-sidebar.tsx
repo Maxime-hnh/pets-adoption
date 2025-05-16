@@ -13,7 +13,6 @@ import {
   SidebarFooter,
 } from "@/_components/ui/sidebar"
 import { LayoutDashboard, Calendar, User, Settings, PawPrint } from "lucide-react"
-import { Button } from "./button"
 import { usePathname } from 'next/navigation'
 import Link from "next/link"
 
