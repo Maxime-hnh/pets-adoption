@@ -1,7 +1,7 @@
 "use client"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/_components/ui/select"
 import { useUpdateAnimal } from "@/_mutations/animals/useUpdateAnimal"
-import { Animal, Species } from "@/_schemas/animal.schema";
+import { Animal } from "@/_schemas/animal.schema";
 
 interface SelectCellProps {
   animal: Partial<Animal>;
@@ -15,17 +15,17 @@ interface SelectCellProps {
 }
 export default function SelectCell({ animal, initialValue, keyName, labelMap, configMap }: SelectCellProps) {
 
-  const updateAnimalMutation = useUpdateAnimal();
+  const updateAnimal = useUpdateAnimal();
 
-  const handleChangeSpecies = (value: any) => {
-    updateAnimalMutation.mutate({
+  const handleChangeValue = (value: any) => {
+    updateAnimal.mutate({
       id: animal.id!,
       values: { [keyName]: value },
     });
   };
 
   return (
-    <Select value={initialValue} onValueChange={handleChangeSpecies}>
+    <Select value={initialValue} onValueChange={handleChangeValue}>
       <SelectTrigger className="w-full">
         <SelectValue />
       </SelectTrigger>

@@ -24,7 +24,7 @@ import {
 } from "@/_components/ui/table"
 import { Input } from "@/_components/ui/input"
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from "@/_components/ui/dropdown-menu"
-import { ChevronDown, PawPrint, Plus } from "lucide-react"
+import { ChevronDown, PawPrint, Plus, X } from "lucide-react"
 import { Button } from "@/_components/ui/button"
 import { useState } from "react"
 import { cn } from "@/_helpers/cn"
@@ -32,9 +32,12 @@ import Link from "next/link"
 import { useAllAnimalsQuery } from "@/_queries/animals/useAnimalsQuery"
 import { Skeleton } from "@/_components/ui/skeleton"
 import { Group } from "@/_components/ui/group"
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/_components/ui/dialog"
+import AnimalForm from "./AnimalsForm"
+import { useAnimalFormStore } from "@/_stores/animalForm.store"
 
 export interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[]
+  columns: ColumnDef<TData, TValue>[];
 }
 
 export function AnimalsTable<TData, TValue>({ columns }: DataTableProps<TData, TValue>) {
@@ -46,6 +49,7 @@ export function AnimalsTable<TData, TValue>({ columns }: DataTableProps<TData, T
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
   const { data, isLoading }: { data: any, isLoading: boolean } = useAllAnimalsQuery();
+  const { open, setOpen, mode, defaultValues, openCreate } = useAnimalFormStore();
 
   const table = useReactTable({
     data,
@@ -73,9 +77,33 @@ export function AnimalsTable<TData, TValue>({ columns }: DataTableProps<TData, T
     <div className="w-full">
       <div className="flex items-center justify-between py-4">
         <Group>
-          <Link href={"/admin/animals/create"}>
-            <Button className="mr-4"><PawPrint /> Nouveau</Button>
-          </Link>
+          <Dialog open={open} onOpenChange={setOpen}>
+            <DialogTrigger asChild>
+              <Button
+                className="mr-4"
+                onClick={() => openCreate()}>
+                <PawPrint />
+                Nouveau
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="min-w-full sm:min-w-[650px]">
+              <DialogHeader>
+                <DialogTitle>
+                  {mode === "create" ? "Nouvel animal" : "Modifier l’animal"}
+                </DialogTitle>
+                <DialogDescription>
+                  {mode === "create"
+                    ? "L'identification en 3 étapes."
+                    : `Modification de ${defaultValues?.name}`}
+                </DialogDescription>
+              </DialogHeader>
+              <AnimalForm />
+            </DialogContent>
+          </Dialog>
+
+
+          {/* <Button className="mr-4"><PawPrint /> Nouveau</Button> */}
+          {/* </Link> */}
           {isLoading ? <Skeleton className="rounded-xl w-[300px] h-[36px]" />
             : <Input
               placeholder="Rechercher un nom ..."
@@ -192,8 +220,6 @@ export function AnimalsTable<TData, TValue>({ columns }: DataTableProps<TData, T
           </Group>
         </Group>
         : <div className="flex items-center justify-end space-x-2 py-4">
-
-
           <div className="flex-1 text-sm text-muted-foreground">
             {table.getFilteredSelectedRowModel().rows.length} /{" "}
             {table.getFilteredRowModel().rows.length} lignes sélectionnées

@@ -15,6 +15,14 @@ export class AnimalsService {
     private readonly auditLogsService: AuditLogsService
   ) { }
 
+  /**
+   * Creates a new animal
+   *
+   * @param data The data to create the animal
+   * @param userId The user creating the animal
+   *
+   * @returns The created animal
+   */
   async create(data: CreateAnimalDto, userId: number): Promise<AnimalDto> {
     const { incompatibilityIds, ...animalData } = data;
     const animal = await this.prisma.animal.create({ data: animalData })

@@ -3,10 +3,9 @@
 import Image from 'next/image';
 import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from '@/_components/ui/sheet';
 import { Menu } from 'lucide-react';
-import { Suspense, useState } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import { Button } from '../ui/button';
-import { useUIStore } from "@/_stores/ui.store"
 import { cn } from "@/_helpers/cn"
 import { ThemeToggle } from '../ui/theme-toggle'
 
@@ -15,11 +14,8 @@ export default function Header() {
 
   const [opened, setOpened] = useState(false);
   const toggle = () => setOpened((o) => !o);
-  const showHeader = useUIStore((state) => state.showHeader);
-
-
   return (
-    <header className={cn("fixed top-0 left-0 right-0 z-50 border-b flex items-center justify-between h-[60px] py-0 sm:py-1 px-0 sm:pl-4 md:pl-24 lg:pl-40", showHeader ? "" : "hidden")}>
+    <header className={cn("fixed top-0 left-0 right-0 z-50 border-b flex items-center justify-between h-[60px] py-0 sm:py-1 px-0 sm:pl-4 md:pl-24 lg:pl-40")}>
       {/* Desktop */}
       <div className="hidden sm:flex items-center gap-8 w-full justify-between">
         <div className='flex items-center gap-4'>

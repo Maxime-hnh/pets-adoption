@@ -8,7 +8,6 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from "@/_stores/auth.store"
 import { Role } from "@/_types/role.interface";
-import { useUIStore } from "@/_stores/ui.store"
 import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from '@/_core/query-client';
 import { useQueryClient } from '@tanstack/react-query';
@@ -20,7 +19,6 @@ export function AdminProviders(props: PropsWithChildren) {
   const router = useRouter();
   const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null);
   const setLoggedUser = useAuthStore((state) => state.setLoggedUser)
-  const setShowHeader = useUIStore((state) => state.setShowHeader);
   const qc = useQueryClient(queryClient);
 
 
@@ -40,7 +38,6 @@ export function AdminProviders(props: PropsWithChildren) {
         }
         setIsAuthorized(true);
         prefetchAnimalsQuery(qc)
-        setShowHeader(false);
       } catch (error) {
         router.push('/signin');
       }

@@ -1,0 +1,17 @@
+import { authHeader } from "@/_helpers/auth-header";
+import { handleResponse } from "@/_helpers/handle-response";
+import { ShortIncompatibility } from "@/_schemas/incompatibility.schema";
+
+class IncompatibilitiesService {
+  constructor() { }
+
+  async getAll(): Promise<ShortIncompatibility[]> {
+    const requestOption = {
+      method: 'GET',
+      header: authHeader()
+    }
+    return await handleResponse(await fetch("/api/incompatibilities/all", requestOption));
+  }
+}
+
+export const incompatibilitiesService = new IncompatibilitiesService();

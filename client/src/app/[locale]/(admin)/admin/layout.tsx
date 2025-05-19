@@ -39,7 +39,7 @@ export default async function AdminLayout({
         <Button>Déconnexion</Button>
 
       </header>
-      <main className="admin-layout">
+      <main className="admin-layout overflow-y-auto h-[calc(100dvh-60px)]">
         <SidebarProvider>
           <AppSidebar />
           <AdminProviders>

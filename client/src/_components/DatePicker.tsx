@@ -17,14 +17,13 @@ import { fr } from 'date-fns/locale';
 interface DatePickerProps {
   date: Date | undefined;
   handleBirthDate: (birthDate: Date | undefined) => void;
-  open: boolean;
-  setOpen: Dispatch<SetStateAction<boolean>>;
+
 }
 
-export function DatePicker({ date, handleBirthDate, open, setOpen }: DatePickerProps) {
+export function DatePicker({ date, handleBirthDate }: DatePickerProps) {
 
   return (
-    <Popover open={open} onOpenChange={setOpen}>
+    <Popover>
       <PopoverTrigger asChild>
         <Button
           variant={"outline"}
@@ -46,6 +45,7 @@ export function DatePicker({ date, handleBirthDate, open, setOpen }: DatePickerP
             d > new Date() || d < new Date("1900-01-01")
           }
           initialFocus
+          locale={fr}
         />
       </PopoverContent>
     </Popover>

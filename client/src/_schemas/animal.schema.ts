@@ -85,15 +85,17 @@ export const AnimalStatusSchema = z.nativeEnum(AnimalStatus);
 export const PlacementTypeSchema = z.nativeEnum(PlacementType);
 
 export const AnimalSchema = z.object({
-  id: z.number(),
-  uid: z.number(),
+  id: z.number().optional(),
+  uid: z.string().optional(),
   icadNumber: z.string().optional(),
-  name: z.string(),
+  name: z.string().nonempty({ message: "Le nom est requis" }).max(50),
   isSterilized: z.boolean(),
   species: SpeciesSchema,
-  breed: z.string(),
+  breed: z.string().nonempty({ message: "La race est requise" }).max(50),
   gender: GenderSchema,
-  birthDate: z.coerce.date(),
+  birthDate: z.coerce.date({ required_error: "La date de naissance est requise" }).refine((date) => !isNaN(date.getTime()), {
+    message: "Veuillez saisir une date valide"
+  }),
   description: z.string().optional(),
   status: AnimalStatusSchema,
   placementType: PlacementTypeSchema,
@@ -101,10 +103,11 @@ export const AnimalSchema = z.object({
   photos: z.array(z.string()).optional(),
   internalNotes: z.string().optional(),
   isArchived: z.boolean(),
-  createdAt: z.coerce.date(),
-  updatedAt: z.coerce.date(),
-  animalIncompatibilities: z.array(z.any()),
-  incompatibilityLabels: z.array(z.string()),
+  createdAt: z.coerce.date().optional(),
+  updatedAt: z.coerce.date().optional(),
+  // animalIncompatibilities: z.array(z.any()),
+  // incompatibilityLabels: z.array(z.string()),
+  incompatibilityIds: z.array(z.number()).optional(),
   deletedAt: z.coerce.date().optional(),
 });
 

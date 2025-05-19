@@ -12,6 +12,7 @@ import { useDeleteAnimal } from "@/_mutations/animals/useDeleteAnimal"
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/_components/ui/alert-dialog"
 import SelectCell from "./SelectCell"
 import { Skeleton } from "@/_components/ui/skeleton";
+import { useAnimalFormStore } from "@/_stores/animalForm.store";
 
 export const columns: ColumnDef<Partial<Animal>>[] = [
   {
@@ -92,21 +93,20 @@ export const columns: ColumnDef<Partial<Animal>>[] = [
     accessorKey: "birthDate",
     header: "Date de naissance",
     cell: ({ row }) => {
-      const updateAnimalMutation = useUpdateAnimal();
+      const updateAnimal = useUpdateAnimal();
       const animal = row.original;
       const [date, setDate] = useState<Date | undefined>(animal.birthDate);
-      const [open, setOpen] = useState<boolean>(false);
 
       const handleBirthDate = (birthDate: Date | undefined) => {
         setDate(birthDate);
-        updateAnimalMutation.mutate({
+        updateAnimal.mutate({
           id: animal.id!,
           values: { birthDate },
         });
-        setOpen(false);
       };
+
       return (
-        <DatePicker date={date} handleBirthDate={handleBirthDate} open={open} setOpen={setOpen} />
+        <DatePicker date={date} handleBirthDate={handleBirthDate} />
       )
     }
   },
@@ -145,9 +145,10 @@ export const columns: ColumnDef<Partial<Animal>>[] = [
     enableHiding: false,
     enablePinning: true,
     cell: ({ row }) => {
-      const animal = row.original
+      const animal = row.original as Animal
       const deleteAnimal = useDeleteAnimal();
       const [open, setOpen] = useState<boolean>(false);
+      const { openEdit } = useAnimalFormStore();
       const handleDelete = (id: number) => {
         return deleteAnimal.mutate(id)
       }
@@ -179,18 +180,18 @@ export const columns: ColumnDef<Partial<Animal>>[] = [
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuItem
-                // onClick={() => navigator.clipboard.writeText(payment.id)}
-                className="text-orange-500"
+                onClick={() => openEdit(animal)}
+                className="text-orange-500 cursor-pointer"
               >
                 <PenLine className="text-orange-500" />
                 Modifier
               </DropdownMenuItem>
-              <DropdownMenuItem className="text-red-500" onClick={() => setOpen(!open)}>
+              <DropdownMenuItem className="text-red-500 cursor-pointer" onClick={() => setOpen(!open)}>
                 <Trash2 className="text-red-500" />
                 Supprimer
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem className="text-indigo-500">
+              <DropdownMenuItem className="text-indigo-500 cursor-pointer">
                 <Eye className="text-indigo-500" />
                 Afficher
               </DropdownMenuItem>
