@@ -1,5 +1,4 @@
 import { useAuthStore } from "@/_stores/auth.store";
-import { authService } from "../_services/auth.service";
 
 export function authHeader(type: 'json' | 'form' | 'text' = "json"): HeadersInit {
   // return authorization header with jwt token
