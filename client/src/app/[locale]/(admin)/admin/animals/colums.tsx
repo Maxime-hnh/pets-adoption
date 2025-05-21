@@ -13,6 +13,8 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import SelectCell from "./SelectCell"
 import { Skeleton } from "@/_components/ui/skeleton";
 import { useAnimalFormStore } from "@/_stores/animalForm.store";
+import Image from "next/image";
+import Link from "next/link";
 
 export const columns: ColumnDef<Partial<Animal>>[] = [
   {
@@ -36,6 +38,32 @@ export const columns: ColumnDef<Partial<Animal>>[] = [
     ),
     enableSorting: false,
     enableHiding: false,
+  },
+  {
+    accessorKey: "photos",
+    header: "",
+    cell: ({ row }) => {
+      const animal = row.original;
+      if (animal.photos && animal.photos?.length > 0) {
+
+        return (
+          <Image
+            alt={`${animal.species}`}
+            src={row.original.photos![0]}
+            className="max-h-[50px] max-w-[75px] rounded-lg"
+            width={75}
+            height={50}
+            objectFit="cover"
+          />
+        )
+      } else {
+        return (
+          <div className="h-[50px] w-[75px] rounded-lg bg-accent flex items-center justify-center text-gray-500 font-medium text-xs">
+            Image
+          </div>
+        )
+      }
+    }
   },
   {
     accessorKey: "icadNumber",
@@ -191,10 +219,12 @@ export const columns: ColumnDef<Partial<Animal>>[] = [
                 Supprimer
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem className="text-indigo-500 cursor-pointer">
-                <Eye className="text-indigo-500" />
-                Afficher
-              </DropdownMenuItem>
+              <Link href={`/admin/animals/${animal.id}`}>
+                <DropdownMenuItem className="text-indigo-500 cursor-pointer">
+                  <Eye className="text-indigo-500" />
+                  Afficher
+                </DropdownMenuItem>
+              </Link>
             </DropdownMenuContent>
           </DropdownMenu>
         </>

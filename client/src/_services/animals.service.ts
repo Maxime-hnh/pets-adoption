@@ -2,6 +2,9 @@ import { Animal } from "@/_schemas/animal.schema";
 import { authHeader } from "@/_helpers/auth-header";
 import { handleResponse } from "@/_helpers/handle-response";
 
+
+const baseUrl = process.env.API_URL || 'http://localhost:3001';
+
 class AnimalsService {
 
   constructor() { }
@@ -48,6 +51,15 @@ class AnimalsService {
     }
     return await handleResponse(await fetch(`/api/animals/${id}`, requestOptions));
   };
+
+  serverGetById = async (id: number): Promise<Animal> => {
+    const requestOptions = {
+      method: 'GET',
+      headers: authHeader(),
+      next: { revalidate: 300 }
+    }
+    return await handleResponse(await fetch(`${baseUrl}/api/animals/${id}`, requestOptions));
+  }
 
   getAll = async (): Promise<Animal[]> => {
     const requestOptions = {

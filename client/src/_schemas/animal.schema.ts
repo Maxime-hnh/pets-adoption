@@ -106,7 +106,7 @@ export const AnimalSchema = z.object({
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
   // animalIncompatibilities: z.array(z.any()),
-  // incompatibilityLabels: z.array(z.string()),
+  incompatibilityLabels: z.array(z.string()).optional(),
   incompatibilityIds: z.array(z.number()).optional(),
   deletedAt: z.coerce.date().optional(),
 });
