@@ -6,7 +6,7 @@ import PageBreadcrumbs from '@/_components/PageBreadcrumbs';
 import { hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
-import { CommonLayoutWrapper } from "@/_core/common-layout-wrapper";
+import { CommonLayoutWrapper } from "@/_components/layout/common-layout-wrapper";
 import { AdminProviders } from './admin-providers';
 import "../../globals.css";
 
