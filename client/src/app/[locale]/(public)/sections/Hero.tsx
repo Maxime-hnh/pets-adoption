@@ -7,7 +7,7 @@ import Image from "next/image";
 export default function Hero() {
 
   return (
-    <div className="grid grid-cols-2 lg:px-12 h-full after:content-[''] after:absolute after:top-0 after:right-0 after:w-[15rem] after:h-[15rem] after:rounded-full after:bg-[linear-gradient(260deg,_#8750f7,_rgba(115,67,210,0))] after:blur-[50px]">
+    <div className=" relative grid grid-cols-2 lg:px-12 h-full after:content-[''] after:absolute after:top-0 after:right-0 after:w-[15rem] after:h-[15rem] after:rounded-full after:bg-[linear-gradient(260deg,_#8750f7,_rgba(115,67,210,0))] after:blur-[50px]">
 
       {/* Text */}
       <div className="flex items-end absolute bottom-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
