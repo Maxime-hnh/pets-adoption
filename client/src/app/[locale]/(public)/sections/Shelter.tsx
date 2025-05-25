@@ -2,9 +2,7 @@ import IconDoveOfPeace from "@/_components/icons/IconDoveOfPeace";
 import IconHandsWithHearts from "@/_components/icons/IconHandsWithHearts";
 import IconShelter from "@/_components/icons/IconShelter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/_components/ui/card";
-import { cn } from "@/_helpers/cn";
 import Image from "next/image";
-import { Fragment } from "react";
 
 const content = [
   {
@@ -42,6 +40,8 @@ export default function Shelter() {
         <div className="flex items-center flex-col md:flex-row justify-center gap-2 md:gap-8 mt-8 md:h-[351px] md:max-h-[351px] lg:h-80 lg:max-h-80">
           {content.map((item, index) => (
             <div key={index} className="mb-4 md:mb-0 max-w-full lg:max-w-xs w-full h-full relative">
+
+              {/* Card */}
               <Card
                 className={`max-w-full lg:max-w-xs w-full h-full hover:translate-y-[-5px] hover:scale-[1.01] transition-all duration-300 ${item.className}`}
               >
@@ -55,9 +55,11 @@ export default function Shelter() {
                   <p className="text-center text-sm text-muted-foreground">{item.text}</p>
                 </CardContent>
               </Card>
+
+              {/* Mascot */}
               {index === content.length - 1 && (
                 <Image
-                  alt=""
+                  alt="mascot"
                   src="/assets/mascot/mascot_wall.png"
                   width={425}
                   height={1254}

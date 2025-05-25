@@ -7,7 +7,6 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { Button } from '../ui/button';
 import { cn } from "@/_helpers/cn"
-import { ThemeToggle } from '../ui/theme-toggle'
 import { MenuBar } from '../ui/glow-menu'
 
 
@@ -62,9 +61,8 @@ export default function Header() {
   const [activeItem, setActiveItem] = useState<string>("Home")
 
 
-  // fixed top-0 left-0 right-0 z-50 border-b flex items-center justify-between h-[60px] py-0 sm:py-1 px-0 sm:pl-4 md:pl-24 lg:pl-40
   return (
-    <header className={cn("flex fixed top-0 left-0 right-0 z-50 h-[120px] items-center justify-center")}>
+    <header className={cn("flex fixed top-0 left-0 right-0 z-50 h-[120px] items-center justify-center animate-fade-in-down")}>
       {/* Desktop */}
       <MenuBar
         items={menuItems}

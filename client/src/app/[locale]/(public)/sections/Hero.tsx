@@ -3,33 +3,36 @@ import { Button } from "@/_components/ui/button";
 import { SparklesText } from "@/_components/ui/animaton/sparkles-text";
 import { ArrowRight, ChartNoAxesGantt, Heart, MessageCircleHeart, PawPrint, Sparkles, Star } from "lucide-react";
 import Image from "next/image";
+import { Counter } from "@/_components/ui/animaton/animated-counter";
 
 export default function Hero() {
 
   return (
-    <div className=" relative grid grid-cols-2 lg:px-12 h-full after:content-[''] after:absolute after:top-0 after:right-0 after:w-[15rem] after:h-[15rem] after:rounded-full after:bg-[linear-gradient(260deg,_#8750f7,_rgba(115,67,210,0))] after:blur-[50px]">
+    <div className="relative grid grid-cols-2 lg:px-12 h-full">
+      <div className="absolute right-0 bottom-0 not-odd:h-[128px] w-[40%]  scale-[2] rounded-[50%] bg-custom-green blur-[100px] sm:h-[256px]"></div>
+      <div
+        className="absolute top-1/2 left-1/2 not-odd:h-[210px] w-[40%] rotate-[35deg]  scale-[2] rounded-[50%] bg-custom-orange blur-[35px] sm:h-[256px]"
+        style={{ transform: "translate(-35%, -40%)" }}
+      />
 
       {/* Text */}
       <div className="flex items-end absolute bottom-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
+        <Counter
+          className="text-7xl font-inter font-[900] animate-fade-in-up pb-8"
+          start={0}
+          end={42}
+          duration={2}
+          fontSize={65}
+        />
         <p
-          className="text-7xl font-inter font-[900] animate-fade-in-up pb-8 bg-no-repeat bg-[length:contain] bg-[position:bottom_center]"
+          className="text-2xl font-inter font-[900] animate-fade-in-up pb-8 bg-no-repeat bg-[length:contain] bg-[position:bottom_center]"
           style={{ backgroundImage: "url('https://tailwag.progressionstudios.com/wp-content/uploads/2022/04/underline.png')" }}
         >
-          50
-          <span className="text-2xl">
-            animaux attendent de trouver un foyer.
-          </span>
+
+          animaux attendent de trouver un foyer.
         </p>
       </div>
 
-      {/* Mascot */}
-      {/* <Image
-        alt=""
-        src="/assets/mascot/mascot_wall.png"
-        width={425}
-        height={1254}
-        className="object-contain h-[225px] w-[75px] absolute bottom-0 left-0"
-      /> */}
 
       {/* Left content*/}
       <div className="col-span-1">
@@ -54,8 +57,8 @@ export default function Hero() {
 
           {/* Image 1 */}
           <div className="bg-gray-500 h-[279px] w-[239px] absolute top-0 left-0 translate-y-1/3 translate-x-1/2 aspect-4/5 animate-fade-in-down">
-            <Sparkles className="absolute -top-8 -left-8 text-orange-500" />
-            <ChartNoAxesGantt className="absolute -bottom-8 left-0 text-emerald-500" size={30} />
+            <Sparkles className="absolute -top-8 -left-8 text-emerald-500" />
+            <ChartNoAxesGantt className="absolute -bottom-8 left-0 text-indigo-500" size={30} />
             <Image
               alt=""
               src="/assets/hero_1.jpg"
@@ -81,7 +84,7 @@ export default function Hero() {
 
           {/* Image 3 */}
           <div className="bg-gray-300 h-[279px] w-[239px] absolute -bottom-20 left-40 aspect-4/5 animate-fade-in-right">
-            <Star className="absolute bottom-1/6 -right-8 text-emerald-500 rotate-20" />
+            <Star className="absolute bottom-1/6 -right-8 text-orange-500 rotate-20" />
             <Image
               alt=""
               src="/assets/hero_2.jpg"

@@ -114,6 +114,9 @@
   --shadow-custom-green: #00bc7d 0px 3px 14px, rgb(120 75 160 / 16%) 0px 5px 12px;
   --shadow-custom-orange: #ff7e5f 0px 3px 14px, rgb(120 75 160 / 16%) 0px 5px 12px;
   --shadow-custom-blue: #615fff 0px 3px 14px, rgb(120 75 160 / 16%) 0px 5px 12px;
+  --bg-custom-green: linear-gradient(260deg, #00bc7d, rgba(0, 188, 125, 0));
+  --bg-custom-orange: linear-gradient(260deg, #ff7e5f, rgba(255, 126, 95, 0));
+  --bg-custom-dots : repeating-linear-gradient(45deg, rgb(255,255,255) 0px, rgb(255,255,255) 10px,transparent 10px, transparent 11px),repeating-linear-gradient(135deg, rgb(255,255,255) 0px, rgb(255,255,255) 10px,transparent 10px, transparent 11px),linear-gradient(90deg, hsl(256,7%,84%),hsl(256,7%,84%));
 
   @keyframes wiggle {
     0%,
@@ -169,6 +172,16 @@
     }
   }
 
+}
+
+.bg-custom-green {
+  background-image: var(--bg-custom-green);
+}
+.bg-custom-orange {
+  background-image: var(--bg-custom-orange);
+}
+.bg-custom-dots {
+  background-image: var(--bg-custom-dots);
 }
 
 .shadow-custom-purple {

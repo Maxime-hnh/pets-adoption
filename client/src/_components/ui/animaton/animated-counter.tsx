@@ -52,7 +52,8 @@ export const Counter = ({
       {...rest}
       className={cn(
         "flex overflow-hidden rounded px-2 leading-none text-primary font-bold",
-        className
+        className,
+        value === 0 ? "hidden" : ""
       )}
     >
       {value >= 100000 && <Digit place={100000} value={value} />}
