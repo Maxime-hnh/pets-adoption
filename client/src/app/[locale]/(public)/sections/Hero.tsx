@@ -23,13 +23,13 @@ export default function Hero() {
       </div>
 
       {/* Mascot */}
-      <Image
+      {/* <Image
         alt=""
         src="/assets/mascot/mascot_wall.png"
         width={425}
         height={1254}
         className="object-contain h-[225px] w-[75px] absolute bottom-0 left-0"
-      />
+      /> */}
 
       {/* Left content*/}
       <div className="col-span-1">

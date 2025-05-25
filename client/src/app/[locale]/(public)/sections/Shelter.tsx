@@ -1,11 +1,72 @@
+import IconDoveOfPeace from "@/_components/icons/IconDoveOfPeace";
+import IconHandsWithHearts from "@/_components/icons/IconHandsWithHearts";
+import IconShelter from "@/_components/icons/IconShelter";
+import { Card, CardContent, CardHeader, CardTitle } from "@/_components/ui/card";
+import { cn } from "@/_helpers/cn";
+import Image from "next/image";
+import { Fragment } from "react";
+
+const content = [
+  {
+    icon: IconDoveOfPeace,
+    title: "Créé en 1952",
+    text: "L'association a été reconnue d'utilité publique en 1975, le refuge a été construit en 1997",
+    color: "#615fff",
+    className: "shadow-custom-blue"
+  },
+  {
+    icon: IconShelter,
+    title: "45 box pour chiens",
+    text: "Un local a été aménagé pour les chats. Nos animaux restent au refuge jusqu'à l'adoption, nous ne pratiquons pas l'euthanasie.",
+    color: "#ff7e5f",
+    className: "shadow-custom-orange"
+  },
+  {
+    icon: IconHandsWithHearts,
+    title: "12 personnes",
+    text: "Le conseil d'administration est composé de 12 personnes, dont 4 pour les bureaux. L'association fonctionne grâce aux bénévoles et aux 4 salariés.",
+    color: "#00bc7d",
+    className: "shadow-custom-green"
+  },
+]
+
 export default function Shelter() {
 
   return (
-    <section className="py-16 md:py-32">
+    <section className="px-8 py-16 md:py-32">
       <div className="container mx-auto">
         <div className="text-center">
-          <h2 className="text-balance text-4xl font-semibold lg:text-5xl">Le refuge SPA de Verson</h2>
-          <p className="mt-4">Libero sapiente aliquam quibusdam aspernatur, praesentium iusto repellendus.</p>
+          <h2 className="text-balance text-4xl font-[900] lg:text-5xl font-inter">Le refuge SPA de Verson</h2>
+          <p className="mt-4">Une association reconnue d'utilité publique.</p>
+        </div>
+        <div className="flex items-center flex-col md:flex-row justify-center gap-2 md:gap-8 mt-8 md:h-[351px] md:max-h-[351px] lg:h-80 lg:max-h-80">
+          {content.map((item, index) => (
+            <div key={index} className={cn("max-w-full lg:max-w-xs w-full h-full relative", index === content.length - 1 && "flex flew-row w-full items-end lg:max-w-lg")}>
+              <Card
+                className={`max-w-full lg:max-w-xs w-full h-full hover:translate-y-[-5px] hover:scale-[1.01] transition-all duration-300 ${item.className}`}
+              >
+                <CardHeader>
+                  <CardTitle className="m-auto flex flex-col justify-center items-center gap-1">
+                    <item.icon size={75} color={item.color} />
+                    <h3 className="text-2xl text-center">{item.title}</h3>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-center text-sm text-muted-foreground">{item.text}</p>
+                </CardContent>
+              </Card>
+              {index === content.length - 1 && (
+                <Image
+                  alt=""
+                  src="/assets/mascot/mascot_wall.png"
+                  width={425}
+                  height={1254}
+                  className="object-contain h-[225px] w-[75px] "
+                />
+              )}
+            </div>
+          ))}
+
         </div>
       </div>
     </section>

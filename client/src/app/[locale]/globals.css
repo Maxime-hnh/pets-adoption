@@ -110,7 +110,10 @@
   --animate-fade-in-down: fade-in-down 0.6s ease-out forwards;
   --animate-fade-in-left: fade-in-left 0.6s ease-out forwards;
   --animate-fade-in-right: fade-in-right 0.6s ease-out forwards;
-
+  --shadow-custom-purple: #8750f7 0px 4px 38px, rgb(120 75 160 / 16%) 0px 15px 12px;
+  --shadow-custom-green: #00bc7d 0px 3px 14px, rgb(120 75 160 / 16%) 0px 5px 12px;
+  --shadow-custom-orange: #ff7e5f 0px 3px 14px, rgb(120 75 160 / 16%) 0px 5px 12px;
+  --shadow-custom-blue: #615fff 0px 3px 14px, rgb(120 75 160 / 16%) 0px 5px 12px;
 
   @keyframes wiggle {
     0%,
@@ -166,6 +169,22 @@
     }
   }
 
+}
+
+.shadow-custom-purple {
+  box-shadow: var(--shadow-custom-purple);
+}
+
+.shadow-custom-green {
+  box-shadow: var(--shadow-custom-green);
+}
+
+.shadow-custom-orange {
+  box-shadow: var(--shadow-custom-orange);
+}
+
+.shadow-custom-blue {
+  box-shadow: var(--shadow-custom-blue);
 }
 
 @theme inline {
