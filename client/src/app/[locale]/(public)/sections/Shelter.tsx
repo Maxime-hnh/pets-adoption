@@ -41,17 +41,17 @@ export default function Shelter() {
         </div>
         <div className="flex items-center flex-col md:flex-row justify-center gap-2 md:gap-8 mt-8 md:h-[351px] md:max-h-[351px] lg:h-80 lg:max-h-80">
           {content.map((item, index) => (
-            <div key={index} className={cn("max-w-full lg:max-w-xs w-full h-full relative", index === content.length - 1 && "flex flew-row w-full items-end lg:max-w-lg")}>
+            <div key={index} className="mb-4 md:mb-0 max-w-full lg:max-w-xs w-full h-full relative">
               <Card
                 className={`max-w-full lg:max-w-xs w-full h-full hover:translate-y-[-5px] hover:scale-[1.01] transition-all duration-300 ${item.className}`}
               >
                 <CardHeader>
                   <CardTitle className="m-auto flex flex-col justify-center items-center gap-1">
                     <item.icon size={75} color={item.color} />
-                    <h3 className="text-2xl text-center">{item.title}</h3>
+                    <h3 className="text-xl lg:text-2xl text-center">{item.title}</h3>
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="px-4 lg:px-6">
                   <p className="text-center text-sm text-muted-foreground">{item.text}</p>
                 </CardContent>
               </Card>
@@ -61,7 +61,7 @@ export default function Shelter() {
                   src="/assets/mascot/mascot_wall.png"
                   width={425}
                   height={1254}
-                  className="object-contain h-[225px] w-[75px] "
+                  className="hidden xl:block object-contain h-[225px] w-[75px] absolute bottom-0 -right-[75px] "
                 />
               )}
             </div>
