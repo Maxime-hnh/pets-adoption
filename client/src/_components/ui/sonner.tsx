@@ -12,6 +12,7 @@ const Toaster = (props: ToasterProps) => {
     const current = html.classList.contains('dark') ? 'dark' : 'light';
     setTheme(current);
   }, []);
+  
   return (
     <Sonner
       theme={theme}

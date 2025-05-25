@@ -19,7 +19,7 @@ export function PublicProviders(props: PropsWithChildren) {
       <IsMobileObserver />
       <Toaster richColors />
       <Header />
-      <main className="flex-1 h-dvh pt-[60px] px-1 lg:px-4 overflow-y-auto">
+      <main className="flex-1 h-[calc(100vh-121px)] px-1 lg:px-4 overflow-y-auto">
         {props.children}
       </main>
       <Footer />

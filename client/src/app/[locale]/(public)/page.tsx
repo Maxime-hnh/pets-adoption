@@ -1,17 +1,13 @@
-import { useTranslations } from "next-intl";
+import Hero from "./sections/Hero";
 
 export default function HomePage() {
-  const t = useTranslations('HomePage');
 
-console.log("home page")
+
   return (
-    <div>
+    <>
+      <Hero />
+    </>
 
-      <div className="grid grid-cols-2">
-        <div>
-        </div>
-        <div>{t('title')}</div>
-      </div>
-    </div>
-  );
+  )
 }
+

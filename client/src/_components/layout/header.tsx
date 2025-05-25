@@ -2,45 +2,75 @@
 
 import Image from 'next/image';
 import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from '@/_components/ui/sheet';
-import { Menu } from 'lucide-react';
+import { CalendarDays, Home, Mail, Menu, PawPrint, User } from 'lucide-react';
 import { useState } from 'react';
 import Link from 'next/link';
 import { Button } from '../ui/button';
 import { cn } from "@/_helpers/cn"
 import { ThemeToggle } from '../ui/theme-toggle'
+import { MenuBar } from '../ui/glow-menu'
+
+
+const menuItems = [
+  {
+    icon: Home,
+    label: "Home",
+    href: "/",
+    gradient:
+      "radial-gradient(circle, rgba(59,130,246,0.15) 0%, rgba(37,99,235,0.06) 50%, rgba(29,78,216,0) 100%)",
+    iconColor: "text-blue-500",
+  },
+  {
+    icon: PawPrint,
+    label: "Animaux",
+    href: "#",
+    gradient:
+      "radial-gradient(circle, rgba(249,115,22,0.15) 0%, rgba(234,88,12,0.06) 50%, rgba(194,65,12,0) 100%)",
+    iconColor: "text-orange-500",
+  },
+  {
+    icon: CalendarDays,
+    label: "Evènements",
+    href: "#",
+    gradient:
+      "radial-gradient(circle, rgba(34,197,94,0.15) 0%, rgba(22,163,74,0.06) 50%, rgba(21,128,61,0) 100%)",
+    iconColor: "text-green-500",
+  },
+  {
+    icon: Mail,
+    label: "Contact",
+    href: "#",
+    gradient:
+      "radial-gradient(circle, rgba(239,68,68,0.15) 0%, rgba(220,38,38,0.06) 50%, rgba(185,28,28,0) 100%)",
+    iconColor: "text-red-500",
+  },
+  {
+    icon: User,
+    label: "Profile",
+    href: "#",
+    gradient:
+      "radial-gradient(circle, rgba(239,68,68,0.15) 0%, rgba(220,38,38,0.06) 50%, rgba(185,28,28,0) 100%)",
+    iconColor: "text-red-500",
+  },
+]
 
 
 export default function Header() {
 
   const [opened, setOpened] = useState(false);
   const toggle = () => setOpened((o) => !o);
+  const [activeItem, setActiveItem] = useState<string>("Home")
+
+
+  // fixed top-0 left-0 right-0 z-50 border-b flex items-center justify-between h-[60px] py-0 sm:py-1 px-0 sm:pl-4 md:pl-24 lg:pl-40
   return (
-    <header className={cn("fixed top-0 left-0 right-0 z-50 border-b flex items-center justify-between h-[60px] py-0 sm:py-1 px-0 sm:pl-4 md:pl-24 lg:pl-40")}>
+    <header className={cn("flex p-8 items-center justify-center")}>
       {/* Desktop */}
-      <div className="hidden sm:flex items-center gap-8 w-full justify-between">
-        <div className='flex items-center gap-4'>
-          <Image src="/favicon.ico" width={40} height={40} alt="logo" className="rounded-full" />
-          <span className="font-bold text-xl">AppName.</span>
-        </div>
-        <nav className="flex items-center gap-12 w-full justify-between">
-          <div></div>
-          <div className="flex gap-12 items-center">
-            {/* <Link href="/template-page">Comment adopter ?</Link> */}
-            {/* <Link href="/">Évènements</Link> */}
-            <Link href="/">Animaux</Link>
-            <Link href="/">A propos</Link>
-            <Link href="/">Contact</Link>
-            <ThemeToggle />
-          </div>
-          {/* <IntlToggle /> */}
-          <div>
-            <Link href={"/signin"}>
-              <Button>Connexion</Button>
-            </Link>
-          </div>
-        </nav>
-        <div></div>
-      </div>
+      <MenuBar
+        items={menuItems}
+        activeItem={activeItem}
+        onItemClick={setActiveItem}
+      />
 
       {/* Mobile */}
       <div className="sm:hidden flex items-center justify-between w-full">
