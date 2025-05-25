@@ -13,7 +13,7 @@ import { Badge } from "@/_components/ui/badge";
 import { Suspense } from "react";
 import { IncompatibilityConfigMap } from "@/_schemas/incompatibility.schema";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@radix-ui/react-tooltip";
-import SuggestCard from "./SuggestCard";
+import SuggestCardSkeleton from "./SuggestCardSkeleton";
 
 interface AnimalProfileProps {
   params: Promise<{ id: string }>
@@ -269,7 +269,7 @@ export default async function AnimalProfile({ params }: AnimalProfileProps) {
             </div>
           </CardContent>
         </Card>
-        <SuggestCard />
+        <SuggestCardSkeleton title="Vous pourriez aussi aimé" />
       </div>
     </div >
   )

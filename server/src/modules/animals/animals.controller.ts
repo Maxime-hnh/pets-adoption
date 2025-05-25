@@ -4,7 +4,7 @@ import { JwtAuthGuard } from '../auth/auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
 import { AnimalDto, CreateAnimalDto, UpdateAnimalDto } from './dto';
-import { Species } from '@prisma/client';
+import { Prisma, Species } from '@prisma/client';
 import { UserWithRole } from '../users/users.types';
 import { CurrentUser } from '../auth/current-user.decorator';
 
@@ -35,9 +35,9 @@ export class AnimalsController {
     return await this.animalsService.findAll();
   }
 
-  @Get('filtered')
-  async getAllWithFilters(@Body() where: any): Promise<AnimalDto[]> {
-    return await this.animalsService.findAllWithFilters(where);
+  @Post('filtered')
+  async getAllWithFilters(@Body() params: Prisma.AnimalFindManyArgs): Promise<AnimalDto[]> {
+    return await this.animalsService.findAllWithFilters(params);
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)

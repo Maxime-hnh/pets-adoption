@@ -157,8 +157,8 @@ export class AnimalsService {
 
   }
 
-  async findAllWithFilters(where: Prisma.AnimalWhereInput): Promise<AnimalDto[]> {
-    const animals = await this.prisma.animal.findMany({ where });
+  async findAllWithFilters(params: Prisma.AnimalFindManyArgs): Promise<AnimalDto[]> {
+    const animals = await this.prisma.animal.findMany(params);
     return toDtos(AnimalDto, animals)
   };
 }

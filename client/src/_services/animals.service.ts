@@ -61,6 +61,16 @@ class AnimalsService {
     return await handleResponse(await fetch(`${baseUrl}/api/animals/${id}`, requestOptions));
   }
 
+  serverGetAllWithFilters = async (where: any): Promise<Animal[]> => {
+    const requestOptions = {
+      method: 'POST',
+      headers: authHeader(),
+      body: JSON.stringify(where)
+    }
+    return await handleResponse(await fetch(`${baseUrl}/api/animals/filtered`, requestOptions));
+  };
+
+
   getAll = async (): Promise<Animal[]> => {
     const requestOptions = {
       method: 'GET',
@@ -71,7 +81,7 @@ class AnimalsService {
 
   getAllWithFilters = async (where: any): Promise<Animal[]> => {
     const requestOptions = {
-      method: 'GET',
+      method: 'POST',
       headers: authHeader()
     }
     return await handleResponse(await fetch(`/api/animals/filtered`, requestOptions));
