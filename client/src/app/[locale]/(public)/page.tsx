@@ -1,6 +1,7 @@
 import Hero from "./sections/Hero";
 import Shelter from "./sections/Shelter";
 import Preview from "./sections/Preview";
+import Cta from "./sections/Cta";
 
 export default function HomePage() {
 
@@ -8,8 +9,9 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-      <Shelter/>
-      <Preview/>
+      <Shelter />
+      <Preview />
+      <Cta />
     </>
 
   )
