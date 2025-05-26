@@ -16,7 +16,7 @@ export default function AnimalCard({ animal }: { animal: Animal }) {
   const placementTypeColor = animal.placementType ? PlacementTypeConfiglMap[animal.placementType].color : '';
 
   return (
-    <div key={animal.id} className="group cursor-pointer bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+    <div key={animal.id} className="h-[320px] group cursor-pointer bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
       <div className="h-48">
         <figure className="relative bg-black overflow-hidden h-full w-full">
           <Image
@@ -28,8 +28,9 @@ export default function AnimalCard({ animal }: { animal: Animal }) {
           />
         </figure>
       </div>
-      <div className="p-4">
-        <div className="mb-2 text-2xl font-inter font-[900]">{animal.name}</div>
+      <div className="p-4 flex flex-col justify-between">
+        <div className="mb-6 text-2xl font-inter font-[900]">{animal.name}</div>
+
         <div className="flex flex-wrap gap-2">
           {animal.gender && (
             <Badge

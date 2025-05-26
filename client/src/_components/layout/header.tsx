@@ -45,7 +45,7 @@ const menuItems = [
   },
   {
     icon: User,
-    label: "Profile",
+    label: "Profil",
     href: "#",
     gradient:
       "radial-gradient(circle, rgba(239,68,68,0.15) 0%, rgba(220,38,38,0.06) 50%, rgba(185,28,28,0) 100%)",
@@ -64,6 +64,8 @@ export default function Header() {
   return (
     <header className={cn("flex fixed top-0 left-0 right-0 z-50 h-[120px] items-center justify-center animate-fade-in-down")}>
       {/* Desktop */}
+      <Image src="/favicon.ico" width={75} height={75} alt="logo" className="rounded-full absolute left-8 top-1/2 -translate-y-1/2" />
+
       <MenuBar
         items={menuItems}
         activeItem={activeItem}
