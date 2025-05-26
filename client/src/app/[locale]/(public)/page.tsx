@@ -9,9 +9,9 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <Cta />
       <Shelter />
       <Preview />
-      <Cta />
     </>
 
   )

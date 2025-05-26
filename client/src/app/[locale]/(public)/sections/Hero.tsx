@@ -8,7 +8,7 @@ import { Counter } from "@/_components/ui/animaton/animated-counter";
 export default function Hero() {
 
   return (
-    <div className="relative grid grid-cols-2 lg:px-12 h-[calc(100dvh-120px)]">
+    <section className="relative grid grid-cols-2 lg:px-12 h-[calc(100dvh-120px)]">
       <div className="absolute right-0 bottom-0 not-odd:h-[128px] w-[40%]  scale-[2] rounded-[50%] bg-custom-green blur-[100px] sm:h-[256px]"></div>
       <div
         className="absolute top-1/2 left-1/2 not-odd:h-[210px] w-[40%] rotate-[35deg]  scale-[2] rounded-[50%] bg-custom-orange blur-[35px] sm:h-[256px]"
@@ -37,6 +37,7 @@ export default function Hero() {
       {/* Left content*/}
       <div className="col-span-1">
         <div className="flex flex-col h-full gap-8 pt-24">
+          <h1 className="sr-only">Un refuge temporaire, un amour éternel.</h1>
           <SparklesText text={" Un refuge temporaire, un amour éternel."} className="font-inter animate-fade-in-down" />
           <p className="animate-fade-in-up text-muted-foreground text-xl">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia alias soluta id veritatis
@@ -71,7 +72,7 @@ export default function Hero() {
           {/* Image 2 */}
           <div className="bg-gray-700 h-[279px] w-[239px] absolute bottom-0 right-8 aspect-4/5 animate-fade-in-left">
             <Heart className="absolute -top-8 -left-2 rotate-25 text-indigo-500" />
-            <MessageCircleHeart className="absolute -top-8 -right-8 text-red-500" />
+            <MessageCircleHeart className="absolute -top-8 -right-8 text-red-500 animate-bounce" />
 
             <Image
               alt=""
@@ -95,7 +96,7 @@ export default function Hero() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 
