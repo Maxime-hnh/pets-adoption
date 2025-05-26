@@ -11,6 +11,7 @@ import {
 } from "@/_components/ui/tooltip"
 import { Facebook, Instagram, Linkedin, Send, Twitter, MapPin, Phone, Mail } from "lucide-react"
 import Link from "next/link"
+import IconTiktok from "../icons/IconTiktok"
 
 export default function Footer() {
 
@@ -87,12 +88,12 @@ export default function Footer() {
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <Button variant="outline" size="icon" className="rounded-full">
-                      <Twitter className="h-4 w-4" />
-                      <span className="sr-only">Twitter</span>
+                      <IconTiktok className="h-4 w-4" />
+                      <span className="sr-only">TikTok</span>
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>Suivez-nous sur Twitter</p>
+                    <p>Suivez-nous sur TikTok</p>
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
@@ -106,19 +107,6 @@ export default function Footer() {
                   </TooltipTrigger>
                   <TooltipContent>
                     <p>Suivez-nous sur Instagram</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button variant="outline" size="icon" className="rounded-full">
-                      <Linkedin className="h-4 w-4" />
-                      <span className="sr-only">LinkedIn</span>
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Suivez-nous sur LinkedIn</p>
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
