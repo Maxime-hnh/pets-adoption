@@ -2,7 +2,6 @@ import { Geist, Geist_Mono, Poppins, Sora, IBM_Plex_Sans, Inter } from "next/fon
 import { NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
-import { cookies } from "next/headers";
 import { hasLocale } from "next-intl";
 
 const geistSans = Geist({
@@ -50,12 +49,10 @@ export async function CommonLayoutWrapper({
     notFound();
   }
 
-  const theme = (await cookies()).get('theme')?.value || 'light';
-
   return (
     <html lang={locale} suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} ${sora.variable} ${ibmPlexSans.variable} ${inter.variable} ${theme}`}
+        className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} ${sora.variable} ${ibmPlexSans.variable} ${inter.variable} light`}
       >
        <NextIntlClientProvider>
           {children}

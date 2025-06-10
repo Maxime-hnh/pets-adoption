@@ -31,7 +31,7 @@ const content = [
 export default function Shelter() {
 
   return (
-    <section className="px-8 py-16 md:py-32">
+    <section className="px-8 pb-16 md:pb-32">
       <div className="container mx-auto">
         <div className="text-center">
           <h2 className="text-balance text-4xl font-[900] lg:text-5xl font-inter">Le refuge SPA de Verson</h2>
