@@ -11,7 +11,7 @@ import { DonationsModule } from './modules/donations/donations.module';
 import { EventsModule } from './modules/events/events.module';
 import { IncompatibilitiesModule } from './modules/incompatibilities/incompatibilities.module';
 import { AuditLogsModule } from './modules/audit-logs/audit-logs.module';
-import { UploadModule } from './upload/upload.module';
+import { UploadModule } from './modules/upload/upload.module';
 
 
 @Module({
