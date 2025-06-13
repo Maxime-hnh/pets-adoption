@@ -7,10 +7,6 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from "@/_stores/auth.store"
 import { Role } from "@/_types/role.interface";
-import { QueryClientProvider } from '@tanstack/react-query';
-import { queryClient } from '@/_core/query-client';
-import { useQueryClient } from '@tanstack/react-query';
-import { prefetchAnimalsQuery } from '@/_queries/animals/prefertchAnimalsQuery';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 export function AdminProviders(props: PropsWithChildren) {
@@ -18,7 +14,6 @@ export function AdminProviders(props: PropsWithChildren) {
   const router = useRouter();
   const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null);
   const setLoggedUser = useAuthStore((state) => state.setLoggedUser)
-  const qc = useQueryClient(queryClient);
 
 
   useEffect(() => {
@@ -36,7 +31,6 @@ export function AdminProviders(props: PropsWithChildren) {
           return;
         }
         setIsAuthorized(true);
-        prefetchAnimalsQuery(qc)
       } catch (error) {
         router.push('/signin');
       }
@@ -48,12 +42,10 @@ export function AdminProviders(props: PropsWithChildren) {
   }
   return (
     <>
-      <QueryClientProvider client={queryClient}>
-        <IsMobileObserver />
-        <Toaster richColors />
-        {props.children}
-        <ReactQueryDevtools />
-      </QueryClientProvider>
+      <IsMobileObserver />
+      <Toaster richColors />
+      {props.children}
+      <ReactQueryDevtools />
     </>
   );
 }

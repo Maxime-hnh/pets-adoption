@@ -4,31 +4,28 @@ import { usePathname } from 'next/navigation';
 import { Fragment } from 'react';
 
 interface PageBreadcrumbsProps {
-  excludedPath: string[];
   pathNameLabelMap: Record<string, string>;
 }
 
-export default function PageBreadcrumbs({ excludedPath, pathNameLabelMap }: PageBreadcrumbsProps) {
+export default function PageBreadcrumbs({ pathNameLabelMap }: PageBreadcrumbsProps) {
 
   const pathname = usePathname();
   const pathSegments = pathname.split('/')
-  const cleaned = pathSegments.filter(segment => !excludedPath.includes(segment));
-
 
   return (
     <Breadcrumb>
       <BreadcrumbList>
-        {cleaned.map((item, index) => (
+        {pathSegments.map((item, index) => (
           <Fragment key={index}>
             <BreadcrumbItem>
-              {index !== cleaned.length - 1
-                ? <BreadcrumbLink  href={`/fr/admin/${item}`}>{pathNameLabelMap[item]}</BreadcrumbLink>
+              {index !== pathSegments.length - 1
+                ? <BreadcrumbLink  href={`/admin/${item}`}>{pathNameLabelMap[item]}</BreadcrumbLink>
 
                 : <BreadcrumbPage>{pathNameLabelMap[item]}</BreadcrumbPage>
               }
             </BreadcrumbItem>
             {index
-              !== cleaned.length - 1
+              !== pathSegments.length - 1
               && <BreadcrumbSeparator />
             }
           </Fragment>

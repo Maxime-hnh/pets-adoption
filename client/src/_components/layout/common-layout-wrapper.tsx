@@ -32,21 +32,14 @@ const inter = Inter({
   subsets: ['latin']
 });
 
-export async function CommonLayoutWrapper({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-
-
-
+export function CommonLayoutWrapper({ children, }: { children: React.ReactNode }) {
 
   return (
     <html lang="fr" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} ${sora.variable} ${ibmPlexSans.variable} ${inter.variable} light`}
       >
-       {children}
+        {children}
       </body>
     </html>
   );
