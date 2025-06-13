@@ -1,7 +1,4 @@
 import type { Metadata } from "next";
-import { hasLocale } from "next-intl";
-import { notFound } from "next/navigation";
-import { routing } from "@/i18n/routing";
 import { CommonLayoutWrapper } from "@/_components/layout/common-layout-wrapper";
 import { PublicProviders } from "@/_core/public-providers";
 import '../globals.css';
@@ -16,19 +13,13 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
   children,
-  params
 }: Readonly<{
   children: React.ReactNode;
-  params: Promise<{ locale: string }>;
 }>) {
 
-  const { locale } = await params;
-  if (!hasLocale(routing.locales, locale)) {
-    notFound();
-  }
 
   return (
-    <CommonLayoutWrapper locale={locale}>
+    <CommonLayoutWrapper>
       <PublicProviders>
       {children}
       </PublicProviders>

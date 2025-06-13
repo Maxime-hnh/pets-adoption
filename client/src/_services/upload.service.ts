@@ -1,6 +1,5 @@
 import { authHeader } from "@/_helpers/auth-header"
 import { handleResponse } from "@/_helpers/handle-response"
-import { headers } from "next/headers"
 
 class UploadService {
 
@@ -19,17 +18,16 @@ class UploadService {
 
   }
 
-  uploadMany = async (files: File[]) => {
+  uploadMany = async (files: File[]): Promise<string[] | void> => {
     const formData = new FormData();
-    for (let i = 0; i < files.length; i++) {
-      formData.append('files', files[i]);
-    }
+    Array.from(files).forEach(file => formData.append('files', file));
     const requestOptions = {
       method: 'POST',
       headers: authHeader('form'),
       body: formData
     }
-    return await handleResponse(await fetch('/api/upload/images', requestOptions));
+    const urls = await handleResponse(await fetch('/api/upload/images', requestOptions));
+    return urls;
   }
 
   delete = async (fileName: string) => {
@@ -49,3 +47,5 @@ class UploadService {
     return await handleResponse(await fetch('/api/upload/images', requestOptions))
   }
 }
+
+export const uploadService = new UploadService();

@@ -1,8 +1,4 @@
 import { Geist, Geist_Mono, Poppins, Sora, IBM_Plex_Sans, Inter } from "next/font/google";
-import { NextIntlClientProvider } from "next-intl";
-import { notFound } from "next/navigation";
-import { routing } from "@/i18n/routing";
-import { hasLocale } from "next-intl";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,25 +34,19 @@ const inter = Inter({
 
 export async function CommonLayoutWrapper({
   children,
-  locale
 }: {
   children: React.ReactNode;
-  locale: string;
 }) {
 
 
-  if (!hasLocale(routing.locales, locale)) {
-    notFound();
-  }
+
 
   return (
-    <html lang={locale} suppressHydrationWarning>
+    <html lang="fr" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} ${sora.variable} ${ibmPlexSans.variable} ${inter.variable} light`}
       >
-       <NextIntlClientProvider>
-          {children}
-       </NextIntlClientProvider>
+       {children}
       </body>
     </html>
   );

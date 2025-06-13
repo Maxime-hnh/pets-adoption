@@ -61,6 +61,7 @@ import { ApiError } from "@/_helpers/handle-response";
 import { toast } from "sonner";
 import { useAnimalFormStore } from "@/_stores/animalForm.store";
 import { useUpdateAnimal } from "@/_mutations/animals/useUpdateAnimal";
+import { useUploadManyFiles } from "@/_mutations/upload/useUploadManyFiles";
 
 
 export default function AnimalsForm() {
@@ -70,14 +71,20 @@ export default function AnimalsForm() {
   const [activeTab, setActiveTab] = useState("general");
   const [photoPreview, setPhotoPreview] = useState<string[]>([]);
   const { data: incompatibilities } = useIncompatibilitiesQuery();
+  const uploadManyFiles = useUploadManyFiles();
   const createAnimal = useCreateAnimal();
   const updateAnimal = useUpdateAnimal();
+  const { isPending: isUploadPending } = uploadManyFiles;
   const { isPending: isCreatePending } = createAnimal;
   const { isPending: isUpdatePending } = updateAnimal;
   const form = useForm<Animal>({
     resolver: zodResolver(AnimalSchema),
     defaultValues
   });
+
+  const handleUpload = async (files: any[]) => {
+    uploadManyFiles.mutate(files)
+  }
 
   function onSubmit(values: Animal): void {
     if (mode === "create") {
@@ -465,8 +472,9 @@ export default function AnimalsForm() {
                   className="hidden"
                   multiple
                   accept="image/*"
-                  onChange={handlePhotoUpload}
+                  onChange={e => handleUpload(e.target.files as any)}
                 />
+
                 <Label htmlFor="photo-upload" className="cursor-pointer">
                   <div className="flex flex-col items-center gap-2 w-full">
                     <Upload className="h-10 w-10 text-muted-foreground" />

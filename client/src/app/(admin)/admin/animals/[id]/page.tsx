@@ -1,4 +1,4 @@
-import AnimalProfile from "../../../../../../_components/AnimalProfile";
+import AnimalProfile from "@/_components/AnimalProfile";
 
 interface AnimalIdPageProps {
   params: Promise<{ id: string }>

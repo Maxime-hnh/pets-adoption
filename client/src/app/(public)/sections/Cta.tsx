@@ -1,5 +1,5 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
-import { ArrowRight, BadgeEuro, Ham, HandHelping, HeartHandshake, House, Layout, PiggyBank, Pointer, Zap } from "lucide-react";
+import { ArrowRight, BadgeEuro, Ham, HandHelping, HeartHandshake, House, PiggyBank } from "lucide-react";
 
 import { Badge } from "@/_components/ui/badge";
 import { Button } from "@/_components/ui/button";
