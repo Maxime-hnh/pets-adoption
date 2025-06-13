@@ -1,7 +1,6 @@
 "use client"
 
 import { PropsWithChildren } from "react";
-import Footer from "@/_components/layout/footer";
 import { Toaster } from "@/_components/ui/sonner";
 import IsMobileObserver from "@/_core/is-mobile-observer";
 import { useEffect, useState } from 'react';
@@ -53,7 +52,6 @@ export function AdminProviders(props: PropsWithChildren) {
         <IsMobileObserver />
         <Toaster richColors />
         {props.children}
-        <Footer />
         <ReactQueryDevtools />
       </QueryClientProvider>
     </>

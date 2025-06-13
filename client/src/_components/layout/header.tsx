@@ -46,7 +46,7 @@ const menuItems = [
   {
     icon: User,
     label: "Profil",
-    href: "/profile",
+    href: "/signin",
     gradient:
       "radial-gradient(circle, rgba(239,68,68,0.15) 0%, rgba(220,38,38,0.06) 50%, rgba(185,28,28,0) 100%)",
     iconColor: "text-red-500",

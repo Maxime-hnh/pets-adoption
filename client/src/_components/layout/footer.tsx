@@ -9,7 +9,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/_components/ui/tooltip"
-import { Facebook, Instagram, Linkedin, Send, Twitter, MapPin, Phone, Mail } from "lucide-react"
+import { Facebook, Instagram, MapPin, Phone, Mail } from "lucide-react"
 import Link from "next/link"
 import IconTiktok from "../icons/IconTiktok"
 

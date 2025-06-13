@@ -63,17 +63,6 @@ const sharedTransition = {
 export const MenuBar = forwardRef<HTMLDivElement, MenuBarProps>(
   ({ className, items, activeItem, onItemClick, ...props }, ref) => {
 
-    const [theme, setTheme] = useState<'light' | 'dark'>('light');
-    const isDarkTheme = theme === "dark"
-
-
-    useEffect(() => {
-      const html = document.documentElement;
-      const current = html.classList.contains('dark') ? 'dark' : 'light';
-      setTheme(current);
-    }, []);
-
-
     return (
       <motion.nav
         ref={ref}
@@ -86,10 +75,7 @@ export const MenuBar = forwardRef<HTMLDivElement, MenuBarProps>(
       // {...props}
       >
         <motion.div
-          className={`absolute -inset-2 bg-gradient-radial from-transparent ${isDarkTheme
-            ? "via-blue-400/30 via-30%"
-            : "via-blue-400/20 via-30%"
-            } to-transparent rounded-3xl z-0 pointer-events-none`}
+          className={`absolute -inset-2 bg-gradient-radial from-transparent via-blue-400/20 via-30% to-transparent rounded-3xl z-0 pointer-events-none`}
           variants={navGlowVariants}
         />
         <ul className="flex items-center gap-2 relative z-10">

@@ -8,9 +8,9 @@ export default function SignIn() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* <div className="h-[calc(100dvh-60px-1rem)]"> */}
-      <SignInForm />
-      {/* </div> */}
+      <div className="h-[calc(100dvh-120px)] pt-20 flex items-start justify-center">
+        <SignInForm />
+      </div>
     </QueryClientProvider>
   )
 }

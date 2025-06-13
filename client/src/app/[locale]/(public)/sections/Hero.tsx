@@ -18,7 +18,7 @@ export default function Hero() {
       {/* Text */}
       <div className="flex items-end absolute bottom-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
         <Counter
-          className="text-7xl font-inter font-[900] animate-fade-in-up pb-8"
+          className="text-7xl font-inter font-[900] animate-fade-in-up pb-8 text-amber-500"
           start={0}
           end={42}
           duration={2}
@@ -46,7 +46,7 @@ export default function Hero() {
           </p>
           <div className="flex gap-4">
             <Button className="bg-indigo-500 animate-fade-in-left hover:bg-indigo-600" size={"3xl"}><PawPrint className="mr-2" /> J'adopte</Button>
-            <Button className="animate-fade-in-right" size={"3xl"}>Nous Contacter <ArrowRight className="ml-2" /></Button>
+            <Button className="bg-amber-500 animate-fade-in-right" size={"3xl"}>Nous Contacter <ArrowRight className="ml-2" /></Button>
           </div>
         </div>
 

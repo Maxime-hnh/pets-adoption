@@ -150,7 +150,7 @@ export default function Cta() {
                           {tab.content.buttonText}
                         </Link>
                       </Button>
-                      <Button asChild className="mt-2.5 w-fit gap-2" size="lg">
+                      <Button asChild className="mt-2.5 w-fit gap-2 bg-amber-500" size="lg">
                         <Link href={tab.content.link} className="!text-white">
                           Dons matériels
                           <Ham />
@@ -158,7 +158,7 @@ export default function Cta() {
                       </Button>
                     </div>
                   ) : (
-                    <Button asChild className="mt-2.5 w-fit gap-2" size="lg">
+                    <Button asChild className="mt-2.5 w-fit gap-2 bg-amber-500" size="lg">
                       <Link href={tab.content.link} className="!text-white">
                         {tab.content.buttonText}
                         <ArrowRight />
