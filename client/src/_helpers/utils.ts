@@ -21,3 +21,10 @@ export const calculateAge = (birthDate: Date) => {
 export function sleep(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms))
 }
+
+export function scrollToId(id: string): void {
+  const el = document.getElementById(id);
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth' })
+  }
+}

@@ -9,6 +9,9 @@ const nextConfig: NextConfig = {
         pathname: '/breeds/**',
       },
     ],
+    domains: [
+      "pets-adoption.s3.eu-north-1.amazonaws.com"
+    ],
   },
   async rewrites() {
     return [

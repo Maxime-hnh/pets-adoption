@@ -18,7 +18,7 @@ class UploadService {
 
   }
 
-  uploadMany = async (files: File[]): Promise<string[] | void> => {
+  uploadMany = async (files: File[]): Promise<string[]> => {
     const formData = new FormData();
     Array.from(files).forEach(file => formData.append('files', file));
     const requestOptions = {
@@ -30,12 +30,12 @@ class UploadService {
     return urls;
   }
 
-  delete = async (fileName: string) => {
+  deleteFile = async (fileName: string) => {
     const requestOptions = {
       method: 'DELETE',
       headers: authHeader()
     }
-    return await handleResponse(await fetch(`/api/upload/image/${fileName}`, requestOptions))
+    return await handleResponse(await fetch(`/api/upload/image/${encodeURIComponent(fileName)}`, requestOptions))
   }
 
   deleteMany = async (values: { fileNames: string[] }) => {

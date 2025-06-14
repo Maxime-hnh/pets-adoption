@@ -269,7 +269,7 @@ export default async function AnimalProfile({ params }: AnimalProfileProps) {
             </div>
           </CardContent>
         </Card>
-        <SuggestCardSkeleton title="Vous pourriez aussi aimé" />
+        <SuggestCardSkeleton />
       </div>
     </div >
   )

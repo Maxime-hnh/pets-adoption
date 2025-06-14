@@ -28,7 +28,7 @@
   --chart-3: hsl(221.4336 86.3731% 54.0624%);
   --chart-4: hsl(223.6587 78.7180% 47.8635%);
   --chart-5: hsl(226.5426 70.0108% 39.9224%);
-  --sidebar: hsl(223.8136 0.0004% 98.0256%);
+  --sidebar: white;
   --sidebar-foreground: hsl(223.8136 0.0000% 3.9388%);
   --sidebar-primary: hsl(223.8136 0.0000% 9.0527%);
   --sidebar-primary-foreground: hsl(223.8136 0.0004% 98.0256%);
@@ -262,4 +262,9 @@ body:not(.theme-loaded) {
   width: 1px;
   height: 100%;
   background-color: #e5e7eb;
+}
+
+.writing-vertical {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
 }

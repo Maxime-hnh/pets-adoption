@@ -107,8 +107,14 @@ export class AnimalDto {
   @Expose()
   @IsArray()
   @IsString({ each: true })
-  @Transform(({ obj }) => obj.animalIncompatibilities?.map((ai) => ai.incompatibility.label))
+  @Transform(({ obj }) => obj.animalIncompatibilities?.map((ai: any) => ai.incompatibility.label))
   incompatibilityLabels: string[];
+
+  @Expose()
+  @IsArray()
+  @IsString({ each: true })
+  @Transform(({ obj }) => obj.animalIncompatibilities?.map((ai: any) => ai.incompatibilityId))
+  incompatibilityIds: number[];
 
   @Exclude()
   deletedAt?: Date;

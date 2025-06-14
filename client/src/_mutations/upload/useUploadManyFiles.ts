@@ -7,8 +7,9 @@ export const useUploadManyFiles = () => {
 
   return useMutation({
     mutationFn: (files: File[]) => uploadMany(files),
-    onSuccess: () => {
-      toast.success("Les images ont bien été téléchargées")
+    onSuccess: (files: string[]) => {
+      toast.success("Les fichiers ont bien été téléchargées")
+      return files
     }
   })
 }

@@ -8,9 +8,9 @@ export const useIncompatibilitiesQuery = (): UseQueryResult<ShortIncompatibility
   return useQuery({
     queryKey: ['incompatibilities', 'all'],
     queryFn: getAll,
-    staleTime: Infinity, // les données ne deviennent jamais obsolètes
-    gcTime: Infinity,    // ne jamais supprimer les données du cache (tant que l'app tourne)
-    refetchOnWindowFocus: false, // pas de refetch en revenant sur l'onglet
-    refetchOnMount: false        // pas de refetch au remontage du composant    
+    staleTime: Infinity,
+    gcTime: Infinity,   
+    refetchOnWindowFocus: false, 
+    refetchOnMount: false       
   })
 }

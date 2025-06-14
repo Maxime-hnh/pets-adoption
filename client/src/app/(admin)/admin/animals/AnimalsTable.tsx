@@ -21,9 +21,6 @@ import { cn } from "@/_helpers/cn";
 import { useAllAnimalsQuery } from "@/_queries/animals/useAnimalsQuery";
 import { Skeleton } from "@/_components/ui/skeleton";
 import { Group } from "@/_components/ui/group";
-import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/_components/ui/dialog";
-import AnimalForm from "./AnimalsForm";
-import { useAnimalFormStore } from "@/_stores/animalForm.store";
 import { useUpdateAnimal } from "@/_mutations/animals/useUpdateAnimal";
 import { useDeleteAnimal } from "@/_mutations/animals/useDeleteAnimal";
 import { ColumnFiltersState, ColumnPinningState, SortingState, VisibilityState } from "@tanstack/react-table";
@@ -35,6 +32,7 @@ import SelectCell from "./SelectCell";
 import Image from "next/image";
 import Link from "next/link";
 import { DatePicker } from "@/_components/DatePicker";
+import { usePathname } from "next/navigation";
 
 export default function AnimalsTable() {
 
@@ -44,12 +42,11 @@ export default function AnimalsTable() {
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
   const { data, isLoading } = useAllAnimalsQuery();
-  const { open, setOpen, mode, defaultValues, openCreate } = useAnimalFormStore();
+  const pathName = usePathname();
 
   //hooks
   const updateAnimal = useUpdateAnimal();
   const deleteAnimal = useDeleteAnimal();
-  const { openEdit } = useAnimalFormStore();
 
   //columns
   const columns = useMemo(() => [
@@ -230,12 +227,11 @@ export default function AnimalsTable() {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuItem
-                  onClick={() => openEdit(animal)}
-                  className="text-orange-500 cursor-pointer"
-                >
-                  <PenLine className="text-orange-500" />
-                  Modifier
+                <DropdownMenuItem asChild className="text-orange-500 cursor-pointer">
+                  <Link href={`${pathName}/form/${animal.id}`}>
+                    <PenLine className="text-orange-500" />
+                    Modifier
+                  </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem className="text-red-500 cursor-pointer" onClick={() => setOpen(!open)}>
                   <Trash2 className="text-red-500" />
@@ -283,27 +279,12 @@ export default function AnimalsTable() {
     <div className="w-full">
       <div className="flex items-center justify-between py-4">
         <Group>
-          <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger asChild>
-              <Button className="mr-4" onClick={openCreate}>
-                <PawPrint />
-                Nouveau
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="min-w-full sm:min-w-[650px]">
-              <DialogHeader>
-                <DialogTitle>
-                  {mode === "create" ? "Nouvel animal" : "Modifier l’animal"}
-                </DialogTitle>
-                <DialogDescription>
-                  {mode === "create"
-                    ? "L'identification en 3 étapes."
-                    : `Modification de ${defaultValues?.name}`}
-                </DialogDescription>
-              </DialogHeader>
-              <AnimalForm />
-            </DialogContent>
-          </Dialog>
+          <Button asChild className="mr-4">
+            <Link href={`${pathName}/form`} className="!text-white">
+              <PawPrint />
+              Nouveau
+            </Link>
+          </Button>
           {isLoading ? (
             <Skeleton className="rounded-xl w-[300px] h-[36px]" />
           ) : (
@@ -352,7 +333,7 @@ export default function AnimalsTable() {
         </div>
       ) : (
         <div className="rounded-md border">
-          
+
           <Table>
             <TableHeader>
               {table.getHeaderGroups().map((headerGroup) => (
@@ -421,25 +402,25 @@ export default function AnimalsTable() {
             {table.getFilteredSelectedRowModel().rows.length} /{" "}
             {table.getFilteredRowModel().rows.length} lignes sélectionnées
           </div>
-            <div className="space-x-2">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => table.previousPage()}
-                disabled={!table.getCanPreviousPage()}
-              >
-                Précédent
-              </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => table.nextPage()}
-                disabled={!table.getCanNextPage()}
-              >
-                Suivant
-              </Button>
-            </div>
+          <div className="space-x-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => table.previousPage()}
+              disabled={!table.getCanPreviousPage()}
+            >
+              Précédent
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => table.nextPage()}
+              disabled={!table.getCanNextPage()}
+            >
+              Suivant
+            </Button>
           </div>
+        </div>
       )}
     </div>
   );

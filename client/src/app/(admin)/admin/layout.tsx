@@ -17,7 +17,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     'animals': 'Animaux',
     'create': 'Création'
   }
-
+//h-[calc(100dvh-60px)]
 
   return (
     <CommonLayoutWrapper>
@@ -27,7 +27,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <Button>Déconnexion</Button>
 
       </header>
-      <main className="admin-layout overflow-y-auto h-[calc(100dvh-60px)]">
+      <main className="admin-layout overflow-y-auto ">
         <QueryClientProvider client={queryClient}>
           <SidebarProvider>
             <AppSidebar />
