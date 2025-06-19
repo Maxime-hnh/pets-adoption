@@ -46,7 +46,7 @@ export class AnimalsService {
 
   async updateById(id: number, data: UpdateAnimalDto, userId: number): Promise<AnimalDto> {
 
-    const { incompatibilityIds, ...animalData } = data;
+    const { incompatibilityIds,incompatibilityLabels, ...animalData } = data as any;
 
     await this.prisma.animal.update({
       where: { id },

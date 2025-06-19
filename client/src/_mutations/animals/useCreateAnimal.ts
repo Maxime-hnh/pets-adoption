@@ -11,6 +11,7 @@ export const useCreateAnimal = () => {
     mutationFn: (values: Animal) => create(values),
     onSuccess: (data, id) => {
       queryClient.invalidateQueries({ queryKey: ['animals', 'all'] })
+      queryClient.refetchQueries({ queryKey: ['animals', 'all'] });
       toast.success(`Création réussie de l'animal nommé ${data.name}`)
     },
   })

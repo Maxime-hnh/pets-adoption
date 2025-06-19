@@ -15,9 +15,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const pathNameLabelMap: Record<string, string> = {
     'admin': 'Dashboard',
     'animals': 'Animaux',
-    'create': 'Création'
+    'create': 'Création',
+    'form': 'Formulaire'
   }
-//h-[calc(100dvh-60px)]
 
   return (
     <CommonLayoutWrapper>

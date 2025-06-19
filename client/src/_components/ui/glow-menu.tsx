@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, forwardRef } from "react"
+import { forwardRef } from "react"
 import { motion } from "framer-motion"
 import { cn } from "@/_helpers/cn"
 import { LucideIcon } from "lucide-react"
@@ -81,14 +81,15 @@ export const MenuBar = forwardRef<HTMLDivElement, MenuBarProps>(
         <ul className="flex items-center gap-2 relative z-10">
           {items.map((item) => {
             const Icon = item.icon
-            const isActive = item.label === activeItem
+            const isActive = item.href === activeItem
 
             return (
               <motion.li key={item.label} className="relative">
                 <Link
                   href={item.href}
-                  onClick={() => onItemClick?.(item.label)}
+                  onClick={() => onItemClick?.(item.href)}
                   className="block w-full cursor-pointer"
+                  prefetch
                 >
 
                   <motion.div

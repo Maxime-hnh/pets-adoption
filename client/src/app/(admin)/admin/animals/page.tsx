@@ -1,7 +1,9 @@
-import AnimalsTable from "./AnimalsTable";
+import dynamic from "next/dynamic";
+// import AnimalsTable from "./AnimalsTable";
 
 export default function AnimalsPage() {
 
+  const AnimalsTable = dynamic(() => import("./AnimalsTable"))
 
   return (
     <div className=" w-full p-4 overflow-x-hidden">

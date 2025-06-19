@@ -14,16 +14,14 @@ import {
 } from "@/_components/ui/sidebar"
 import { LayoutDashboard, Calendar, User, Settings, PawPrint } from "lucide-react"
 import { usePathname, useRouter } from 'next/navigation'
-import Link from "next/link"
-import { useEffect, useState, useTransition } from "react"
+import { useState, useTransition } from "react"
 import { cn } from "@/_helpers/cn"
 
 export function AppSidebar() {
 
   const pathname = usePathname()
-  const cleanedPathname = pathname.replace(/^\/(fr|en)/, '');
   const router = useRouter();
-  const [activeItem, setActiveItem] = useState<string | null>(null);
+  const [activeItem, setActiveItem] = useState<string>(pathname);
   const [isPending, startTransition] = useTransition();
 
   const handleClick = (url: string) => {
@@ -32,10 +30,6 @@ export function AppSidebar() {
       router.push(url);
     });
   };
-
-  useEffect(() => {
-    setActiveItem(cleanedPathname);
-  }, [cleanedPathname]);
 
 
   const items = [

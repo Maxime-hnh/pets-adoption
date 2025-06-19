@@ -10,7 +10,7 @@ interface PageBreadcrumbsProps {
 export default function PageBreadcrumbs({ pathNameLabelMap }: PageBreadcrumbsProps) {
 
   const pathname = usePathname();
-  const pathSegments = pathname.split('/')
+  const pathSegments = pathname.split('/').slice(1); // slice cos removing first empty path
 
   return (
     <Breadcrumb>
@@ -19,7 +19,7 @@ export default function PageBreadcrumbs({ pathNameLabelMap }: PageBreadcrumbsPro
           <Fragment key={index}>
             <BreadcrumbItem>
               {index !== pathSegments.length - 1
-                ? <BreadcrumbLink  href={`/admin/${item}`}>{pathNameLabelMap[item]}</BreadcrumbLink>
+                ? <BreadcrumbLink href={`${item === "admin" ? "/admin" : `/admin/${item}`}`}>{pathNameLabelMap[item]}</BreadcrumbLink>
 
                 : <BreadcrumbPage>{pathNameLabelMap[item]}</BreadcrumbPage>
               }

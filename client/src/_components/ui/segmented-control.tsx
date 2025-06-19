@@ -2,7 +2,7 @@
 
 import { cn } from '@/_helpers/cn';
 import * as ToggleGroup from '@radix-ui/react-toggle-group';
-import { useRef, useState, useEffect, useLayoutEffect } from 'react';
+import { useRef, useState, useLayoutEffect } from 'react';
 
 type Option = {
   label: string;

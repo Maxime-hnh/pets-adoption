@@ -24,12 +24,13 @@ import {
 } from "@/_components/ui/form";
 import { Button } from "@/_components/ui/button";
 import {
+  ArrowRight,
   Check,
   ChevronDown,
   ChevronUp,
-  Clipboard,
+  Eye,
   Loader2,
-  PawPrint,
+  PlusCircle,
   Upload,
   X
 } from "lucide-react";
@@ -59,6 +60,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/_components/ui/card"
 import { Separator } from "@/_components/ui/separator";
 import { SegmentedControl } from "@/_components/ui/segmented-control";
 import { scrollToId } from "@/_helpers/utils";
+import { useRouter } from "next/navigation";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/_components/ui/dialog";
+import Link from "next/link";
 
 interface AnimalsFomProps {
   mode: string;
@@ -68,6 +72,8 @@ interface AnimalsFomProps {
 export default function AnimalsForm({ mode = "create", values }: AnimalsFomProps) {
 
   const [photos, setPhotos] = useState<string[]>(values.photos ?? []);
+  const [openSuccessModal, setOpenSuccessModal] = useState<boolean>(false);
+  const router = useRouter();
   const { data: incompatibilities } = useIncompatibilitiesQuery();
   const uploadManyFiles = useUploadManyFiles();
   const createAnimal = useCreateAnimal();
@@ -76,7 +82,6 @@ export default function AnimalsForm({ mode = "create", values }: AnimalsFomProps
   const { isPending: isUploadPending } = uploadManyFiles;
   const { isPending: isCreatePending } = createAnimal;
   const { isPending: isUpdatePending } = updateAnimal;
-
 
   const form = useForm<Animal>({
     resolver: zodResolver(AnimalSchema),
@@ -102,6 +107,9 @@ export default function AnimalsForm({ mode = "create", values }: AnimalsFomProps
     if (mode === "create") {
 
       createAnimal.mutate(values, {
+        onSuccess: () => {
+          setOpenSuccessModal(true);
+        },
         onError: (error) => {
           if (error instanceof ApiError) {
             if (error.message.includes("icadNumber")) {
@@ -118,6 +126,9 @@ export default function AnimalsForm({ mode = "create", values }: AnimalsFomProps
       updateAnimal.mutate({
         id, values
       }, {
+        onSuccess: () => {
+          router.push('admin/animals')
+        },
         onError: (error) => {
           if (error instanceof ApiError) {
             if (error.message.includes("icadNumber")) {
@@ -129,6 +140,12 @@ export default function AnimalsForm({ mode = "create", values }: AnimalsFomProps
         },
       })
     }
+  }
+
+  function resetForm() {
+    form.reset();
+    setPhotos([]);
+    setOpenSuccessModal(false);
   }
 
   // Fonction pour le champ date
@@ -599,6 +616,35 @@ export default function AnimalsForm({ mode = "create", values }: AnimalsFomProps
           </div>
         </div>
       </form >
+      <Dialog open={openSuccessModal} onOpenChange={setOpenSuccessModal}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Création réussie ! ✅ </DialogTitle>
+            <DialogDescription>
+              La fiche de l&apos;animal a bien été créé
+            </DialogDescription>
+          </DialogHeader>
+
+          <DialogFooter>
+            <Button asChild variant="outline">
+              <Link href={"/admin/..."}> {/* TODO */}
+                <Eye /> Voir
+              </Link>
+            </Button>
+            <Button
+              className="bg-indigo-500 hover:bg-indigo-500"
+              onClick={resetForm}
+            >
+              <PlusCircle />Nouveau
+            </Button>
+            <Button asChild type="button" className="bg-emerald-500 hover:bg-emerald-500 !text-white">
+              <Link href={"/admin/animals"}>
+                Continuer <ArrowRight />
+              </Link>
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </Form >
   );
 }

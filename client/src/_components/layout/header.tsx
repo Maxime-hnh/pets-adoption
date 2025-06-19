@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { Button } from '../ui/button';
 import { cn } from "@/_helpers/cn"
 import { MenuBar } from '../ui/glow-menu'
+import { usePathname } from 'next/navigation';
 
 
 const menuItems = [
@@ -58,7 +59,8 @@ export default function Header() {
 
   const [opened, setOpened] = useState(false);
   const toggle = () => setOpened((o) => !o);
-  const [activeItem, setActiveItem] = useState<string>("Home")
+  const pathname = usePathname();
+  const [activeItem, setActiveItem] = useState<string>(pathname)
 
 
   return (
