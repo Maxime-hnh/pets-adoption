@@ -1,5 +1,4 @@
 import dynamic from "next/dynamic";
-// import AnimalsTable from "./AnimalsTable";
 
 export default function AnimalsPage() {
 

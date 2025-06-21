@@ -44,7 +44,6 @@ export default function SignInForm() {
       } else {
         router.push('/')
       }
-
     },
     onError: (error: any) => {
       toast.error("Échec de la connexion", {
