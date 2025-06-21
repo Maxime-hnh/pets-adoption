@@ -1,7 +1,7 @@
 import { AnimalStatus, Gender, PlacementType, Species } from "@/_schemas/animal.schema";
 import AnimalsForm from "../AnimalsForm";
 
-export default function NewAnimalPage() {
+export default async function NewAnimalPage() {
 
   const defaultValues = {
     icadNumber: "",
@@ -20,9 +20,10 @@ export default function NewAnimalPage() {
     isSterilized: false,
     incompatibilityIds: [],
   }
-
+  
   return (
     <div className=" w-full py-8 pr-4 pl-8 overflow-x-hidden bg-[#f1f3f4]">
+
       <AnimalsForm
         mode="create"
         values={defaultValues}

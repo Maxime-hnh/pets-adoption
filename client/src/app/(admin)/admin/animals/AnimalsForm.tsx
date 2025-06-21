@@ -123,11 +123,10 @@ export default function AnimalsForm({ mode = "create", values }: AnimalsFomProps
     }
     else {
       const id = values.id!
-      updateAnimal.mutate({
-        id, values
-      }, {
+      const { incompatibilityLabels, ...filteredValues } = values
+      updateAnimal.mutate({ id, values: filteredValues }, {
         onSuccess: () => {
-          router.push('admin/animals')
+          router.back();
         },
         onError: (error) => {
           if (error instanceof ApiError) {
