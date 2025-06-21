@@ -14,9 +14,9 @@ import {
 } from "@/_components/ui/table";
 import { Input } from "@/_components/ui/input";
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/_components/ui/dropdown-menu";
-import { ChevronDown, PawPrint } from "lucide-react";
+import { Calendar, ChevronDown, PawPrint } from "lucide-react";
 import { Button } from "@/_components/ui/button";
-import { useState, useMemo, useRef } from "react";
+import { useState, useMemo } from "react";
 import { cn } from "@/_helpers/cn";
 import { useAllAnimalsQuery } from "@/_queries/animals/useAnimalsQuery";
 import { Skeleton } from "@/_components/ui/skeleton";
@@ -24,15 +24,15 @@ import { Group } from "@/_components/ui/group";
 import { useUpdateAnimal } from "@/_mutations/animals/useUpdateAnimal";
 import { useDeleteAnimal } from "@/_mutations/animals/useDeleteAnimal";
 import { ColumnFiltersState, ColumnPinningState, SortingState, VisibilityState } from "@tanstack/react-table";
-import { Animal, AnimalStatusConfiglMap, AnimalStatusLabelMap, GenderConfigMap, GenderLabelMap, PlacementTypeConfiglMap, PlacementTypeLabelMap, SpeciesConfigMap, SpeciesLabelMap } from "@/_schemas/animal.schema";
+import { Animal, AnimalStatusConfiglMap, AnimalStatusLabelMap, Gender, GenderConfigMap, PlacementTypeConfiglMap, PlacementTypeLabelMap, Species, SpeciesConfigMap, SpeciesLabelMap } from "@/_schemas/animal.schema";
 import { Checkbox } from "@/_components/ui/checkbox";
 import { ArrowUpDown, Eye, MoreHorizontal, PenLine, Trash2 } from "lucide-react";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/_components/ui/alert-dialog";
 import SelectCell from "./SelectCell";
 import Image from "next/image";
 import Link from "next/link";
-import { DatePicker } from "@/_components/DatePicker";
 import { usePathname } from "next/navigation";
+import { formatDate } from "@/_helpers/utils";
 
 export default function AnimalsTable() {
 
@@ -113,16 +113,14 @@ export default function AnimalsTable() {
           <ArrowUpDown />
         </Button>
       ),
-      cell: ({ row }) => (
-        <SelectCell
-          animal={row.original}
-          initialValue={row.original.species}
-          keyName="species"
-          labelMap={SpeciesLabelMap}
-          configMap={SpeciesConfigMap}
-          updateAnimal={updateAnimal}
-        />
-      ),
+      cell: ({ row }) => {
+        const { icon: Icon, color } = SpeciesConfigMap[row.original.species as Species]
+
+        return <div className="flex gap-2 items-center">
+          <Icon className={`${color} h-5 w-5`} />
+          {SpeciesLabelMap[row.original.species as Species]}
+        </div>
+      }
     },
     {
       accessorKey: "breed",
@@ -131,36 +129,20 @@ export default function AnimalsTable() {
     {
       accessorKey: "gender",
       header: "Sexe",
-      cell: ({ row }) => (
-        <SelectCell
-          animal={row.original}
-          initialValue={row.original.gender}
-          keyName="gender"
-          labelMap={GenderLabelMap}
-          configMap={GenderConfigMap}
-          updateAnimal={updateAnimal}
-        />
-      ),
+      cell: ({ row }) => {
+        const { icon: Icon, color } = GenderConfigMap[row.original.gender as Gender];
+        return <Icon className={`${color}`} />;
+      }
     },
     {
       accessorKey: "birthDate",
       header: "Date de naissance",
-      cell: ({ row }) => {
-        const animal = row.original;
-        const [date, setDate] = useState<Date | undefined>(animal.birthDate);
-
-        const handleBirthDate = (birthDate: Date | undefined) => {
-          setDate(birthDate);
-          updateAnimal.mutate({
-            id: animal.id!,
-            values: { birthDate },
-          });
-        };
-
-        return (
-          <DatePicker date={date} handleBirthDate={handleBirthDate} />
-        );
-      },
+      cell: ({ row }) => (
+        <div className="flex items-center gap-2">
+          <Calendar className="h-4 w-4" />
+          {formatDate(row.original.birthDate!)}
+        </div>
+      )
     },
     {
       accessorKey: "status",

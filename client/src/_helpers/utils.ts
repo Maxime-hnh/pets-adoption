@@ -28,3 +28,15 @@ export function scrollToId(id: string): void {
     el.scrollIntoView({ behavior: 'smooth' })
   }
 }
+
+export function formatDate(value: Date | string): string {
+  const date = new Date(value)
+  return new Intl.DateTimeFormat(
+    'fr-FR',
+    {
+      year: "numeric",
+      month: "numeric",
+      day: "numeric"
+    }).format(date)
+
+}
