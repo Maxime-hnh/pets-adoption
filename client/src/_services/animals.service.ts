@@ -52,11 +52,11 @@ class AnimalsService {
     return await handleResponse(await fetch(`/api/animals/${id}`, requestOptions));
   };
 
-  serverGetById = async (id: number): Promise<Animal> => {
+  serverGetById = async (id: number, revalidateCacheTime:number): Promise<Animal> => {
     const requestOptions = {
       method: 'GET',
       headers: authHeader(),
-      next: { revalidate: 300 }
+      next: { revalidate: revalidateCacheTime }
     }
     return await handleResponse(await fetch(`${baseUrl}/api/animals/${id}`, requestOptions));
   }

@@ -18,7 +18,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { useEffect, useState } from "react";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
-//TODO use cookie in order to handle redirect from server side ?
+  //TODO use cookie in order to handle redirect from server side ?
   const logout = useAuthStore((state) => state.logout);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const router = useRouter();
@@ -36,12 +36,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   }
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("loggedUser");
+    const storedUser = useAuthStore.getState().loggedUser;
     if (!storedUser) {
       router.replace('/')
     } else {
-      const user = JSON.parse(storedUser)
-      if (![Role.ADMIN, Role.SUPERADMIN].includes(user.role)) {
+      if (![Role.ADMIN, Role.SUPERADMIN].includes(storedUser.role)) {
         router.replace('/')
       }
       setIsLoading(false);

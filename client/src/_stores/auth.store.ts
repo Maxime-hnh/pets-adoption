@@ -1,5 +1,6 @@
 import { AuthenticatedUser } from '@/_types/authenticated-user.interface.ts'
 import { create } from 'zustand'
+import { persist } from 'zustand/middleware';
 
 interface AuthState {
     loggedUser: AuthenticatedUser | null;
@@ -12,21 +13,28 @@ interface AuthState {
     addRefreshSubscriber: (cb: (token: string) => void) => void;
 }
 
-export const useAuthStore = create<AuthState>((set) => ({
-    loggedUser: null,
-    setLoggedUser: (user) => {
-        localStorage.setItem('loggedUser', JSON.stringify(user));
-        set({ loggedUser: user });
-    },
-    logout: () => {
-        localStorage.removeItem('loggedUser');
-        set({ loggedUser: null });
-    },
-    isRefreshing: false,
-    refreshSubscribers: [],
-    setIsRefreshing: (value) => set({ isRefreshing: value }),
-    setRefreshSubscribers: (subs) => set({ refreshSubscribers: subs }),
-    addRefreshSubscriber: (cb) => set((state) => ({
-        refreshSubscribers: [...state.refreshSubscribers, cb],
-    })),
-}));
+
+export const useAuthStore = create<AuthState>()(
+  persist(
+    (set, get) => ({
+      loggedUser: null,
+      setLoggedUser: (user) => set({ loggedUser: user }),
+      logout: () => set({ loggedUser: null }),
+
+      isRefreshing: false,
+      refreshSubscribers: [],
+      setIsRefreshing: (value) => set({ isRefreshing: value }),
+      setRefreshSubscribers: (subs) => set({ refreshSubscribers: subs }),
+      addRefreshSubscriber: (cb) =>
+        set((state) => ({
+          refreshSubscribers: [...state.refreshSubscribers, cb],
+        })),
+    }),
+    {
+      name: 'loggedUser',
+      partialize: (state) => ({
+        loggedUser: state.loggedUser,
+      }),
+    }
+  )
+);

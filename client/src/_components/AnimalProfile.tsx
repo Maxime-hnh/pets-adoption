@@ -23,7 +23,7 @@ interface AnimalProfileProps {
 export async function generateMetadata({ params }: AnimalProfileProps) {
   const { serverGetById } = animalsService;
   const { id } = await params;
-  const animal = await serverGetById(Number(id));
+  const animal = await serverGetById(Number(id), 300);
   return {
     title: `${animal.name} – À adopter | NomDuSite`,
     description: `Découvrez ${animal.name}, un ${animal.species} de ${animal.breed} à adopter.`,
@@ -34,7 +34,7 @@ export default async function AnimalProfile({ params }: AnimalProfileProps) {
 
   const { serverGetById } = animalsService;
   const { id } = await params;
-  const animal = await serverGetById(Number(id));
+  const animal = await serverGetById(Number(id), 300);
   if (!animal) return notFound()
 
   // Obtenir l'icône de genre avec sa couleur

@@ -1,7 +1,9 @@
+import { Role } from "./role.interface";
+
 export interface AuthenticatedUser {
   id: number;
   email: string;
-  role: string;
+  role: Role;
   accessToken: string;
   refreshToken: string;
 }

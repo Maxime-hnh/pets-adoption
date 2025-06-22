@@ -21,7 +21,7 @@ import { cn } from "@/_helpers/cn";
 import { useAllAnimalsQuery } from "@/_queries/animals/useAnimalsQuery";
 import { Skeleton } from "@/_components/ui/skeleton";
 import { Group } from "@/_components/ui/group";
-import { useUpdateAnimal } from "@/_mutations/animals/useUpdateAnimal";
+import { useQuickPropsUpdate } from "@/_mutations/animals/useQuickPropsUpdate";
 import { useDeleteAnimal } from "@/_mutations/animals/useDeleteAnimal";
 import { ColumnFiltersState, ColumnPinningState, SortingState, VisibilityState } from "@tanstack/react-table";
 import { Animal, AnimalStatusConfiglMap, AnimalStatusLabelMap, Gender, GenderConfigMap, PlacementTypeConfiglMap, PlacementTypeLabelMap, Species, SpeciesConfigMap, SpeciesLabelMap } from "@/_schemas/animal.schema";
@@ -45,7 +45,7 @@ export default function AnimalsTable() {
   const pathName = usePathname();
 
   //hooks
-  const updateAnimal = useUpdateAnimal();
+  const quickUpdateAnimal = useQuickPropsUpdate();
   const deleteAnimal = useDeleteAnimal();
 
   //columns
@@ -79,10 +79,9 @@ export default function AnimalsTable() {
             <Image
               alt={`${animal.species}`}
               src={row.original.photos![0]}
-              className="max-h-[50px] max-w-[75px] rounded-lg"
+              className="max-h-[50px] max-w-[75px] rounded-lg object-cover"
               width={75}
               height={50}
-              objectFit="cover"
             />
           );
         } else {
@@ -154,7 +153,7 @@ export default function AnimalsTable() {
           keyName="status"
           labelMap={AnimalStatusLabelMap}
           configMap={AnimalStatusConfiglMap}
-          updateAnimal={updateAnimal}
+          updateFn={quickUpdateAnimal}
         />
       ),
     },
@@ -168,7 +167,7 @@ export default function AnimalsTable() {
           keyName="placementType"
           labelMap={PlacementTypeLabelMap}
           configMap={PlacementTypeConfiglMap}
-          updateAnimal={updateAnimal}
+          updateFn={quickUpdateAnimal}
         />
       ),
     },
@@ -232,7 +231,7 @@ export default function AnimalsTable() {
         );
       },
     },
-  ] as ColumnDef<Partial<Animal>>[], [updateAnimal, deleteAnimal]
+  ] as ColumnDef<Partial<Animal>>[], [quickUpdateAnimal, deleteAnimal]
   );
 
   const table = useReactTable({

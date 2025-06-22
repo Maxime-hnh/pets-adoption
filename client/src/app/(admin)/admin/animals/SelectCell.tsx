@@ -1,8 +1,9 @@
 "use client"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/_components/ui/select"
-import { useUpdateAnimal } from "@/_mutations/animals/useUpdateAnimal"
+import { cn } from "@/_helpers/cn";
+import { useQuickPropsUpdate } from "@/_mutations/animals/useQuickPropsUpdate"
 import { Animal } from "@/_schemas/animal.schema";
-import React from "react";
+import React, { startTransition, useOptimistic } from "react";
 
 interface SelectCellProps {
   animal: Partial<Animal>;
@@ -13,30 +14,41 @@ interface SelectCellProps {
     icon?: React.ElementType;
     color: string;
   }>;
-  updateAnimal: ReturnType<typeof useUpdateAnimal>;
+  updateFn: ReturnType<typeof useQuickPropsUpdate>;
 }
 const SelectCell: React.FC<SelectCellProps> = React.memo(
-  function SelectCell({ animal, initialValue, keyName, labelMap, configMap, updateAnimal }) {
+  function SelectCell({ animal, initialValue, keyName, labelMap, configMap, updateFn }) {
+
+    const { isPending } = updateFn;
     const handleChangeValue = (value: any) => {
-      updateAnimal.mutate({
+      startTransition(() => {
+        setValue(value)
+      })
+      updateFn.mutate({
         id: animal.id!,
         values: { [keyName]: value },
       });
     };
 
+    const [value, setValue] = useOptimistic(initialValue, (_, newValue: string) => newValue)
+
     return (
-      <Select value={initialValue} onValueChange={handleChangeValue}>
-        <SelectTrigger className="w-full">
+      <Select value={value} onValueChange={handleChangeValue}>
+        <SelectTrigger className="w-full min-w-[159px] max-w-[159px]">
           <SelectValue />
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent className="">
           {Object.entries(labelMap).map(([option, label]) => {
             const config = configMap[option as any];
             const Icon = config.icon ? config.icon : null;
             return (
-              <SelectItem value={option} key={option} className="w-full flex items-center">
+              <SelectItem
+                value={option}
+                key={option}
+                className="w-full flex items-center"
+              >
                 {Icon && <Icon className={`mr-2 ${config.color}`} />}
-                <span className={config.color}>{label}</span>
+                <span className={cn(config.color, { "animate-pulse": isPending })}>{label}</span>
               </SelectItem>
             );
           })}
@@ -44,7 +56,6 @@ const SelectCell: React.FC<SelectCellProps> = React.memo(
       </Select>
     );
   },
-  // (optionnel) tu peux passer une fonction de comparaison custom ici
 );
 
 export default SelectCell;

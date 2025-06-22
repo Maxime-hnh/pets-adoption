@@ -52,7 +52,7 @@ import { useIncompatibilitiesQuery } from "@/_queries/incompatibilities/useIncom
 import { useCreateAnimal } from "@/_mutations/animals/useCreateAnimal";
 import { ApiError } from "@/_helpers/handle-response";
 import { toast } from "sonner";
-import { useUpdateAnimal } from "@/_mutations/animals/useUpdateAnimal";
+import { useFullUpdateAnimal } from "@/_mutations/animals/useFullUpdateAnimal";
 import { useUploadManyFiles } from "@/_mutations/upload/useUploadManyFiles";
 import Image from "next/image";
 import { useDeleteFile } from "@/_mutations/upload/useDeleteFile";
@@ -77,7 +77,7 @@ export default function AnimalsForm({ mode = "create", values }: AnimalsFomProps
   const { data: incompatibilities } = useIncompatibilitiesQuery();
   const uploadManyFiles = useUploadManyFiles();
   const createAnimal = useCreateAnimal();
-  const updateAnimal = useUpdateAnimal();
+  const updateAnimal = useFullUpdateAnimal();
   const deleteFile = useDeleteFile();
   const { isPending: isUploadPending } = uploadManyFiles;
   const { isPending: isCreatePending } = createAnimal;

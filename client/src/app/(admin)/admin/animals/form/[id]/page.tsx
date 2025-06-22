@@ -11,7 +11,7 @@ export default async function UpdateAnimalPage({ params }: UpdateAnimalPageProps
 
   const { serverGetById } = animalsService;
   const { id } = await params;
-  const animal = await serverGetById(Number(id));
+  const animal = await serverGetById(Number(id), 0);
   if (!animal) return notFound()
 
   return (
