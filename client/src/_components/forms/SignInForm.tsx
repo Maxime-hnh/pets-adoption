@@ -59,10 +59,10 @@ export default function SignInForm() {
   return (
 
     <Form {...form}>
-      <div className="p-6 border-2 shadow rounded-2xl w-[450px]">
+      <div className="p-6 w-[450px]">
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5 flex flex-col items-center justify-center gap-2">
           <div className="flex flex-col items-center justify-center gap-2">
-            <h1 className="text-xl font-bold">Connexion </h1>
+            <h1 className="text-xl font-bold">Connexion</h1>
             <p className="text-sm text-gray-500">Connectez-vous pour accéder à votre compte</p>
           </div>
           <FormField
@@ -72,7 +72,11 @@ export default function SignInForm() {
               <FormItem className="w-full">
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input placeholder="Votre adresse mail" {...field} />
+                  <Input
+                    placeholder="Votre adresse mail"
+                    className="h-12 !bg-[#fffae9] border-0 border-b border-gray-300 shadow-none rounded-none focus-visible:ring-0"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -85,13 +89,17 @@ export default function SignInForm() {
               <FormItem className="w-full">
                 <FormLabel>Mot de passe</FormLabel>
                 <FormControl>
-                  <Input placeholder="Votre mot de passe" {...field} />
+                  <Input
+                    placeholder="Votre mot de passe"
+                    className="h-12 !bg-[#fffae9] border-0 border-b border-gray-300 shadow-none rounded-none focus-visible:ring-0"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button type="submit" className="w-full" disabled={loginMutation.isPending}>
+          <Button type="submit" className="w-full h-12 bg-[#f49047]" disabled={loginMutation.isPending}>
             {loginMutation.isPending
               ? <Loader2 className="animate-spin" />
               : "Connexion"
@@ -102,7 +110,14 @@ export default function SignInForm() {
           <span className="text-xs text-muted-foreground">Ou</span>
         </div>
 
-        <Button type="button" className="w-full" variant="outline">Inscription</Button>
+        <Button 
+        type="button" 
+        className="w-full h-12 !bg-[#5f2858] text-white" 
+        variant="outline"
+        onClick={() => router.push('/auth/register')}
+        >
+          Inscription
+          </Button>
       </div>
 
     </Form>
