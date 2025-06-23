@@ -83,13 +83,13 @@ export default function SignUpForm() {
   return (
 
     <Form {...form}>
-      <div className="p-6 w-[450px]">
+      <div className="p-6 w-dvw sm:w-[450px] sm:bg-white sm:border sm:border-gray-300 sm:rounded-lg sm:shadow-md lg:shadow-none lg:border-none lg:rounded-none">
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5 flex flex-col items-center justify-center gap-2">
           <div className="flex flex-col items-center justify-center gap-2">
-            <h1 className="text-xl font-bold">Inscription</h1>
+            <h1 className="text-3xl lg:text-xl font-bold">Inscription</h1>
             <p className="text-sm text-gray-500">Accédez à toutes nos fonctionnalités</p>
           </div>
-          <div className="flex flex-row flex-nowrap gap-2">
+          <div className="flex flex-row flex-nowrap gap-2 w-full">
             <FormField
               control={form.control}
               name="firstName"
@@ -99,7 +99,7 @@ export default function SignUpForm() {
                   <FormControl>
                     <Input
                       placeholder="Votre prénom"
-                      className="!bg-[#fffae9] border-0 border-b border-gray-300 shadow-none rounded-none focus-visible:ring-0"
+                      className="!bg-[#fffae9] border-0 border-b border-gray-300 shadow-none rounded-none focus-visible:ring-0 sm:!bg-white"
                       {...field}
                     />
                   </FormControl>
@@ -116,7 +116,7 @@ export default function SignUpForm() {
                   <FormControl>
                     <Input
                       placeholder="Votre nom"
-                      className="!bg-[#fffae9] border-0 border-b border-gray-300 shadow-none rounded-none focus-visible:ring-0"
+                      className="!bg-[#fffae9] border-0 border-b border-gray-300 shadow-none rounded-none focus-visible:ring-0 sm:!bg-white"
                       {...field}
                     />
                   </FormControl>
@@ -134,7 +134,7 @@ export default function SignUpForm() {
                 <FormControl>
                   <Input
                     placeholder="Votre adresse mail"
-                    className="!bg-[#fffae9] border-0 border-b border-gray-300 shadow-none rounded-none focus-visible:ring-0"
+                    className="!bg-[#fffae9] border-0 border-b border-gray-300 shadow-none rounded-none focus-visible:ring-0 sm:!bg-white"
                     {...field}
                   />
                 </FormControl>
@@ -153,7 +153,7 @@ export default function SignUpForm() {
                     <Input
                       type={showPassword ? "text" : "password"}
                       placeholder="Votre mot de passe"
-                      className="!bg-[#fffae9] border-0 border-b border-gray-300 shadow-none rounded-none focus-visible:ring-0 pr-10"
+                      className="!bg-[#fffae9] border-0 border-b border-gray-300 shadow-none rounded-none focus-visible:ring-0 pr-10 sm:!bg-white"
                       {...field}
                     />
                   </FormControl>
@@ -187,7 +187,7 @@ export default function SignUpForm() {
                     <Input
                       type={showConfirmPassword ? "text" : "password"}
                       placeholder="Confirmez votre mot de passe"
-                      className="!bg-[#fffae9] border-0 border-b border-gray-300 shadow-none rounded-none focus-visible:ring-0 pr-10"
+                      className="!bg-[#fffae9] border-0 border-b border-gray-300 shadow-none rounded-none focus-visible:ring-0 pr-10 sm:!bg-white"
                       {...field}
                     />
                   </FormControl>

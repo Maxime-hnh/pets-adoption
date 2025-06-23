@@ -4,3 +4,7 @@ renommer la base dans .env
 npm i 
 
 npx prisma migrate dev --name init
+
+
+Theme tailwind CSS : 
+--color-orange-500 > #f49047
