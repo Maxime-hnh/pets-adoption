@@ -21,7 +21,7 @@ import { useState } from "react";
 export default function SignUpForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  
+
   const setLoggedUser = useAuthStore((state) => state.setLoggedUser);
 
   const router = useRouter();
@@ -216,19 +216,19 @@ export default function SignUpForm() {
                   <Checkbox
                     checked={field.value}
                     onCheckedChange={field.onChange}
-                    bgColor="[#f49047]"
+                    className="data-[state=checked]:bg-orange-500 data-[state=checked]:border-orange-500"
                   />
                 </FormControl>
                 <div className="space-y-1 leading-none">
-                  <FormLabel className="text-sm font-normal">
-                    J'accepte les <Link href="/terms" className="!text-[#f49047] hover:!underline">conditions générales d'utilisation</Link>
+                  <FormLabel className="text-sm font-normal text-brand-orange">
+                    J'accepte les <Link href="/terms" className="!text-orange-500 hover:!underline">conditions générales d'utilisation</Link>
                   </FormLabel>
                   <FormMessage />
                 </div>
               </FormItem>
             )}
           />
-          <Button type="submit" className="w-full h-12 bg-[#f49047]" disabled={loginMutation.isPending}>
+          <Button type="submit" className="w-full h-12 bg-orange-500" disabled={loginMutation.isPending}>
             {loginMutation.isPending
               ? <Loader2 className="animate-spin" />
               : "S'inscrire"

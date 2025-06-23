@@ -58,6 +58,8 @@
   --font-geist-sans: 'Geist Sans', sans-serif;
   --font-geist-mono: 'Geist Mono', monospace;
 
+  --color-orange-500: #f49047;
+
   --animate-wiggle: wiggle 1s ease-in-out infinite;
   --animate-fade-in-up: fade-in-up 0.6s ease-out forwards;
   --animate-fade-in-down: fade-in-down 0.6s ease-out forwards;
