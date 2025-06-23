@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useMutation } from "@tanstack/react-query";
 import { authService } from "@/_services/auth.service";
 import { toast } from "sonner";
-import { Loader2 } from "lucide-react";
+import { Eye, EyeOff, Loader2 } from "lucide-react";
 import { useAuthStore } from "@/_stores/auth.store";
 import { useRouter } from 'next/navigation';
 import { Role } from "@/_types/role.interface";
@@ -15,9 +15,13 @@ import { Input } from "@/_components/ui/input";
 import { Button } from "@/_components/ui/button";
 import { Checkbox } from "@/_components/ui/checkbox";
 import Link from "next/link";
+import { PasswordStrengthIndicator } from "@/_components/ui/password-strength-indicator";
+import { useState } from "react";
 
 export default function SignUpForm() {
-
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  
   const setLoggedUser = useAuthStore((state) => state.setLoggedUser);
 
   const router = useRouter();
@@ -144,16 +148,31 @@ export default function SignUpForm() {
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormLabel>Mot de passe</FormLabel>
-                <FormControl>
-                  <Input
-                    type="password"
-                    placeholder="Votre mot de passe"
-                    className="!bg-[#fffae9] border-0 border-b border-gray-300 shadow-none rounded-none focus-visible:ring-0"
-                    {...field}
-                  />
-                </FormControl>
+                <div className="relative">
+                  <FormControl>
+                    <Input
+                      type={showPassword ? "text" : "password"}
+                      placeholder="Votre mot de passe"
+                      className="!bg-[#fffae9] border-0 border-b border-gray-300 shadow-none rounded-none focus-visible:ring-0 pr-10"
+                      {...field}
+                    />
+                  </FormControl>
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                  >
+                    {showPassword ? (
+                      <EyeOff className="h-5 w-5" />
+                    ) : (
+                      <Eye className="h-5 w-5" />
+                    )}
+                  </button>
+                </div>
                 <FormMessage />
-                <p className="text-xs text-gray-500 mt-1">Le mot de passe doit contenir au moins 8 caractères, une majuscule, un chiffre et un caractère spécial</p>
+                <div className="mt-2">
+                  <PasswordStrengthIndicator password={field.value} />
+                </div>
               </FormItem>
             )}
           />
@@ -163,14 +182,27 @@ export default function SignUpForm() {
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormLabel>Confirmer le mot de passe</FormLabel>
-                <FormControl>
-                  <Input
-                    type="password"
-                    placeholder="Confirmez votre mot de passe"
-                    className="!bg-[#fffae9] border-0 border-b border-gray-300 shadow-none rounded-none focus-visible:ring-0"
-                    {...field}
-                  />
-                </FormControl>
+                <div className="relative">
+                  <FormControl>
+                    <Input
+                      type={showConfirmPassword ? "text" : "password"}
+                      placeholder="Confirmez votre mot de passe"
+                      className="!bg-[#fffae9] border-0 border-b border-gray-300 shadow-none rounded-none focus-visible:ring-0 pr-10"
+                      {...field}
+                    />
+                  </FormControl>
+                  <button
+                    type="button"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                  >
+                    {showConfirmPassword ? (
+                      <EyeOff className="h-5 w-5" />
+                    ) : (
+                      <Eye className="h-5 w-5" />
+                    )}
+                  </button>
+                </div>
                 <FormMessage />
               </FormItem>
             )}
