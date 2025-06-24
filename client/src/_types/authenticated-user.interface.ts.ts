@@ -4,6 +4,4 @@ export interface AuthenticatedUser {
   id: number;
   email: string;
   role: Role;
-  accessToken: string;
-  refreshToken: string;
 }

@@ -20,6 +20,17 @@ class AuthService {
     return await handleResponse(await fetch(`/api/auth/login`, requestOptions));
   }
 
+  logout = async () => {
+    const requestOptions = {
+      method: 'POST',
+      headers: authHeader(),
+      credentials: 'include' as RequestCredentials,
+    };
+    await handleResponse(await fetch(`/api/auth/logout`, requestOptions));
+    const store = useAuthStore.getState();
+    store.logout();
+  }
+
   refreshToken = async (): Promise<AuthenticatedUser | void> => {
     const store = useAuthStore.getState(); //curent store
 

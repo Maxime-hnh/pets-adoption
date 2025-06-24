@@ -45,6 +45,6 @@ export class UsersController {
 
   @Post('signup')
   async signup(@Body() body: CreateUserDto): Promise<UserDto> {
-    return await this.usersService.create({...body, roleId: 1});
+    return await this.usersService.create({ ...body, roleId: 1 });
   };
 }

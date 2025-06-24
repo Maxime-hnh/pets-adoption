@@ -13,7 +13,7 @@ export async function middleware(request: NextRequest) {
       const response = await fetch(apiUrl, {
         method: 'GET',
         headers: {
-          'Cookie': request.headers.get('cookie') || '',
+          Cookie: request.headers.get('cookie')!,
           'Content-Type': 'application/json',
         },
       });
