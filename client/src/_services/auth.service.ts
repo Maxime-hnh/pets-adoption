@@ -15,6 +15,7 @@ class AuthService {
       method: 'POST',
       headers: authHeader(),
       body: JSON.stringify(values),
+      credentials: 'include' as RequestCredentials,
     };
     return await handleResponse(await fetch(`/api/auth/login`, requestOptions));
   }
@@ -35,9 +36,10 @@ class AuthService {
         headers: {
           ...authHeader(),
         },
+        credentials: 'include' as RequestCredentials,
       };
 
-      const response = await fetch('/api/auth/refreshToken', requestOptions);
+      const response = await fetch('/api/auth/refresh', requestOptions);
       const user = await handleResponse(response);
 
       // Stocke le nouveau token
@@ -58,6 +60,18 @@ class AuthService {
       store.setIsRefreshing(false);
     }
   };
+
+  me = async (cookies?: string) => {
+    const requestOptions = {
+      method: 'GET',
+      headers: {
+        ...authHeader(),
+        ...(cookies && { Cookie: cookies }),
+      },
+      credentials: 'include' as RequestCredentials,
+    };
+    return await handleResponse(await fetch(`/api/auth/me`, requestOptions));
+  }
 }
 
 export const authService = new AuthService();

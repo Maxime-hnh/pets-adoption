@@ -21,7 +21,7 @@ export class UsersService {
     const user = await this.prisma.user.create({
       data: {
         ...data,
-        password: hashedPassword
+        password: hashedPassword,
       },
       include: { role: true }
     });

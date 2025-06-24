@@ -7,13 +7,13 @@ import { Roles } from '../auth/roles.decorator';
 import { CurrentUser } from '../auth/current-user.decorator';
 import { CreateUserDto, PartialUserDto, UserDto } from './dto';
 
-
 @Controller('users')
 export class UsersController {
 
   constructor(private readonly usersService: UsersService) { }
 
-
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('SUPERADMIN')
   @Post()
   async create(@Body() body: CreateUserDto): Promise<UserDto> {
     return await this.usersService.create(body);
@@ -41,5 +41,10 @@ export class UsersController {
   @Get('all')
   async getAll(): Promise<UserDto[] | void> {
     return this.usersService.findAll();
+  };
+
+  @Post('signup')
+  async signup(@Body() body: CreateUserDto): Promise<UserDto> {
+    return await this.usersService.create({...body, roleId: 1});
   };
 }

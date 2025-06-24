@@ -3,6 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PayloadDto } from './dto/auth.dto';
+import { Request } from 'express';
 
 //Security road : 1/3
 
@@ -10,7 +11,11 @@ import { PayloadDto } from './dto/auth.dto';
 export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
   constructor(private readonly configService: ConfigService) {
     super({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      jwtFromRequest: ExtractJwt.fromExtractors([
+        (request: Request) => {
+          return request?.cookies?.accessToken;
+        },
+      ]),
       secretOrKey: configService.get<string>('JWT_SECRET')!,
     });
   }
