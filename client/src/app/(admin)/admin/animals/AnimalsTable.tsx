@@ -17,7 +17,7 @@ import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMe
 import { Calendar, ChevronDown, PawPrint } from "lucide-react";
 import { Button } from "@/_components/ui/button";
 import { useState, useMemo } from "react";
-import { cn } from "@/_helpers/cn";
+import { cn } from "@/_lib/cn";
 import { useAllAnimalsQuery } from "@/_queries/animals/useAnimalsQuery";
 import { Skeleton } from "@/_components/ui/skeleton";
 import { Group } from "@/_components/ui/group";
@@ -32,7 +32,7 @@ import SelectCell from "./SelectCell";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { formatDate } from "@/_helpers/utils";
+import { formatDate } from "@/_lib/utils";
 
 export default function AnimalsTable() {
 

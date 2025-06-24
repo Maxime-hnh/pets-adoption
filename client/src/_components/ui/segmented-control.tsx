@@ -1,6 +1,6 @@
 'use client';
 
-import { cn } from '@/_helpers/cn';
+import { cn } from '@/_lib/cn';
 import * as ToggleGroup from '@radix-ui/react-toggle-group';
 import { useRef, useState, useLayoutEffect } from 'react';
 

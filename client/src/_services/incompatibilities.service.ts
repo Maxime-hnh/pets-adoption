@@ -1,5 +1,5 @@
-import { authHeader } from "@/_helpers/auth-header";
-import { handleResponse } from "@/_helpers/handle-response";
+import { authHeader } from "@/_lib/auth-header";
+import { handleResponse } from "@/_lib/handle-response";
 import { ShortIncompatibility } from "@/_schemas/incompatibility.schema";
 
 class IncompatibilitiesService {

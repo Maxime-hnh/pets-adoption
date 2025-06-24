@@ -1,5 +1,5 @@
 import React from 'react';
-import { cn } from '@/_helpers/cn';
+import { cn } from '@/_lib/cn';
 
 interface PasswordStrengthIndicatorProps {
   password: string;

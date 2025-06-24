@@ -6,7 +6,7 @@ import { CalendarDays, Home, Mail, Menu, PawPrint, User } from 'lucide-react';
 import { useState } from 'react';
 import Link from 'next/link';
 import { Button } from '../ui/button';
-import { cn } from "@/_helpers/cn"
+import { cn } from "@/_lib/cn"
 import { MenuBar } from '../ui/glow-menu'
 import { usePathname } from 'next/navigation';
 

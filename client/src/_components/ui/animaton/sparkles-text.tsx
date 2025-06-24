@@ -2,7 +2,7 @@
 
 import { CSSProperties, ReactElement, useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { cn } from "@/_helpers/cn";
+import { cn } from "@/_lib/cn";
 
 
 interface Sparkle {

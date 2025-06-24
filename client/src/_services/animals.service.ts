@@ -1,6 +1,6 @@
 import { Animal } from "@/_schemas/animal.schema";
-import { authHeader } from "@/_helpers/auth-header";
-import { handleResponse } from "@/_helpers/handle-response";
+import { authHeader } from "@/_lib/auth-header";
+import { handleResponse } from "@/_lib/handle-response";
 
 
 const baseUrl = process.env.API_URL || 'http://localhost:3001';

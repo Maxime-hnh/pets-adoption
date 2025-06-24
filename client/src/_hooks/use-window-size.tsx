@@ -1,5 +1,5 @@
-import { MOBILE_SIZE } from "@/_helpers/constants";
-import { SCREEN_SIZE } from "@/_helpers/constants";
+import { MOBILE_SIZE } from "@/_lib/constants";
+import { SCREEN_SIZE } from "@/_lib/constants";
 import React from "react";
 
 export default function useWindowSize() {

@@ -2,7 +2,7 @@
 
 import { forwardRef } from "react"
 import { motion } from "framer-motion"
-import { cn } from "@/_helpers/cn"
+import { cn } from "@/_lib/cn"
 import { LucideIcon } from "lucide-react"
 import Link from "next/link"
 

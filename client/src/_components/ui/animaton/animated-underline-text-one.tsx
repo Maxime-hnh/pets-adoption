@@ -1,7 +1,7 @@
 "use client"
 import * as React from "react";
 import { motion, Variants } from "framer-motion";
-import { cn } from "@/_helpers/cn";
+import { cn } from "@/_lib/cn";
 
 interface AnimatedTextProps extends React.HTMLAttributes<HTMLDivElement> {
   text: string;

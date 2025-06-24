@@ -1,6 +1,6 @@
 "use client"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/_components/ui/select"
-import { cn } from "@/_helpers/cn";
+import { cn } from "@/_lib/cn";
 import { useQuickPropsUpdate } from "@/_mutations/animals/useQuickPropsUpdate"
 import { Animal } from "@/_schemas/animal.schema";
 import React, { startTransition, useOptimistic } from "react";

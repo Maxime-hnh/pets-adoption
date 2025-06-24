@@ -15,7 +15,7 @@ import {
 import { LayoutDashboard, Calendar, User, Settings, PawPrint } from "lucide-react"
 import { usePathname, useRouter } from 'next/navigation'
 import { useState, useTransition } from "react"
-import { cn } from "@/_helpers/cn"
+import { cn } from "@/_lib/cn"
 
 export function AppSidebar() {
 

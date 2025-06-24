@@ -1,6 +1,6 @@
 "use client"
 
-import { MOBILE_SIZE } from "@/_helpers/constants";
+import { MOBILE_SIZE } from "@/_lib/constants";
 import { useUIStore } from "@/_stores/ui.store"
 import { useEffect } from "react";
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { cn } from '@/_helpers/cn';
+import { cn } from '@/_lib/cn';
 import {
   AnimatePresence,
   motion,

@@ -10,7 +10,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/_components/ui/popover"
-import { cn } from "@/_helpers/cn"
+import { cn } from "@/_lib/cn"
 import { Dispatch, SetStateAction } from "react"
 import { fr } from 'date-fns/locale';
 

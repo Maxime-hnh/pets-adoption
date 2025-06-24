@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Dog, Cat, Rabbit } from "lucide-react";
-import { cn } from "@/_helpers/cn";
+import { cn } from "@/_lib/cn";
 import { Species } from "@/_schemas/animal.schema";
 import { useFormContext } from "react-hook-form";
 

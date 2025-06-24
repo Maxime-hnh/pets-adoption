@@ -1,7 +1,7 @@
 import { Button } from "@/_components/ui/button";
 import { Card, CardContent } from "@/_components/ui/card";
 import { Carousel, CarouselContent, CarouselItem, CarouselDots } from "@/_components/ui/carousel";
-import { calculateAge } from "@/_helpers/utils";
+import { calculateAge } from "@/_lib/utils";
 import { GenderConfigMap, AnimalStatusConfiglMap, AnimalStatusLabelMap, SpeciesLabelMap, GenderLabelMap, PlacementTypeLabelMap, PlacementTypeConfiglMap } from "@/_schemas/animal.schema";
 import { animalsService } from "@/_services/animals.service";
 import { format } from "date-fns";

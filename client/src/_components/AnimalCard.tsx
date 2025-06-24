@@ -2,7 +2,7 @@ import { Animal, AnimalStatusConfiglMap, GenderConfigMap, PlacementTypeConfiglMa
 import Image from "next/image";
 import { Badge } from "./ui/badge";
 import { Cake } from "lucide-react";
-import { calculateAge } from "@/_helpers/utils";
+import { calculateAge } from "@/_lib/utils";
 
 export default function AnimalCard({ animal }: { animal: Animal }) {
 
