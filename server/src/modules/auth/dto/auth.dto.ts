@@ -2,7 +2,7 @@ import { Expose } from "class-transformer";
 import { IsEmail, IsInt, IsNotEmpty, IsString } from "class-validator";
 
 
-export class AuthDto {
+export class FullAuthDto {
   @Expose()
   @IsInt()
   @IsNotEmpty()
@@ -26,6 +26,23 @@ export class AuthDto {
   @IsString()
   @IsNotEmpty()
   refreshToken: string;
+}
+
+
+export class ShortAuthDto {
+  @Expose()
+  @IsInt()
+  @IsNotEmpty()
+  id: number;
+
+  @Expose()
+  @IsEmail()
+  email: string;
+
+  @Expose()
+  @IsString()
+  @IsNotEmpty()
+  role: string;
 }
 
 export class PayloadDto {

@@ -4,8 +4,7 @@ import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from '../prisma/prisma.service';
 import { UsersService } from '../users/users.service';
 import { UserWithRole } from '../users/users.types';
-import { AuthDto } from './dto/auth.dto';
-
+import { FullAuthDto } from './dto/auth.dto';
 
 @Injectable()
 export class AuthService {
@@ -17,7 +16,7 @@ export class AuthService {
   ) { }
 
 
-  async login(user: UserWithRole): Promise<AuthDto> {
+  async login(user: UserWithRole): Promise<FullAuthDto> {
     const payload = { id: user.id, email: user.email, role: user.role.name };
     const accessToken = this.jwtService.sign(payload, {
       secret: this.configService.get<string>('JWT_SECRET'),
@@ -43,7 +42,7 @@ export class AuthService {
     };
   }
 
-  async refreshToken(oldRefreshToken: string): Promise<AuthDto | void> {
+  async refreshToken(oldRefreshToken: string): Promise<FullAuthDto> {
     const decoded = this.jwtService.verify(oldRefreshToken, {
       secret: this.configService.get<string>('JWT_REFRESH_SECRET'),
     });
