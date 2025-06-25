@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { NestInterceptor, ExecutionContext } from "@nestjs/common";
 import { CallHandler } from "@nestjs/common";
 import { Observable, map } from "rxjs";
-import { FullAuthDto, ShortAuthDto } from "./dto/auth.dto";
+import { FullAuthDto, ShortAuthDto } from "../dto/auth.dto";
 import { Response } from "express";
 import { ConfigService } from "@nestjs/config";
 import { parseDuration } from "src/utils/parse-duration";
@@ -27,7 +27,7 @@ export class CookieInterceptor implements NestInterceptor {
 
         res.cookie('accessToken', data.accessToken, {
           httpOnly: true,
-          secure: true,
+          secure: process.env.NODE_ENV === 'production',
           sameSite: 'lax',
           maxAge: accessMaxAge,
           path: '/',
@@ -35,14 +35,14 @@ export class CookieInterceptor implements NestInterceptor {
 
         res.cookie('refreshToken', data.refreshToken, {
           httpOnly: true,
-          secure: true,
+          secure: process.env.NODE_ENV === 'production',
           sameSite: 'lax',
           maxAge: refreshMaxAge,
           path: '/',
         });
 
         const { accessToken, refreshToken, ...rest } = data;
-        return rest as ShortAuthDto;
+        return rest;
       })
       );
   }

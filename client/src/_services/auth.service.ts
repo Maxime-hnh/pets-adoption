@@ -3,7 +3,6 @@ import { handleResponse } from "@/_lib/handle-response";
 import { useAuthStore } from "@/_stores/auth.store";
 import { AuthRequest } from "@/_types/auth-request.interface";
 import { AuthenticatedUser } from "@/_types/authenticated-user.interface.ts";
-import { toast } from "sonner";
 
 class AuthService {
 
@@ -17,7 +16,10 @@ class AuthService {
       body: JSON.stringify(values),
       credentials: 'include' as RequestCredentials,
     };
-    return await handleResponse(await fetch(`/api/auth/login`, requestOptions));
+    const result = await handleResponse(await fetch(`/api/auth/login`, requestOptions));
+    const user = await this.me();
+    useAuthStore.getState().setLoggedUser(user);
+    return result;
   }
 
   logout = async () => {
@@ -31,57 +33,34 @@ class AuthService {
     store.logout();
   }
 
-  refreshToken = async (): Promise<AuthenticatedUser | void> => {
-    const store = useAuthStore.getState(); //curent store
-
-    if (store.isRefreshing) {
-      return new Promise((resolve) => {
-        store.addRefreshSubscriber(() => resolve(store.loggedUser!));
-      })
-    }
-
-    store.setIsRefreshing(true);
+  refreshToken = async (): Promise<AuthenticatedUser | null> => {
     try {
-      const requestOptions = {
+      const res = await fetch('/api/auth/refresh', {
         method: 'POST',
-        headers: {
-          ...authHeader(),
-        },
         credentials: 'include' as RequestCredentials,
-      };
+      });
 
-      const response = await fetch('/api/auth/refresh', requestOptions);
-      const user = await handleResponse(response);
+      if (!res.ok) {
+        throw new Error("Failed to refresh token");
+      }
 
-      // Stocke le nouveau token
-      store.setLoggedUser(user);
-
-      // Notifie toutes les requêtes en attente
-      store.refreshSubscribers.forEach((cb: any) => cb(user.accessToken));
-      store.setRefreshSubscribers([]);
-
+      const user = await res.json();
+      useAuthStore.getState().setLoggedUser(user);
       return user;
     } catch (error) {
-      toast.error("Session expirée", {
-        description: "Veuillez vous reconnecter.",
-      });
-      store.logout();
-      setTimeout(() => window.location.reload(), 1500);
-    } finally {
-      store.setIsRefreshing(false);
+      useAuthStore.getState().logout();
+      return null;
     }
-  };
+  }
 
-  me = async (cookies?: string) => {
+  me = async (): Promise<AuthenticatedUser> => {
     const requestOptions = {
       method: 'GET',
-      headers: {
-        ...authHeader(),
-        ...(cookies && { Cookie: cookies }),
-      },
+      headers: authHeader(),
       credentials: 'include' as RequestCredentials,
     };
-    return await handleResponse(await fetch(`/api/auth/me`, requestOptions));
+    const currentUser = await handleResponse(await fetch(`/api/auth/me`, requestOptions));
+    return currentUser;
   }
 }
 

@@ -1,4 +1,6 @@
 import { Geist, Geist_Mono, Poppins, Sora, IBM_Plex_Sans, Inter } from "next/font/google";
+import { AuthenticatedUser } from "@/_types/authenticated-user.interface.ts";
+import { AuthStoreHydrator } from "@/_core/auth-store-hydrator";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,13 +34,14 @@ const inter = Inter({
   subsets: ['latin']
 });
 
-export function CommonLayoutWrapper({ children, }: { children: React.ReactNode }) {
+export function CommonLayoutWrapper({ children, user }: { children: React.ReactNode, user?: AuthenticatedUser | null }) {
 
   return (
     <html lang="fr" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} ${sora.variable} ${ibmPlexSans.variable} ${inter.variable} light`}
       >
+       {user && <AuthStoreHydrator user={user} />}
         {children}
       </body>
     </html>

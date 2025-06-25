@@ -1,7 +1,7 @@
 import { Controller, Delete, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { FavoritesService } from './favorites.service';
-import { JwtAuthGuard } from '../auth/auth.guard';
-import { CurrentUser } from '../auth/current-user.decorator';
+import { JwtAuthGuard } from '../auth/security-road/auth.guard';
+import { CurrentUser } from '../auth/decorator/current-user.decorator';
 import { User } from '@prisma/client';
 import { PublicAnimalDto } from '../animals/dto';
 

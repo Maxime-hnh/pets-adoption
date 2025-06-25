@@ -2,6 +2,7 @@ import { toast } from "sonner";
 import { authService } from "../_services/auth.service";
 import { retryOriginalRequest } from "./helpers";
 import { useAuthStore } from "@/_stores/auth.store";
+import { redirect } from "next/navigation";
 
 export class ApiError extends Error {
   errorCode: number;
@@ -29,20 +30,18 @@ export async function handleResponse<TData = any>(
     if (response.status === 401) {
       console.log("error 401 " + response.statusText, response);
       try {
-        const loggedUser = useAuthStore.getState().loggedUser;
-        if (loggedUser && loggedUser.refreshToken) {
-          const newLoggedUser = await authService.refreshToken()
-          if (newLoggedUser && url && originalInit) {
-            return await retryOriginalRequest(url, originalInit, newLoggedUser.accessToken);
-          } else {
-            useAuthStore.getState().logout();
-            window.location.reload();
-          }
+
+        const newLoggedUser = await authService.refreshToken()
+        if (newLoggedUser && url && originalInit) {
+          return await retryOriginalRequest(url, originalInit, "");
+        } else {
+          useAuthStore.getState().logout();
+          redirect('/auth/login')
         }
       } catch (error) {
         console.error("Failed to refresh token:", error);
         useAuthStore.getState().logout();
-        window.location.reload();
+        redirect('/auth/login')
         return Promise.reject("Session expired. Please log in again.");
       }
     }

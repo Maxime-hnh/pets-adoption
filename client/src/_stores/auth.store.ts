@@ -3,7 +3,7 @@ import { create } from 'zustand'
 
 interface AuthState {
   loggedUser: AuthenticatedUser | null;
-  setLoggedUser: (user: AuthState['loggedUser']) => void;
+  setLoggedUser: (user: AuthenticatedUser | null) => void;
   logout: () => void;
   isRefreshing: boolean;
   refreshSubscribers: ((token: string) => void)[];

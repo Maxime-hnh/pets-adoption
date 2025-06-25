@@ -1,10 +1,10 @@
 import { Body, Controller, ForbiddenException, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User } from '@prisma/client';
-import { JwtAuthGuard } from '../auth/auth.guard';
-import { RolesGuard } from '../auth/roles.guard';
-import { Roles } from '../auth/roles.decorator';
-import { CurrentUser } from '../auth/current-user.decorator';
+import { JwtAuthGuard } from '../auth/security-road/auth.guard';
+import { RolesGuard } from '../auth/security-road/roles.guard';
+import { Roles } from '../auth/decorator/roles.decorator';
+import { CurrentUser } from '../auth/decorator/current-user.decorator';
 import { CreateUserDto, PartialUserDto, UserDto } from './dto';
 
 @Controller('users')

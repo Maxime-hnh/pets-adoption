@@ -1,12 +1,12 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { AnimalsService } from './animals.service';
-import { JwtAuthGuard } from '../auth/auth.guard';
-import { RolesGuard } from '../auth/roles.guard';
-import { Roles } from '../auth/roles.decorator';
+import { JwtAuthGuard } from '../auth/security-road/auth.guard';
+import { RolesGuard } from '../auth/security-road/roles.guard';
+import { Roles } from '../auth/decorator/roles.decorator';
 import { AnimalDto, CreateAnimalDto, UpdateAnimalDto } from './dto';
 import { Prisma, Species } from '@prisma/client';
 import { UserWithRole } from '../users/users.types';
-import { CurrentUser } from '../auth/current-user.decorator';
+import { CurrentUser } from '../auth/decorator/current-user.decorator';
 
 @Controller('animals')
 export class AnimalsController {

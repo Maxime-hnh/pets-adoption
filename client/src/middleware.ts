@@ -32,6 +32,10 @@ export async function middleware(request: NextRequest) {
       return NextResponse.redirect(new URL('/auth/login', request.url));
     }
   }
+
+//Ajouter un middleware qui verifie s'il y a un utilisateur de connecté et que la route est
+//login ou register, alros on renvoie sur son profil 
+
   return NextResponse.next();
 }
 

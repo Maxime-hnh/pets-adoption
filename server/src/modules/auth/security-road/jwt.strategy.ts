@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
-import { PayloadDto } from './dto/auth.dto';
+import { PayloadDto } from '../dto/auth.dto';
 import { Request } from 'express';
 
 //Security road : 1/3

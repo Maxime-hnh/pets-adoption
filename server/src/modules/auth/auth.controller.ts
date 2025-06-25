@@ -1,14 +1,14 @@
-import { Controller, Post, Body, UnauthorizedException, HttpCode, Get, UseGuards, Req, UseInterceptors } from '@nestjs/common';
+import { Controller, Post, Body, UnauthorizedException, HttpCode, Get, UseGuards, UseInterceptors } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { UsersService } from '../users/users.service';
 import { LoginUserDto } from '../users/dto/login-user.dto';
 import { ShortAuthDto } from './dto/auth.dto';
 import { UserWithRole } from '../users/users.types';
-import { CurrentUser } from './current-user.decorator';
-import { JwtAuthGuard } from './auth.guard';
-import { Request } from 'express';
-import { CookieInterceptor } from './cookie.interceptor';
-import { LogoutInterceptor } from './logout.interceptor';
+import { CurrentUser } from './decorator/current-user.decorator';
+import { JwtAuthGuard, RefreshGuard } from './security-road/auth.guard';
+import { CookieInterceptor } from './interceptor/cookie.interceptor';
+import { LogoutInterceptor } from './interceptor/logout.interceptor';
+import { ConfigService } from '@nestjs/config';
 
 
 @Controller('auth')
@@ -16,6 +16,7 @@ export class AuthController {
   constructor(
     private readonly authService: AuthService,
     private readonly usersService: UsersService,
+    private readonly configService: ConfigService,
   ) { }
 
   @UseInterceptors(CookieInterceptor)
@@ -37,13 +38,11 @@ export class AuthController {
   }
 
   @UseInterceptors(CookieInterceptor)
+  @UseGuards(RefreshGuard)
   @Post('refresh')
   @HttpCode(200)
-  async refresh(@Req() req: Request): Promise<ShortAuthDto> {
-    const refreshToken = req.cookies['refreshToken'];
-    if (!refreshToken) throw new UnauthorizedException('Refresh token is missing');
-
-    return this.authService.refreshToken(refreshToken);
+  async refresh(@CurrentUser() user: UserWithRole): Promise<ShortAuthDto> {
+    return await this.authService.refreshToken(user);
   }
 
   @UseGuards(JwtAuthGuard)
