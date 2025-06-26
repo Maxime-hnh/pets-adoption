@@ -65,9 +65,9 @@ export default function Header() {
 
 
   return (
-    <header className={cn("flex fixed top-0 left-0 right-0 z-50 h-[120px] items-center justify-center animate-fade-in-down")}>
+    <header className={cn("flex fixed top-0 left-0 right-0 z-50 h-[50px] sm:h-[120px] items-center justify-center animate-fade-in-down")}>
       {/* Desktop */}
-      <Image src="/favicon.ico" width={75} height={75} alt="logo" className="rounded-full absolute left-8 top-1/2 -translate-y-1/2" />
+      <Image src="/favicon.ico" width={75} height={75} alt="logo" className="hidden sm:block rounded-full absolute left-8 top-1/2 -translate-y-1/2" />
 
       <MenuBar
         items={menuItems}
