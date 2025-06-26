@@ -16,7 +16,7 @@ import { Toaster } from "@/_components/ui/sonner";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
-  
+
   const logout = useAuthStore((state) => state.logout);
   const router = useRouter();
 
@@ -34,7 +34,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
 
   return (
-      <CommonLayoutWrapper>
+    <CommonLayoutWrapper>
         <IsMobileObserver />
         <Toaster richColors />
         <header className='w-full h-[60px]  border-b-2 flex items-center justify-between px-8'>
@@ -52,6 +52,6 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             </SidebarProvider>
           </QueryClientProvider>
         </main>
-      </CommonLayoutWrapper>
+    </CommonLayoutWrapper>
   );
 }

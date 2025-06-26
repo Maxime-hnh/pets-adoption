@@ -1,5 +1,6 @@
 import { baseUrl } from "@/_lib/constants";
 import { AuthenticatedUser } from "@/_types/authenticated-user.interface.ts";
+import { Role } from "@/_types/role.interface";
 import { cookies } from "next/headers";
 
 class AuthServerService {
@@ -28,10 +29,6 @@ class AuthServerService {
   async isAuthenticated(): Promise<boolean> {
     const user = await this.meServer();
     return !!user;
-  }
-
-  async hasRole(user: AuthenticatedUser, requiredRole: string[]): Promise<boolean> {
-    return requiredRole.includes(user.role);
   }
 }
 

@@ -33,9 +33,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { formatDate } from "@/_lib/utils";
+import { useRouter } from "next/navigation";
 
 export default function AnimalsTable() {
 
+  const router = useRouter();
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnPinning, setColumnPinning] = useState<ColumnPinningState>({ left: [], right: ["actions"] });
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -203,7 +205,12 @@ export default function AnimalsTable() {
             </AlertDialog>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button aria-label="Open menu" variant="ghost" className="h-8 w-8 p-0">
+                <Button
+                  onMouseEnter={() => router.prefetch(`/admin/animals/form/${animal.id}`)}
+                  aria-label="Open menu"
+                  variant="ghost"
+                  className="h-8 w-8 p-0"
+                >
                   <MoreHorizontal />
                 </Button>
               </DropdownMenuTrigger>
@@ -261,7 +268,7 @@ export default function AnimalsTable() {
       <div className="flex items-center justify-between py-4">
         <Group>
           <Button asChild className="mr-4">
-            <Link href={`${pathName}/form`} className="!text-white">
+            <Link prefetch href={`${pathName}/form`} className="!text-white">
               <PawPrint />
               Nouveau
             </Link>

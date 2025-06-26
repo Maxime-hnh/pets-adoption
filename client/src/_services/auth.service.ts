@@ -3,6 +3,7 @@ import { handleResponse } from "@/_lib/handle-response";
 import { useAuthStore } from "@/_stores/auth.store";
 import { AuthRequest } from "@/_types/auth-request.interface";
 import { AuthenticatedUser } from "@/_types/authenticated-user.interface.ts";
+import { Role } from "@/_types/role.interface";
 
 class AuthService {
 
@@ -58,6 +59,11 @@ class AuthService {
     };
     const currentUser = await handleResponse(await fetch(`/api/auth/me`, requestOptions));
     return currentUser;
+  }
+
+
+  hasRole(role: Role, requiredRole: string[] = [Role.ADMIN, Role.SUPERADMIN]): boolean {
+    return requiredRole.includes(role);
   }
 }
 
