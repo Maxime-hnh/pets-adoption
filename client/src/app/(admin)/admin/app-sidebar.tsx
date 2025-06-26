@@ -74,6 +74,7 @@ export function AppSidebar() {
                     className={cn("cursor-pointer", { "animate-pulse": isPending && activeItem === item.url })}
                     asChild
                     isActive={activeItem === item.url}
+                    onMouseEnter={() => router.prefetch(item.url)}
                     onClick={() => handleClick(item.url)}
                   >
                     <div className="flex items-center gap-2">
