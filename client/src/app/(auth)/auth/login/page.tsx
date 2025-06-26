@@ -10,7 +10,7 @@ export default function AuthPage() {
   return (
     <QueryClientProvider client={queryClient}>
       <div className="grid grid-cols-12 h-full relative">
-        <div className="col-span-4 flex flex-col relative">
+        <div className="col-span-12 flex flex-col relative xl:col-span-4">
           <div className="p-8">
             <h1 className="text-2xl font-extrabold">SPA de verson.</h1>
           </div>
@@ -18,7 +18,7 @@ export default function AuthPage() {
             <SignInForm />
           </div>
         </div>
-        <div className="col-span-8 relative">
+        <div className="hidden relative xl:block xl:col-span-8">
           <Image
             src="/assets/auth/shelter.png"
             className="h-full w-full absolute top-0 right-0"

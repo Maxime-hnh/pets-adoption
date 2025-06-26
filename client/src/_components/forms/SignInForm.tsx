@@ -59,9 +59,9 @@ export default function SignInForm() {
   return (
 
     <Form {...form}>
-      <div className="p-6 w-[450px]">
+      <div className="p-6 w-dvw sm:bg-white sm:border sm:border-gray-300 sm:rounded-lg sm:shadow-md sm:w-[450px] xl:w-[420px] 2xl:w-[450px]">
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5 flex flex-col items-center justify-center gap-2">
-          <div className="flex flex-col items-center justify-center gap-2">
+          <div className="flex flex-col items-center justify-center gap-2 mb-12">
             <h1 className="text-xl font-bold">Connexion</h1>
             <p className="text-sm text-gray-500">Connectez-vous pour accéder à votre compte</p>
           </div>
@@ -74,7 +74,7 @@ export default function SignInForm() {
                 <FormControl>
                   <Input
                     placeholder="Votre adresse mail"
-                    className="h-12 !bg-[#fffae9] border-0 border-b border-gray-300 shadow-none rounded-none focus-visible:ring-0"
+                    className="!bg-[#fffae9] border-0 border-b border-gray-300 shadow-none rounded-none focus-visible:ring-0 sm:!bg-white"
                     {...field}
                   />
                 </FormControl>
@@ -91,7 +91,7 @@ export default function SignInForm() {
                 <FormControl>
                   <Input
                     placeholder="Votre mot de passe"
-                    className="h-12 !bg-[#fffae9] border-0 border-b border-gray-300 shadow-none rounded-none focus-visible:ring-0"
+                    className="!bg-[#fffae9] border-0 border-b border-gray-300 shadow-none rounded-none focus-visible:ring-0 sm:!bg-white"
                     {...field}
                   />
                 </FormControl>
@@ -110,14 +110,14 @@ export default function SignInForm() {
           <span className="text-xs text-muted-foreground">Ou</span>
         </div>
 
-        <Button 
-        type="button" 
-        className="w-full h-12 !bg-[#5f2858] text-white" 
-        variant="outline"
-        onClick={() => router.push('/auth/register')}
+        <Button
+          type="button"
+          className="w-full h-12 !bg-[#5f2858] text-white"
+          variant="outline"
+          onClick={() => router.push('/auth/register')}
         >
           Inscription
-          </Button>
+        </Button>
       </div>
 
     </Form>
