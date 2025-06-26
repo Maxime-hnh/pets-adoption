@@ -3,6 +3,7 @@ import Header from "@/_components/layout/header";
 import Footer from "@/_components/layout/footer";
 import { Toaster } from "@/_components/ui/sonner";
 import IsMobileObserver from "@/_core/is-mobile-observer";
+import { AuthProvider } from "@/_core/auth-provider";
 
 /**
  * A top-level component that wraps the entire app and provides
@@ -15,7 +16,7 @@ import IsMobileObserver from "@/_core/is-mobile-observer";
  */
 export function PublicProviders(props: PropsWithChildren) {
   return (
-    <>
+    <AuthProvider>
       <IsMobileObserver />
       <Toaster richColors />
       <Header />
@@ -23,6 +24,6 @@ export function PublicProviders(props: PropsWithChildren) {
         {props.children}
       </main>
       <Footer />
-    </>
+    </AuthProvider>
   );
 }

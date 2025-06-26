@@ -1,6 +1,5 @@
 import { Geist, Geist_Mono, Poppins, Sora, IBM_Plex_Sans, Inter } from "next/font/google";
 import { AuthenticatedUser } from "@/_types/authenticated-user.interface.ts";
-import { AuthStoreHydrator } from "@/_core/auth-store-hydrator";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -41,7 +40,6 @@ export function CommonLayoutWrapper({ children, user }: { children: React.ReactN
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} ${sora.variable} ${ibmPlexSans.variable} ${inter.variable} light`}
       >
-       {user && <AuthStoreHydrator user={user} />}
         {children}
       </body>
     </html>

@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { NestInterceptor, ExecutionContext } from "@nestjs/common";
 import { CallHandler } from "@nestjs/common";
 import { Observable, map } from "rxjs";
-import { FullAuthDto, ShortAuthDto } from "../dto/auth.dto";
+import { FullAuthDto } from "../dto/auth.dto";
 import { Response } from "express";
 import { ConfigService } from "@nestjs/config";
 import { parseDuration } from "src/utils/parse-duration";

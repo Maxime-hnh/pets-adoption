@@ -39,10 +39,7 @@ class AuthService {
         method: 'POST',
         credentials: 'include' as RequestCredentials,
       });
-
-      if (!res.ok) {
-        throw new Error("Failed to refresh token");
-      }
+      if (!res.ok) throw new Error("Failed to refresh token");
 
       const user = await res.json();
       useAuthStore.getState().setLoggedUser(user);

@@ -3,7 +3,9 @@ import { create } from 'zustand'
 
 interface AuthState {
   loggedUser: AuthenticatedUser | null;
+  isHydrated: boolean;
   setLoggedUser: (user: AuthenticatedUser | null) => void;
+  setIsHydrated: (value: boolean) => void;
   logout: () => void;
   isRefreshing: boolean;
   refreshSubscribers: ((token: string) => void)[];
@@ -14,7 +16,9 @@ interface AuthState {
 
 export const useAuthStore = create<AuthState>((set) => ({
   loggedUser: null,
+  isHydrated: false,
   setLoggedUser: (user) => set({ loggedUser: user }),
+  setIsHydrated: (value) => set({ isHydrated: value }),
   logout: () => set({ loggedUser: null }),
   isRefreshing: false,
   refreshSubscribers: [],

@@ -1,5 +1,4 @@
 import { baseUrl } from "@/_lib/constants";
-import { handleResponse } from "@/_lib/handle-response";
 import { AuthenticatedUser } from "@/_types/authenticated-user.interface.ts";
 import { cookies } from "next/headers";
 
@@ -21,8 +20,9 @@ class AuthServerService {
         'Content-Type': 'application/json',
       },
     };
-    const currentUser = await handleResponse(await fetch(`${baseUrl}/api/auth/me`, requestOptions));
-    return currentUser;
+    const res = await fetch(`${baseUrl}/api/auth/me`, requestOptions);
+    if (!res.ok) return null;
+    return res.json();
   }
 
   async isAuthenticated(): Promise<boolean> {
@@ -30,9 +30,8 @@ class AuthServerService {
     return !!user;
   }
 
-  async hasRole(requiredRole: string): Promise<boolean> {
-    const user = await this.meServer();
-    return user?.role === requiredRole;
+  async hasRole(user: AuthenticatedUser, requiredRole: string[]): Promise<boolean> {
+    return requiredRole.includes(user.role);
   }
 }
 
