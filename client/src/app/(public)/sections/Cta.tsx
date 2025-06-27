@@ -100,8 +100,8 @@ export default function Cta() {
   ];
 
   return (
-    <section className="py-32">
-      <div className="container mx-auto">
+    <section className="py-20 sm:py-32">
+      <div className="min-w-full sm:container sm:min-w-0 sm:mx-auto">
         <div className="flex flex-col items-center gap-4 text-center">
           <Badge variant="outline">SPA de Verson</Badge>
           <h2 className="max-w-2xl text-3xl font-[900] font-inter md:text-4xl lg:text-5xl">
@@ -112,7 +112,7 @@ export default function Cta() {
           </p>
         </div>
         <Tabs defaultValue={tabs[0].value} className="mt-8">
-          <TabsList className="container flex flex-row items-center justify-center gap-4 md:gap-10">
+          <TabsList className="min-w-full sm:container sm:min-w-0 flex flex-row items-center justify-center gap-4 md:gap-10">
             {tabs.map((tab) => (
               <TabsTrigger
                 key={tab.value}
