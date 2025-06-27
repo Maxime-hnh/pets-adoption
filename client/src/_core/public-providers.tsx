@@ -4,7 +4,7 @@ import Footer from "@/_components/layout/footer";
 import { Toaster } from "@/_components/ui/sonner";
 import IsMobileObserver from "@/_core/is-mobile-observer";
 import { AuthProvider } from "@/_core/auth-provider";
-
+import NavBarMobile from "@/_components/NavBarMobile";
 /**
  * A top-level component that wraps the entire app and provides
  * a number of global services and layouts.
@@ -20,9 +20,10 @@ export function PublicProviders(props: PropsWithChildren) {
       <IsMobileObserver />
       <Toaster richColors />
       <Header />
-      <main className="flex-1 pt-[50px] sm:pt-[120px] px-1 lg:px-4 overflow-x-hidden bg-custom-dots">
+      <main className="flex-1 pt-[60px] sm:pt-[120px] sm:px-1 lg:px-4 overflow-x-hidden bg-custom-dots">
         {props.children}
       </main>
+      <NavBarMobile />
       <Footer />
     </AuthProvider>
   );

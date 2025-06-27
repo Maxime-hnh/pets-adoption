@@ -10,15 +10,17 @@ export default function Hero() {
   return (
     <section className="relative grid grid-cols-12 lg:px-12 h-[calc(100dvh-120px)]">
       {/* Background green */}
-      <div className="absolute right-0 bottom-0 not-odd:h-[128px] w-[40%]  scale-[2] rounded-[50%] bg-custom-green blur-[100px] sm:h-[256px]"></div>
+      <div className="hidden sm:block absolute right-0 bottom-0 not-odd:h-[128px] w-[40%]  scale-[2] rounded-[50%] bg-custom-green blur-[100px] sm:h-[256px]"></div>
       {/* Background orange */}
       <div
-        className="absolute top-1/2 left-1/2 not-odd:h-[210px] w-[40%] rotate-[35deg]  scale-[2] rounded-[50%] bg-custom-orange blur-[35px] sm:h-[256px]"
+        className="hidden sm:block absolute top-1/2 left-1/2 not-odd:h-[210px] w-[40%] rotate-[35deg]  scale-[2] rounded-[50%] bg-custom-orange blur-[35px] sm:h-[256px]"
         style={{ transform: "translate(-35%, -40%)" }}
       />
+      {/* Background purple bottom mobile */}
+      <div className="z-1 absolute bottom-0 left-0 w-full h-[80px] scale-[2] rounded-[50%] bg-[#6433c6] blur-[35px] sm:hidden"></div>
 
       {/* Text Bottom Center */}
-      <div className="hidden sm:flex items-end absolute bottom-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
+      <div className="hidden w-max  items-end absolute bottom-0 left-1/2 -translate-x-1/2 -translate-y-1/2  sm:flex">
         <Counter
           className="text-7xl font-inter font-[900] animate-fade-in-up pb-8 text-amber-500"
           start={0}
@@ -37,24 +39,18 @@ export default function Hero() {
 
 
       {/* Left content*/}
-      <div className="col-span-12 lg:col-span-5 2xl:col-span-6">
-        <div className="flex flex-col h-full gap-8 pt-8 sm:pt-24">
+      <div className="z-10 bg-[url(/assets/hero_mobile.png)] bg-cover bg-center col-span-12 sm:z-auto sm:bg-none lg:col-span-5 2xl:col-span-6">
+        <div className="flex flex-col h-full gap-8 justify-between sm:pt-24 lg:pt-12 xl:pt-24 sm:justify-start 2xl:gap-12">
 
           <h1 className="sr-only">Un refuge temporaire, un amour éternel.</h1>
-          <SparklesText text={" Un refuge temporaire, un amour éternel."} className="font-inter animate-fade-in-down" />
-          <p className="hidden sm:block animate-fade-in-up text-muted-foreground text-xl">
+          <SparklesText text={" Un refuge temporaire, un amour éternel."} className="font-inter animate-fade-in-down pl-2 pt-4 sm:pl-0 sm:pt-0" />
+          <p className="hidden animate-fade-in-up text-muted-foreground text-xl sm:block lg:text-lg xl:text-xl">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia alias soluta id veritatis
             quaerat libero doloremque accusamus aperiam, repellendus maiores animi dolor ad
             delectus eligendi.
           </p>
-          <Image
-            alt=""
-            src="/assets/hero_1.jpg"
-            width={1920}
-            height={1440}
-            className="block sm:hidden h-full object-cover object-right z-1"
-          />
-          <div className="flex justify-center sm:justify-start gap-4">
+
+          <div className="flex justify-center sm:justify-start gap-4 pb-4 sm:pb-0">
             <Button className="bg-indigo-500 animate-fade-in-left hover:bg-indigo-600" size={"3xl"}><PawPrint className="mr-2" /> J'adopte</Button>
             <Button className="bg-amber-500 animate-fade-in-right" size={"3xl"}>Nous Contacter <ArrowRight className="ml-2" /></Button>
           </div>
@@ -64,10 +60,10 @@ export default function Hero() {
 
       {/* Right content */}
       <div className="hidden lg:block lg:col-span-7 2xl:col-span-6 pl-8">
-        <div className="relative h-2/3 max-w-[40rem]">
+        <div className="relative h-2/3 lg:max-w-[31rem] xl:max-w-[40rem]">
 
           {/* Image 1 */}
-          <div className="bg-gray-500 h-[279px] w-[239px] absolute top-0 left-0 translate-y-1/3 translate-x-1/2 aspect-4/5 animate-fade-in-down">
+          <div className="bg-gray-500 lg:h-[14rem] lg:w-[12rem] xl:h-[17.5rem] xl:w-[15rem] absolute top-0 left-0 translate-y-1/2 translate-x-2/3 lg:translate-y-1/3 xl:translate-x-1/2 aspect-4/5 animate-fade-in-down">
             <Sparkles className="absolute -top-8 -left-8 text-emerald-500" />
             <ChartNoAxesGantt className="absolute -bottom-8 left-0 text-indigo-500" size={30} />
             <Image
@@ -80,7 +76,7 @@ export default function Hero() {
           </div>
 
           {/* Image 2 */}
-          <div className="bg-gray-700 h-[279px] w-[239px] absolute bottom-0 right-8 aspect-4/5 animate-fade-in-left">
+          <div className="bg-gray-700 lg:h-[14rem] lg:w-[12rem] xl:h-[17.5rem] xl:w-[15rem] absolute -right-8 bottom-28 xl:bottom-0 xl:right-8 aspect-4/5 animate-fade-in-left">
             <Heart className="absolute -top-8 -left-2 rotate-25 text-indigo-500" />
             <MessageCircleHeart className="absolute -top-8 -right-8 text-red-500 animate-bounce" />
 
@@ -94,7 +90,7 @@ export default function Hero() {
           </div>
 
           {/* Image 3 */}
-          <div className="bg-gray-300 h-[279px] w-[239px] absolute -bottom-20 left-40 aspect-4/5 animate-fade-in-right">
+          <div className="bg-gray-300 lg:h-[14rem] lg:w-[12rem] xl:h-[17.5rem] xl:w-[15rem] absolute bottom-10 xl:-bottom-20 left-40 aspect-4/5 animate-fade-in-right">
             <Star className="absolute bottom-1/6 -right-8 text-orange-500 rotate-20" />
             <Image
               alt=""
@@ -109,5 +105,3 @@ export default function Hero() {
     </section>
   );
 }
-
-
