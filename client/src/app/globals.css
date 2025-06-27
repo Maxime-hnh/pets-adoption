@@ -51,6 +51,10 @@
 }
 
 @theme {
+
+  --breakpoint-xxs: 20rem;
+  --breakpoint-xs: 23rem;
+
   --font-inter: 'Inter', sans-serif;
   --font-sora: 'Sora', sans-serif;
   --font-poppins: 'Poppins', sans-serif;

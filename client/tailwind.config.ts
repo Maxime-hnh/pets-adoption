@@ -10,14 +10,6 @@ const config: Config = {
     "./src/**/*.{ts,tsx}",
   ],
   theme: {
-    screens: { //custom break-point (from mantine)
-      xs: '30rem',
-      sm: '48rem',
-      md: '64rem',
-      lg: '74rem',
-      xl: '90rem',
-      '2xl': '100rem',
-    },
     extend: {
       borderRadius: {
         lg: "var(--radius)",

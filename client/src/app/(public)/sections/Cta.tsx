@@ -26,6 +26,8 @@ interface Tab {
 
 export default function Cta() {
 
+  //bg-muted/70 ou #fff6e8 pour le tab content ?
+
   const tabs: Tab[] = [
     {
       value: "tab-1",
@@ -110,18 +112,18 @@ export default function Cta() {
           </p>
         </div>
         <Tabs defaultValue={tabs[0].value} className="mt-8">
-          <TabsList className="container flex flex-col items-center justify-center gap-4 sm:flex-row md:gap-10">
+          <TabsList className="container flex flex-row items-center justify-center gap-4 md:gap-10">
             {tabs.map((tab) => (
               <TabsTrigger
                 key={tab.value}
                 value={tab.value}
                 className={`cursor-pointer flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold text-muted-foreground ${tab.content.backgroundColorActive} data-[state=active]:text-white`}
               >
-                {tab.icon} {tab.label}
+                {tab.icon} <span className="sr-only sm:not-sr-only">{tab.label}</span>
               </TabsTrigger>
             ))}
           </TabsList>
-          <div className="mx-auto mt-8 max-w-screen-xl rounded-2xl bg-muted/70 p-6 lg:p-16">
+          <div className="mx-auto mt-8 max-w-screen-xl sm:rounded-2xl bg-[#fff6e8] p-6 lg:p-16">
             {tabs.map((tab) => (
               <TabsContent
                 key={tab.value}
@@ -143,7 +145,7 @@ export default function Cta() {
                     {tab.content.description}
                   </p>
                   {tab.value === "tab-1" ? (
-                    <div className="flex gap-4">
+                    <div className="flex flex-wrap gap-4">
                       <Button asChild className="mt-2.5 w-fit gap-2 bg-indigo-500 hover:bg-indigo-600" size="lg">
                         <Link href={tab.content.link} className="!text-white">
                           <BadgeEuro />
