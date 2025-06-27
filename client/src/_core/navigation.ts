@@ -1,4 +1,5 @@
 import { AuthenticatedUser } from '@/_types/authenticated-user.interface.ts';
+import { Role } from '@/_types/role.interface';
 import { CalendarDays, Home, Mail, PawPrint, User } from 'lucide-react';
 
 export const getMenuItems = (loggedUser: AuthenticatedUser | null) => [
@@ -31,15 +32,19 @@ export const getMenuItems = (loggedUser: AuthenticatedUser | null) => [
     label: "Contact",
     href: "/contact",
     gradient:
-      "radial-gradient(circle, rgba(239,68,68,0.15) 0%, rgba(220,38,38,0.06) 50%, rgba(185,28,28,0) 100%)",
-    iconColor: "text-red-500",
+      "radial-gradient(circle, rgba(139,92,246,0.15) 0%, rgba(126,70,238,0.06) 50%, rgba(109,40,217,0) 100%)",
+    iconColor: "text-purple-500",
   },
   {
     icon: User,
     label: "Compte",
-    href: loggedUser ? "/profile" : "/auth/login",
+    href: !loggedUser
+      ? "/auth/login"
+      : [Role.ADMIN, Role.SUPERADMIN].includes(loggedUser.role)
+        ? "/admin"
+        : "/profile",
     gradient:
-      "radial-gradient(circle, rgba(239,68,68,0.15) 0%, rgba(220,38,38,0.06) 50%, rgba(185,28,28,0) 100%)",
-    iconColor: "text-red-500",
+      "radial-gradient(circle, rgba(59,130,246,0.15) 0%, rgba(37,99,235,0.06) 50%, rgba(29,78,216,0) 100%)",
+    iconColor: "text-blue-500",
   },
 ];

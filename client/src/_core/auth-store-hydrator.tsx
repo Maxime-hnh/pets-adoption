@@ -18,6 +18,7 @@ export function AuthStoreHydrator({ user }: { user: AuthenticatedUser | null }) 
     async function hydrate() {
       if (user) {
         setLoggedUser(user);
+        console.log(user)
       } else {
         await authService.refreshToken()
       }
