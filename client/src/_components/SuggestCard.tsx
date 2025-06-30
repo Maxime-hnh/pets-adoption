@@ -1,5 +1,5 @@
-import { animalsService } from "@/_services/animals.service";
 import AnimalCard from "./AnimalCard";
+import { animalsServerService } from "@/_services/animals-server.service";
 
 
 export default async function SuggestCard() {
@@ -8,7 +8,7 @@ export default async function SuggestCard() {
    * Data is fetched server-side using animalsService.
    */
 
-  const { serverGetAllWithFilters } = animalsService;
+  const { serverGetAllWithFilters } = animalsServerService;
   const animals = await serverGetAllWithFilters({
     where: { species: 'DOG' },
     orderBy: { createdAt: 'desc' },

@@ -90,26 +90,6 @@ class AnimalsService {
     }
     return await handleResponse(await fetch(`/api/animals/species/others`, requestOptions));
   };
-
-
-  serverGetById = async (id: number, revalidateCacheTime:number): Promise<Animal> => {
-    const requestOptions = {
-      method: 'GET',
-      headers: authHeader(),
-      next: { revalidate: revalidateCacheTime }
-    }
-    return await handleResponse(await fetch(`${baseUrl}/api/animals/${id}`, requestOptions));
-  }
-
-  serverGetAllWithFilters = async (where: any): Promise<Animal[]> => {
-    const requestOptions = {
-      method: 'POST',
-      headers: authHeader(),
-      body: JSON.stringify(where)
-    }
-    return await handleResponse(await fetch(`${baseUrl}/api/animals/filtered`, requestOptions));
-  };
-
 }
 
 export const animalsService = new AnimalsService();

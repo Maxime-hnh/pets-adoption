@@ -3,7 +3,6 @@ import { Card, CardContent } from "@/_components/ui/card";
 import { Carousel, CarouselContent, CarouselItem, CarouselDots } from "@/_components/ui/carousel";
 import { calculateAge } from "@/_lib/utils";
 import { GenderConfigMap, AnimalStatusConfiglMap, AnimalStatusLabelMap, SpeciesLabelMap, GenderLabelMap, PlacementTypeLabelMap, PlacementTypeConfiglMap } from "@/_schemas/animal.schema";
-import { animalsService } from "@/_services/animals.service";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
 import { ArrowRight, Calendar, Heart, MapPin, Phone, PawPrint } from "lucide-react";
@@ -14,6 +13,7 @@ import { Suspense } from "react";
 import { IncompatibilityConfigMap } from "@/_schemas/incompatibility.schema";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@radix-ui/react-tooltip";
 import SuggestCardSkeleton from "./SuggestCardSkeleton";
+import { getById } from "@/_lib/data";
 
 interface AnimalProfileProps {
   params: Promise<{ id: string }>
@@ -21,20 +21,19 @@ interface AnimalProfileProps {
 
 
 export async function generateMetadata({ params }: AnimalProfileProps) {
-  const { serverGetById } = animalsService;
   const { id } = await params;
-  const animal = await serverGetById(Number(id), 300);
+  const animal = await getById(Number(id)); //cache(fn)
+
   return {
-    title: `${animal.name} – À adopter | NomDuSite`,
+    title: `${animal.name} – À adopter | SPA de Verson`,
     description: `Découvrez ${animal.name}, un ${animal.species} de ${animal.breed} à adopter.`,
   }
 }
 
 export default async function AnimalProfile({ params }: AnimalProfileProps) {
 
-  const { serverGetById } = animalsService;
   const { id } = await params;
-  const animal = await serverGetById(Number(id), 300);
+  const animal = await getById(Number(id));  //cache(fn)
   if (!animal) return notFound()
 
   // Obtenir l'icône de genre avec sa couleur
