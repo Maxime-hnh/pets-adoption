@@ -1,4 +1,5 @@
 import { animalsServerService } from "@/_services/animals-server.service";
+import { incompatibilitiesServerService } from "@/_services/incompatibilities-server.service";
 import { cache } from "react";
 
 export const getAllAnimals = cache(async () => {
@@ -11,4 +12,10 @@ export const getById = cache(async (id: number) => {
   const { serverGetById } = animalsServerService;
   const animal = await serverGetById(Number(id), 300);
   return animal;
+})
+
+export const getIncompatibilities = cache(async () => {
+  const { serverGetAll } = incompatibilitiesServerService;
+  const incompatibilities = await serverGetAll();
+  return incompatibilities;
 })

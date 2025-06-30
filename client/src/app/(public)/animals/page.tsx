@@ -1,7 +1,6 @@
-import { getAllAnimals } from "@/_lib/data";
 import { animalsServerService } from "@/_services/animals-server.service";
-import { notFound } from "next/navigation";
-
+import FiltersBar from "./filters-bar";
+import { incompatibilitiesServerService } from "@/_services/incompatibilities-server.service";
 
 export async function generateMetadata() {
   return {
@@ -14,12 +13,23 @@ export async function generateMetadata() {
 export default async function AnimalsPage() {
 
   const { serverGetAll } = animalsServerService;
+  const {serverGetIncompatibilities} = incompatibilitiesServerService;
   const animals = await serverGetAll();
-  console.log(animals);
+  const incompatibilities = await serverGetIncompatibilities();
 
   return (
-    <div>
-      <h1>Animals</h1>
-    </div>
+    <section className="relative grid grid-cols-12 gap-8 h-[calc(100dvh-120px)]">
+      <div className="col-span-4">
+        <div className="rounded-xl py-6 px-4 shadow-2xl border bg-white">
+          <div className="flex flex-col gap-4">
+            <h2 className="font-inter font-[900] text-xl">Je trouve mon compagnon</h2>
+            <FiltersBar animals={animals} incompatibilities={incompatibilities} />  
+          </div>
+        </div>
+      </div>
+      <div className="col-span-8">
+
+      </div>
+    </section>
   )
 }
