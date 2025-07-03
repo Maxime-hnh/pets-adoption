@@ -1,26 +1,20 @@
 "use client"
-import React, { useState } from "react";
+import React from "react";
 import { Input } from "@/_components/ui/input"
 import { MultipleSelector } from "@/_components/ui/multiple-selector";
 import { Search } from "lucide-react";
-import { Animal, SpeciesLabelMap, Species, GenderLabelMap, Gender, PlacementTypeLabelMap, PlacementType, AnimalStatusLabelMap, AnimalStatus } from "@/_schemas/animal.schema";
-import { ShortIncompatibility } from "@/_schemas/incompatibility.schema";
+import { SpeciesLabelMap, Species, GenderLabelMap, Gender, PlacementTypeLabelMap, PlacementType, AnimalStatusLabelMap, AnimalStatus } from "@/_schemas/animal.schema";
+import { useAnimalsStore } from "@/_stores/animals.store";
+import { Chip } from "@/_components/ui/chip";
 
 
-export default function FiltersBar({ animals, incompatibilities }: { animals: Animal[], incompatibilities: ShortIncompatibility[] }) {
+export default function FiltersBar() {
 
-  const [search, setSearch] = useState('');
-
-  const [filters, setFilters] = useState({
-    species: Object.keys(SpeciesLabelMap) as Species[],
-    breed: [] as string[],
-    minAge: null as number | null,
-    maxAge: null as number | null,
-    sexe: Object.keys(GenderLabelMap) as Gender[],
-    placementType: Object.keys(PlacementTypeLabelMap) as PlacementType[],
-    status: Object.keys(AnimalStatusLabelMap) as AnimalStatus[],
-    incompatibilities: [] as string[],
-  });
+  const animals = useAnimalsStore((state) => state.animals);
+  const filters = useAnimalsStore((state) => state.filters);
+  const incompatibilities = useAnimalsStore((state) => state.incompatibilities);
+  const setFilters = useAnimalsStore((state) => state.setFilters);
+  const filteredAnimals = useAnimalsStore((state) => state.filteredAnimals);
 
   // Grouper les races par espèce
   const breedGroups = React.useMemo(() => {
@@ -47,15 +41,63 @@ export default function FiltersBar({ animals, incompatibilities }: { animals: An
   }, [animals, filters.species]);
 
 
-  const filteredAnimals = animals.filter((animal) => {
-    if (filters.species && !filters.species.includes(animal.species)) return false;
-    if (filters.breed && !filters.breed.includes(animal.breed)) return false;
-    if (filters.sexe && !filters.sexe.includes(animal.gender)) return false;
-    if (filters.placementType && !filters.placementType.includes(animal.placementType)) return false;
-    if (filters.status && !filters.status.includes(animal.status)) return false;
-    // if (filters.incompatibilities && !filters.incompatibilities.every(incompatibility => animal.incompatibilityIds.includes(incompatibility))) return false;
-    return true;
-  });
+  const handleChipClick = (species: Species) => {
+    setFilters((prev) => ({
+      ...prev,
+      species: prev.species.includes(species) ? prev.species.filter((s) => s !== species) : [...prev.species, species]
+    }));
+  };
+
+  const handleSexeChipClick = (sexe: Gender) => {
+    setFilters((prev) => ({
+      ...prev,
+      sexe: prev.sexe.includes(sexe) ? prev.sexe.filter((s) => s !== sexe) : [...prev.sexe, sexe]
+    }));
+  };
+
+  const handleAllClick = () => {
+    setFilters((prev) => ({ ...prev, species: [] }));
+  };
+
+
+  const speciesChips = [
+    <Chip
+      key="all"
+      checked={filters.species.length === 0}
+      onChange={handleAllClick}
+    >
+      Tous
+    </Chip>,
+    ...Object.entries(SpeciesLabelMap).map(([key, label]) => (
+      <Chip
+        key={key}
+        checked={filters.species.includes(key as Species)}
+        onChange={() => handleChipClick(key as Species)}
+      >
+        {label}
+      </Chip>
+    )),
+  ];
+
+  const sexeChips = [
+    <Chip
+      key="all"
+      checked={filters.sexe.length === 0}
+      onChange={handleAllClick}
+    >
+      Tous
+    </Chip>,
+    ...Object.entries(GenderLabelMap).map(([key, label]) => (
+      <Chip
+        key={key}
+        checked={filters.sexe.includes(key as Gender)}
+        onChange={() => handleSexeChipClick(key as Gender)}
+      >
+        {label}
+      </Chip>
+    )),
+  ];
+
 
   console.log(filteredAnimals);
   return (
@@ -66,32 +108,40 @@ export default function FiltersBar({ animals, incompatibilities }: { animals: An
           type="text"
           placeholder="Rechercher un animal..."
           className="pl-9 bg-background"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          value={filters.search || ''}
+          onChange={(e) => setFilters((prev) => ({ ...prev, search: e.target.value }))}
         />
       </div>
-      <MultipleSelector
-        label="Espèces"
-        options={Object.entries(SpeciesLabelMap).map(([value, label]) => ({
-          value,
-          label
-        }))}
-        value={filters.species}
-        onChange={(values) => setFilters({ ...filters, species: values as Species[] })}
-        placeholder="Sélectionner des espèces..."
-        disabled={false}
-      />
+
+      <div className="flex flex-col gap-2 border-b-1 border-gray-300 pb-4">
+        <label className="font-inter font-[900] text-lg">Espèces</label>
+        <div className="flex flex-row gap-2">
+          {speciesChips}
+        </div>
+      </div>
+
+
 
       {/* MultipleSelector avec groupes pour les races */}
       <MultipleSelector
         label="Races"
         groups={breedGroups}
         value={filters.breed}
-        onChange={(values) => setFilters({ ...filters, breed: values })}
+        onChange={(values) => setFilters((prev) => ({ ...prev, breed: values }))}
         placeholder="Sélectionner des races..."
         disabled={filters.species.length === 0}
         emptyMessage={filters.species.length === 0 ? "Veuillez d'abord sélectionner une espèce" : "Aucune race trouvée"}
+        className="border-gray-300 pb-4"
       />
+
+      {/* Sexe */}
+      <div className="flex flex-col gap-2 border-b-1 border-gray-300 pb-4">
+        <label className="font-inter font-[900] text-lg">Sexe</label>
+        <div className="flex flex-row gap-2">
+          {sexeChips}
+        </div>
+      </div>
+
       {/* Filtres d'âge */}
       <div className="grid grid-cols-2 gap-3">
         <div className="space-y-2">
@@ -102,10 +152,10 @@ export default function FiltersBar({ animals, incompatibilities }: { animals: An
             min="0"
             max="20"
             value={filters.minAge || ''}
-            onChange={(e) => setFilters({
-              ...filters,
+            onChange={(e) => setFilters((prev) => ({
+              ...prev,
               minAge: e.target.value ? parseInt(e.target.value) : null
-            })}
+            }))}
             className="w-full bg-background"
           />
         </div>
@@ -117,28 +167,16 @@ export default function FiltersBar({ animals, incompatibilities }: { animals: An
             min="0"
             max="20"
             value={filters.maxAge || ''}
-            onChange={(e) => setFilters({
-              ...filters,
+            onChange={(e) => setFilters((prev) => ({
+              ...prev,
               maxAge: e.target.value ? parseInt(e.target.value) : null
-            })}
+            }))}
             className="w-full bg-background"
           />
 
         </div>
       </div>
 
-      <MultipleSelector
-        label="Sexe"
-        options={Object.entries(GenderLabelMap).map(([value, label]) => ({
-          value,
-          label
-        }))}
-        value={filters.sexe}
-        onChange={(values) => setFilters({ ...filters, sexe: values as Gender[] })}
-        placeholder="Sélectionner des sexes..."
-        disabled={filters.species.length === 0}
-        emptyMessage={filters.species.length === 0 ? "Veuillez d'abord sélectionner une espèce" : "Aucun sexe trouvée"}
-      />
 
       <MultipleSelector
         label="Type de placement"
@@ -147,10 +185,9 @@ export default function FiltersBar({ animals, incompatibilities }: { animals: An
           label
         }))}
         value={filters.placementType}
-        onChange={(values) => setFilters({ ...filters, placementType: values as PlacementType[] })}
+        onChange={(values) => setFilters((prev) => ({ ...prev, placementType: values as PlacementType[] }))}
         placeholder="Sélectionner des types de placement..."
-        disabled={filters.species.length === 0}
-        emptyMessage={filters.species.length === 0 ? "Veuillez d'abord sélectionner une espèce" : "Aucun type de placement trouvée"}
+        disabled={false}
       />
 
       <MultipleSelector
@@ -160,10 +197,9 @@ export default function FiltersBar({ animals, incompatibilities }: { animals: An
           label
         }))}
         value={filters.status}
-        onChange={(values) => setFilters({ ...filters, status: values as AnimalStatus[] })}
+        onChange={(values) => setFilters((prev) => ({ ...prev, status: values as AnimalStatus[] }))}
         placeholder="Sélectionner des états..."
-        disabled={filters.species.length === 0}
-        emptyMessage={filters.species.length === 0 ? "Veuillez d'abord sélectionner une espèce" : "Aucun état trouvée"}
+        disabled={false}
       />
 
       <MultipleSelector
@@ -173,10 +209,9 @@ export default function FiltersBar({ animals, incompatibilities }: { animals: An
           label: item.label
         }))}
         value={filters.incompatibilities}
-        onChange={(values) => setFilters({ ...filters, incompatibilities: values as string[] })}
+        onChange={(values) => setFilters((prev) => ({ ...prev, incompatibilities: values as string[] }))}
         placeholder="Sélectionner des incompatibilités..."
-        disabled={filters.species.length === 0}
-        emptyMessage={filters.species.length === 0 ? "Veuillez d'abord sélectionner une espèce" : "Aucune incompatibilité trouvée"}
+        disabled={false}
       />
 
 

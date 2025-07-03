@@ -6,7 +6,7 @@ import Image from "next/image";
 import { Counter } from "@/_components/ui/animaton/animated-counter";
 
 export default function Hero() {
-  console.log("hero component")
+
   return (
     <section className="relative grid grid-cols-12 lg:px-12 h-[calc(100dvh-120px)]">
       {/* Background green */}

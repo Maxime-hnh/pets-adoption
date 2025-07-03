@@ -1,7 +1,7 @@
 import { Button } from "@/_components/ui/button";
 import { Card, CardContent } from "@/_components/ui/card";
 import { Carousel, CarouselContent, CarouselItem, CarouselDots } from "@/_components/ui/carousel";
-import { calculateAge } from "@/_lib/utils";
+import { calculateAgeToString } from "@/_lib/utils";
 import { GenderConfigMap, AnimalStatusConfiglMap, AnimalStatusLabelMap, SpeciesLabelMap, GenderLabelMap, PlacementTypeLabelMap, PlacementTypeConfiglMap } from "@/_schemas/animal.schema";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
@@ -173,7 +173,7 @@ export default async function AnimalProfile({ params }: AnimalProfileProps) {
                       <p className="text-sm text-gray-500 mb-1">Âge</p>
                       <p className="font-medium flex items-center gap-2">
                         <Calendar size={16} className="text-gray-400" />
-                        {animal.birthDate ? calculateAge(animal.birthDate) : 'Non renseigné'}
+                        {animal.birthDate ? calculateAgeToString(animal.birthDate) : 'Non renseigné'}
                       </p>
                       <p className="text-xs text-gray-400">
                         {animal.birthDate ? `Né(e) le ${format(animal.birthDate, "dd MMMM yyyy", { locale: fr })}` : ''}

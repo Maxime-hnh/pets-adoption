@@ -2,7 +2,7 @@ import { Animal, AnimalStatusConfiglMap, GenderConfigMap, PlacementTypeConfiglMa
 import Image from "next/image";
 import { Badge } from "./ui/badge";
 import { Cake } from "lucide-react";
-import { calculateAge } from "@/_lib/utils";
+import { calculateAgeToString } from "@/_lib/utils";
 
 export default function AnimalCard({ animal }: { animal: Animal }) {
 
@@ -46,7 +46,7 @@ export default function AnimalCard({ animal }: { animal: Animal }) {
             >
               <Cake size={24} />
 
-              {calculateAge(animal.birthDate)}
+              {calculateAgeToString(animal.birthDate)}
             </Badge>
           )}
           {animal.placementType && (
