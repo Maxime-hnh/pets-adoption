@@ -7,3 +7,17 @@ export const baseUrl = process.env.API_URL || 'http://localhost:3001';
 export const handleLinkClick = (link: string) => {
   window.open(link, '_blank');
 };
+
+export interface AgeRange {
+  min: number;
+  max: number;
+  label: string;
+};
+
+export const ageRanges: AgeRange[] = [
+  { min: 0, max: 3, label: "0-3 ans" },
+  { min: 3, max: 6, label: "3-6 ans" },
+  { min: 6, max: 9, label: "6-9 ans" },
+  { min: 9, max: 12, label: "9-12 ans" },
+  { min: 12, max: 30, label: "12+" },
+];

@@ -6,6 +6,7 @@ import { Search } from "lucide-react";
 import { SpeciesLabelMap, Species, GenderLabelMap, Gender, PlacementTypeLabelMap, PlacementType, AnimalStatusLabelMap, AnimalStatus } from "@/_schemas/animal.schema";
 import { useAnimalsStore } from "@/_stores/animals.store";
 import { Chip } from "@/_components/ui/chip";
+import { AgeRange, ageRanges } from "@/_lib/constants";
 
 
 export default function FiltersBar() {
@@ -16,21 +17,23 @@ export default function FiltersBar() {
   const setFilters = useAnimalsStore((state) => state.setFilters);
   const filteredAnimals = useAnimalsStore((state) => state.filteredAnimals);
 
+
   // Grouper les races par espèce
   const breedGroups = React.useMemo(() => {
     const groups: { [key in Species]?: string[] } = {};
+    const filteredSpecies = filters.species.length > 0 ? filters.species : Object.keys(SpeciesLabelMap);
 
     animals.forEach(animal => {
       if (!groups[animal.species]) {
         groups[animal.species] = [];
       }
-      if (!groups[animal.species]!.includes(animal.breed)) {
-        groups[animal.species]!.push(animal.breed);
+      if (!groups[animal.species]!.includes(animal.breed.toLowerCase())) {
+        groups[animal.species]!.push(animal.breed.toLowerCase());
       }
     });
 
     return Object.entries(groups)
-      .filter(([speciesKey]) => filters.species.includes(speciesKey as Species))
+      .filter(([speciesKey]) => filteredSpecies.includes(speciesKey as Species))
       .map(([speciesKey, breeds]) => ({
         label: SpeciesLabelMap[speciesKey as Species],
         options: breeds!.sort().map(breed => ({
@@ -54,9 +57,36 @@ export default function FiltersBar() {
       sexe: prev.sexe.includes(sexe) ? prev.sexe.filter((s) => s !== sexe) : [...prev.sexe, sexe]
     }));
   };
+  const handlePlacementTypeChipClick = (placementType: PlacementType) => {
+    setFilters((prev) => ({
+      ...prev,
+      placementType: prev.placementType.includes(placementType) ? prev.placementType.filter((s) => s !== placementType) : [...prev.placementType, placementType]
+    }));
+  };
+  const handleIncompatibilityChipClick = (incompatibilityId: string) => {
+    setFilters((prev) => ({
+      ...prev,
+      incompatibilities: prev.incompatibilities.includes(incompatibilityId) ? prev.incompatibilities.filter((s) => s !== incompatibilityId) : [...prev.incompatibilities, incompatibilityId]
+    }));
+  };
 
-  const handleAllClick = () => {
-    setFilters((prev) => ({ ...prev, species: [] }));
+  const handleAllClick = (state: string) => {
+    setFilters((prev) => ({ ...prev, [state]: [] }));
+  };
+  const handleAgeChipClick = (range: AgeRange) => {
+    setFilters((prev) => {
+      const isSelected = prev.ageRanges.includes(range);
+      let newRanges;
+      if (isSelected) {
+        newRanges = prev.ageRanges.filter(r => r !== range);
+      } else {
+        newRanges = [...prev.ageRanges, range]
+      }
+      return {
+        ...prev,
+        ageRanges: newRanges
+      }
+    })
   };
 
 
@@ -64,7 +94,7 @@ export default function FiltersBar() {
     <Chip
       key="all"
       checked={filters.species.length === 0}
-      onChange={handleAllClick}
+      onChange={() => handleAllClick("species")}
     >
       Tous
     </Chip>,
@@ -83,7 +113,7 @@ export default function FiltersBar() {
     <Chip
       key="all"
       checked={filters.sexe.length === 0}
-      onChange={handleAllClick}
+      onChange={() => handleAllClick("sexe")}
     >
       Tous
     </Chip>,
@@ -98,8 +128,55 @@ export default function FiltersBar() {
     )),
   ];
 
+  const placementTypeChips = [
+    <Chip
+      key="all"
+      checked={filters.placementType.length === 0}
+      onChange={() => handleAllClick("placementType")}
+    >
+      Tous
+    </Chip>,
+    ...Object.entries(PlacementTypeLabelMap).map(([key, label]) => (
+      <Chip
+        key={key}
+        checked={filters.placementType.includes(key as PlacementType)}
+        onChange={() => handlePlacementTypeChipClick(key as PlacementType)}
+      >
+        {label}
+      </Chip>
+    )),
+  ];
 
-  console.log(filteredAnimals);
+  const ageChips = [
+    <Chip
+      key="all"
+      checked={filters.ageRanges.length === 0}
+      onChange={() => handleAllClick("age")}
+    >
+      Tous
+    </Chip>,
+    ...ageRanges.map((range) => (
+      <Chip
+        key={range.label}
+        checked={filters.ageRanges.includes(range)}
+        onChange={() => handleAgeChipClick(range)}
+      >
+        {range.label}
+      </Chip>
+    )),
+  ];
+
+  const incompatibilityChips = incompatibilities.map((item) => (
+    <Chip
+      key={item.id}
+      checked={filters.incompatibilities.includes(item.id.toString())}
+      onChange={() => handleIncompatibilityChipClick(item.id.toString())}
+    >
+      {item.label}
+    </Chip>
+  ))
+
+
   return (
     <>
       <div className="relative">
@@ -107,13 +184,13 @@ export default function FiltersBar() {
         <Input
           type="text"
           placeholder="Rechercher un animal..."
-          className="pl-9 bg-background"
+          className="pl-9 !bg-white"
           value={filters.search || ''}
           onChange={(e) => setFilters((prev) => ({ ...prev, search: e.target.value }))}
         />
       </div>
 
-      <div className="flex flex-col gap-2 border-b-1 border-gray-300 pb-4">
+      <div className="flex flex-col gap-2 border-b-1 border-gray-200 pb-4">
         <label className="font-inter font-[900] text-lg">Espèces</label>
         <div className="flex flex-row gap-2">
           {speciesChips}
@@ -129,13 +206,13 @@ export default function FiltersBar() {
         value={filters.breed}
         onChange={(values) => setFilters((prev) => ({ ...prev, breed: values }))}
         placeholder="Sélectionner des races..."
-        disabled={filters.species.length === 0}
-        emptyMessage={filters.species.length === 0 ? "Veuillez d'abord sélectionner une espèce" : "Aucune race trouvée"}
-        className="border-gray-300 pb-4"
+        // emptyMessage="Aucune race trouvée"
+        className="border-gray-200 border-b-1 pb-4"
+        labelClassName="font-inter font-[900] text-lg"
       />
 
       {/* Sexe */}
-      <div className="flex flex-col gap-2 border-b-1 border-gray-300 pb-4">
+      <div className="flex flex-col gap-2 border-b-1 border-gray-200 pb-4">
         <label className="font-inter font-[900] text-lg">Sexe</label>
         <div className="flex flex-row gap-2">
           {sexeChips}
@@ -143,76 +220,28 @@ export default function FiltersBar() {
       </div>
 
       {/* Filtres d'âge */}
-      <div className="grid grid-cols-2 gap-3">
-        <div className="space-y-2">
-          <label className="text-sm font-medium text-gray-700">Âge minimum</label>
-          <Input
-            type="number"
-            placeholder="0"
-            min="0"
-            max="20"
-            value={filters.minAge || ''}
-            onChange={(e) => setFilters((prev) => ({
-              ...prev,
-              minAge: e.target.value ? parseInt(e.target.value) : null
-            }))}
-            className="w-full bg-background"
-          />
-        </div>
-        <div className="space-y-2">
-          <label className="text-sm font-medium text-gray-700">Âge maximum</label>
-          <Input
-            type="number"
-            placeholder="20"
-            min="0"
-            max="20"
-            value={filters.maxAge || ''}
-            onChange={(e) => setFilters((prev) => ({
-              ...prev,
-              maxAge: e.target.value ? parseInt(e.target.value) : null
-            }))}
-            className="w-full bg-background"
-          />
-
+      <div className="flex flex-col gap-2 border-b-1 border-gray-200 pb-4">
+        <label className="font-inter font-[900] text-lg">Âge</label>
+        <div className="flex flex-row flex-wrap gap-2">
+          {ageChips}
         </div>
       </div>
 
+      {/* Type de placement */}
+      <div className="flex flex-col gap-2 border-b-1 border-gray-200 pb-4">
+        <label className="font-inter font-[900] text-lg">Type de placement</label>
+        <div className="flex flex-row gap-2">
+          {placementTypeChips}
+        </div>
+      </div>
 
-      <MultipleSelector
-        label="Type de placement"
-        options={Object.entries(PlacementTypeLabelMap).map(([value, label]) => ({
-          value,
-          label
-        }))}
-        value={filters.placementType}
-        onChange={(values) => setFilters((prev) => ({ ...prev, placementType: values as PlacementType[] }))}
-        placeholder="Sélectionner des types de placement..."
-        disabled={false}
-      />
-
-      <MultipleSelector
-        label="Statut"
-        options={Object.entries(AnimalStatusLabelMap).map(([value, label]) => ({
-          value,
-          label
-        }))}
-        value={filters.status}
-        onChange={(values) => setFilters((prev) => ({ ...prev, status: values as AnimalStatus[] }))}
-        placeholder="Sélectionner des états..."
-        disabled={false}
-      />
-
-      <MultipleSelector
-        label="Incompatibilités"
-        options={incompatibilities.map((item) => ({
-          value: item.id.toString(),
-          label: item.label
-        }))}
-        value={filters.incompatibilities}
-        onChange={(values) => setFilters((prev) => ({ ...prev, incompatibilities: values as string[] }))}
-        placeholder="Sélectionner des incompatibilités..."
-        disabled={false}
-      />
+      {/* OK avec */}
+      <div className="flex flex-col gap-2">
+        <label className="font-inter font-[900] text-lg">OK avec</label>
+        <div className="flex flex-row gap-2">
+          {incompatibilityChips}
+        </div>
+      </div>
 
 
       {/* Exemple d'affichage des sélections pour démo */}

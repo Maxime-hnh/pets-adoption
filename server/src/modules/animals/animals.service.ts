@@ -145,7 +145,15 @@ export class AnimalsService {
   };
 
   async findAll(): Promise<AnimalDto[]> {
-    const animals = await this.prisma.animal.findMany({ orderBy: { createdAt: 'desc' } });
+    const animals = await this.prisma.animal.findMany(
+      {
+        orderBy: { createdAt: 'desc' },
+        include: {
+          animalIncompatibilities: {
+            include: { incompatibility: true }
+          }
+        }
+      });
     return toDtos(AnimalDto, animals)
   };
 

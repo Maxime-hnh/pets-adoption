@@ -35,15 +35,19 @@ export default function ClientAnimalsWrapper({ animals, incompatibilities }: { a
             <div className="col-span-1 bg-white rounded-2xl shadow-md border" key={i}>
               {animal.photos && animal.photos.length > 0 && animal.photos![0] && <Image
                 src={animal.photos![0]}
+                className="w-auto h-48 object-cover"
                 alt=""
-                width={50}
-                height={50}
+                width={300}
+                height={300}
+                priority={true}
               />
               }
               <p>{animal.name}</p>
               <p>{animal.icadNumber}</p>
               <p>{animal.species}</p>
               <p>{animal.breed}</p>
+              <p>{animal.incompatibilityIds}</p>
+              <p>{animal.incompatibilityLabels}</p>
             </div>
           )}
         </div>

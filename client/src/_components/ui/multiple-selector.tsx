@@ -29,6 +29,7 @@ export interface MultipleSelectorProps {
   closeOnSelect?: boolean;
   loading?: boolean;
   emptyMessage?: string;
+  labelClassName?: string;
   badgeClassName?: string;
   dropdownClassName?: string;
   label?: string;
@@ -50,6 +51,7 @@ const MultipleSelector = React.forwardRef<HTMLDivElement, MultipleSelectorProps>
       closeOnSelect = false,
       loading = false,
       emptyMessage = "Aucune option trouvée",
+      labelClassName,
       badgeClassName,
       dropdownClassName,
       label,
@@ -232,7 +234,10 @@ const MultipleSelector = React.forwardRef<HTMLDivElement, MultipleSelectorProps>
       >
         {/* Label optionnel */}
         {label && (
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className={cn(
+            "block text-sm font-medium text-gray-700 mb-2",
+            labelClassName
+          )}>
             {label}
           </label>
         )}
@@ -240,9 +245,9 @@ const MultipleSelector = React.forwardRef<HTMLDivElement, MultipleSelectorProps>
           ref={ref}
           className={cn(
             "flex min-h-10 w-full flex-wrap items-center gap-1 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background",
-            "focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2",
+            "focus-within:ring-1 focus-within:ring-indigo-500",
             disabled && "cursor-not-allowed opacity-50",
-            isOpen && "ring-2 ring-ring ring-offset-2"
+            isOpen && "ring-1 ring-indigo-500"
           )}
           onClick={() => {
             if (!disabled) {
