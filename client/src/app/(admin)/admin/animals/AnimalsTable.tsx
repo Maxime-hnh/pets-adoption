@@ -24,7 +24,7 @@ import { Group } from "@/_components/ui/group";
 import { useQuickPropsUpdate } from "@/_mutations/animals/useQuickPropsUpdate";
 import { useDeleteAnimal } from "@/_mutations/animals/useDeleteAnimal";
 import { ColumnFiltersState, ColumnPinningState, SortingState, VisibilityState } from "@tanstack/react-table";
-import { Animal, AnimalStatusConfiglMap, AnimalStatusLabelMap, Gender, GenderConfigMap, PlacementTypeConfiglMap, PlacementTypeLabelMap, Species, SpeciesConfigMap, SpeciesLabelMap } from "@/_schemas/animal.schema";
+import { Animal, AnimalStatusConfiglMap, AnimalStatusLabelMap, Gender, GenderConfigMap, PlacementTypeConfigMap, PlacementTypeLabelMap, Species, SpeciesConfigMap, SpeciesLabelMap } from "@/_schemas/animal.schema";
 import { Checkbox } from "@/_components/ui/checkbox";
 import { ArrowUpDown, Eye, MoreHorizontal, PenLine, Trash2 } from "lucide-react";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/_components/ui/alert-dialog";
@@ -168,7 +168,7 @@ export default function AnimalsTable() {
           initialValue={row.original.placementType}
           keyName="placementType"
           labelMap={PlacementTypeLabelMap}
-          configMap={PlacementTypeConfiglMap}
+          configMap={PlacementTypeConfigMap}
           updateFn={quickUpdateAnimal}
         />
       ),

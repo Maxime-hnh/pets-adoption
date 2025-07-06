@@ -34,7 +34,7 @@ export const PlacementTypeLabelMap: Record<PlacementType, string> = {
 };
 
 
-export const PlacementTypeConfiglMap: Record<PlacementType, { color: string }> = {
+export const PlacementTypeConfigMap: Record<PlacementType, { color: string }> = {
   [PlacementType.STANDARD]: { color: "text-green-500" },
   [PlacementType.SOS]: { color: "text-red-500" },
   [PlacementType.FAD]: { color: "text-blue-500" },

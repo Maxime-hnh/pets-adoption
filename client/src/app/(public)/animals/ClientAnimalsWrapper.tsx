@@ -5,6 +5,7 @@ import FiltersBar from "./filters-bar";
 import { Animal } from "@/_schemas/animal.schema";
 import { useAnimalsStore } from "@/_stores/animals.store";
 import { Suspense, useEffect } from "react";
+import AnimalCard from "@/_components/AnimalCard";
 import Image from "next/image";
 
 export default function ClientAnimalsWrapper({ animals, incompatibilities }: { animals: Animal[], incompatibilities: ShortIncompatibility[] }) {
@@ -21,33 +22,25 @@ export default function ClientAnimalsWrapper({ animals, incompatibilities }: { a
 
   return (
     <>
-      <div className="col-span-3">
+      <div className="relative md:col-span-5 lg:col-span-4 xl:col-span-3 3xl:col-span-2">
+        <Image
+          src="/assets/mascot/mascot_face_paw.png"
+          width={500}
+          height={500}
+          alt=""
+          className="absolute -top-22 left-1/2 -translate-x-1/2 z-30 h-24 w-24"
+        />
         <div className="rounded-xl py-6 px-4 shadow-2xl border bg-white">
-          <div className="flex flex-col gap-4">
-            {/* <h2 className="font-inter font-[900] text-xl">Je trouve mon compagnon</h2> */}
+          <div className=" flex flex-col gap-4">
             <FiltersBar />
           </div>
         </div>
       </div>
-      <div className="col-span-9">
-        <div className="grid grid-cols-4 gap-4">
+      <div className="md:col-span-7 lg:col-span-8 xl:col-span-9 3xl:col-span-10">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 3xl:grid-cols-5 gap-4">
           {filteredAnimals.map((animal, i) =>
-            <div className="col-span-1 bg-white rounded-2xl shadow-md border" key={i}>
-              {animal.photos && animal.photos.length > 0 && animal.photos![0] && <Image
-                src={animal.photos![0]}
-                className="w-auto h-48 object-cover"
-                alt=""
-                width={300}
-                height={300}
-                priority={true}
-              />
-              }
-              <p>{animal.name}</p>
-              <p>{animal.icadNumber}</p>
-              <p>{animal.species}</p>
-              <p>{animal.breed}</p>
-              <p>{animal.incompatibilityIds}</p>
-              <p>{animal.incompatibilityLabels}</p>
+            <div className="col-span-1" key={i}>
+              <AnimalCard animal={animal} />
             </div>
           )}
         </div>

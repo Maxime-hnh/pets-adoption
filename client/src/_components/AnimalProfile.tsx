@@ -2,7 +2,7 @@ import { Button } from "@/_components/ui/button";
 import { Card, CardContent } from "@/_components/ui/card";
 import { Carousel, CarouselContent, CarouselItem, CarouselDots } from "@/_components/ui/carousel";
 import { calculateAgeToString } from "@/_lib/utils";
-import { GenderConfigMap, AnimalStatusConfiglMap, AnimalStatusLabelMap, SpeciesLabelMap, GenderLabelMap, PlacementTypeLabelMap, PlacementTypeConfiglMap } from "@/_schemas/animal.schema";
+import { GenderConfigMap, AnimalStatusConfiglMap, AnimalStatusLabelMap, SpeciesLabelMap, GenderLabelMap, PlacementTypeLabelMap, PlacementTypeConfigMap } from "@/_schemas/animal.schema";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
 import { ArrowRight, Calendar, Heart, MapPin, Phone, PawPrint } from "lucide-react";
@@ -43,7 +43,7 @@ export default async function AnimalProfile({ params }: AnimalProfileProps) {
   // Obtenir le statut de l'animal avec sa couleur
   const statusColor = animal.status ? AnimalStatusConfiglMap[animal.status].color : '';
 
-  const placementTypeColor = animal.placementType ? PlacementTypeConfiglMap[animal.placementType].color : '';
+  const placementTypeColor = animal.placementType ? PlacementTypeConfigMap[animal.placementType].color : '';
 
   return (
 

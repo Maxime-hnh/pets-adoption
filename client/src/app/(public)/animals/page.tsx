@@ -18,7 +18,7 @@ export default async function AnimalsPage() {
   const incompatibilities = await serverGetIncompatibilities();
 
   return (
-    <section className="relative grid grid-cols-12 gap-8 h-[calc(100dvh-120px)]">
+    <section className="relative grid grid-cols-12 md:gap-4 lg:gap-8 h-[calc(100dvh-120px)]">
     <ClientAnimalsWrapper animals={animals} incompatibilities={incompatibilities} />
     </section>
   )

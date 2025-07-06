@@ -54,6 +54,7 @@
 
   --breakpoint-xxs: 20rem;
   --breakpoint-xs: 23rem;
+  --breakpoint-3xl: 115rem;
 
   --font-inter: 'Inter', sans-serif;
   --font-sora: 'Sora', sans-serif;
@@ -69,6 +70,8 @@
   --animate-fade-in-down: fade-in-down 0.6s ease-out forwards;
   --animate-fade-in-left: fade-in-left 0.6s ease-out forwards;
   --animate-fade-in-right: fade-in-right 0.6s ease-out forwards;
+  --animate-vibrate: vibrate 0.3s linear infinite;
+  --animate-wiggle: wiggle 0.3s linear infinite;
   --shadow-custom-purple: #8750f7 0px 4px 38px, rgb(120 75 160 / 16%) 0px 15px 12px;
   --shadow-custom-green: #00bc7d 0px 3px 14px, rgb(120 75 160 / 16%) 0px 5px 12px;
   --shadow-custom-orange: #ff7e5f 0px 3px 14px, rgb(120 75 160 / 16%) 0px 5px 12px;
@@ -130,6 +133,24 @@
       transform: translateX(0);
     }
   }
+
+  @keyframes vibrate {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+    100% { transform: translate(0); }
+  }
+  
+  @keyframes wiggle {
+    0%   { transform: rotate(-8deg); }
+    25%  { transform: rotate(0deg); }
+    50%  { transform: rotate(8deg); }
+    75%  { transform: rotate(0deg); }
+    100% { transform: rotate(-8deg); }
+  }
+
 
 }
 

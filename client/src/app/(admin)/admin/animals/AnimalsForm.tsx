@@ -9,7 +9,7 @@ import {
   AnimalStatusLabelMap,
   PlacementType,
   PlacementTypeLabelMap,
-  PlacementTypeConfiglMap,
+  PlacementTypeConfigMap,
   Species,
 } from "@/_schemas/animal.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -366,7 +366,7 @@ export default function AnimalsForm({ mode = "create", values }: AnimalsFomProps
                             </SelectTrigger>
                             <SelectContent>
                               {Object.entries(PlacementTypeLabelMap).map(([value, label]) => {
-                                const config = PlacementTypeConfiglMap[value as PlacementType];
+                                const config = PlacementTypeConfigMap[value as PlacementType];
                                 return (
                                   <SelectItem value={value} key={value} className="w-full">
                                     <span className={config.color}>
