@@ -2,8 +2,8 @@
 import React from "react";
 import { Input } from "@/_components/ui/input"
 import { MultipleSelector } from "@/_components/ui/multiple-selector";
-import { Search } from "lucide-react";
-import { SpeciesLabelMap, Species, GenderLabelMap, Gender, PlacementTypeLabelMap, PlacementType, AnimalStatusLabelMap, AnimalStatus } from "@/_schemas/animal.schema";
+import { Search, X } from "lucide-react";
+import { SpeciesLabelMap, Species, GenderLabelMap, Gender, PlacementTypeLabelMap, PlacementType } from "@/_schemas/animal.schema";
 import { useAnimalsStore } from "@/_stores/animals.store";
 import { Chip } from "@/_components/ui/chip";
 import { AgeRange, ageRanges } from "@/_lib/constants";
@@ -15,8 +15,6 @@ export default function FiltersBar() {
   const filters = useAnimalsStore((state) => state.filters);
   const incompatibilities = useAnimalsStore((state) => state.incompatibilities);
   const setFilters = useAnimalsStore((state) => state.setFilters);
-  const filteredAnimals = useAnimalsStore((state) => state.filteredAnimals);
-
 
   // Grouper les races par espèce
   const breedGroups = React.useMemo(() => {
@@ -179,7 +177,7 @@ export default function FiltersBar() {
 
   return (
     <>
-      <div className="relative">
+      <div id="filters-bar-component" className="relative">
         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
         <Input
           type="text"

@@ -20,7 +20,7 @@ export function PublicProviders(props: PropsWithChildren) {
       <IsMobileObserver />
       <Toaster richColors />
       <Header />
-      <main className="flex-1 pt-[60px] sm:pt-[120px] sm:px-1 lg:px-4 overflow-x-hidden bg-custom-dots">
+      <main className="flex-1 pt-[60px] sm:pt-[120px] sm:px-1 lg:px-4 overflow-hidden bg-custom-dots"> 
         {props.children}
       </main>
       <NavBarMobile />
@@ -28,3 +28,4 @@ export function PublicProviders(props: PropsWithChildren) {
     </AuthProvider>
   );
 }
+//overflow-x-hidden

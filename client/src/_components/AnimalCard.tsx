@@ -21,7 +21,7 @@ export default function AnimalCard({ animal, className }: { animal: Animal, clas
     <div
       key={animal.id}
       className={cn(
-        "min-h-[440px] max-h-[440px] group cursor-pointer bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-lg transition-shadow px-3 pt-3 pb-6",
+        "min-h-[440px] max-h-[440px] group cursor-pointer bg-[#fff6e8] rounded-2xl shadow-md overflow-hidden hover:shadow-lg transition-shadow px-3 pt-3 pb-6",
         className)}
     >
 
@@ -63,7 +63,7 @@ export default function AnimalCard({ animal, className }: { animal: Animal, clas
 
           {animal.birthDate && (
             <Badge
-              className={`rounded-full text-xs`}
+              className={`rounded-full text-xs bg-white`}
               variant={"outline"}
             >
               <Cake size={24} />
