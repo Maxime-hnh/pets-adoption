@@ -11,7 +11,7 @@ import { notFound } from "next/navigation";
 import { Badge } from "@/_components/ui/badge";
 import { Suspense } from "react";
 import { IncompatibilityConfigMap } from "@/_schemas/incompatibility.schema";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@radix-ui/react-tooltip";
+import { Tooltip, TooltipTrigger, TooltipContent } from "@/_components/ui/tooltip";
 import SuggestCardSkeleton from "./SuggestCardSkeleton";
 import { getById } from "@/_lib/data";
 
@@ -36,6 +36,8 @@ export default async function AnimalProfile({ params }: AnimalProfileProps) {
   const animal = await getById(Number(id));  //cache(fn)
   if (!animal) return notFound()
 
+
+
   // Obtenir l'icône de genre avec sa couleur
   const GenderIcon = animal.gender ? GenderConfigMap[animal.gender].icon : null;
   const genderColor = animal.gender ? GenderConfigMap[animal.gender].color : '';
@@ -44,11 +46,10 @@ export default async function AnimalProfile({ params }: AnimalProfileProps) {
   const statusColor = animal.status ? AnimalStatusConfiglMap[animal.status].color : '';
 
   const placementTypeColor = animal.placementType ? PlacementTypeConfigMap[animal.placementType].color : '';
-
+  
   return (
-
-    <div className="min-h-screen bg-gray-50 py-8 max-w-[100dvw]">
-
+<Suspense fallback={<div className="w-full h-full bg-gray-200 animate-pulse">test</div>}>
+    <div className="min-h-screen py-8 max-w-[100dvw]">
       {/* Partie haute */}
       <div className="container mx-auto lg:px-4">
         {/* Fiche d'identité principale */}
@@ -268,8 +269,8 @@ export default async function AnimalProfile({ params }: AnimalProfileProps) {
             </div>
           </CardContent>
         </Card>
-        <SuggestCardSkeleton />
       </div>
     </div >
+    </Suspense>
   )
 }

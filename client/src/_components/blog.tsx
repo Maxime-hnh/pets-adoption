@@ -4,6 +4,7 @@ import { Card } from "@/_components/ui/card";
 import { Button } from "./ui/button";
 import Link from "next/link";
 import { Badge } from "./ui/badge";
+import Image from "next/image";
 
 export interface Post {
   id: string;
@@ -26,7 +27,7 @@ const Blog = ({ posts }: Blog8Props) => {
       {posts.map((post) => (
         <Card
           key={post.id}
-          className="order-last border-0 bg-transparent shadow-none sm:order-first sm:col-span-12 lg:col-span-10 lg:col-start-2"
+          className="group order-last border-0 bg-transparent shadow-none sm:order-first sm:col-span-12 lg:col-span-10 lg:col-start-2"
         >
           <div className="grid gap-y-6 sm:grid-cols-10 sm:gap-x-5 sm:gap-y-0 md:items-center md:gap-x-8 lg:gap-x-12">
             <div className="sm:col-span-5 animate-fade-in-left">
@@ -69,12 +70,16 @@ const Blog = ({ posts }: Blog8Props) => {
             </div>
             <div className="order-first sm:order-last sm:col-span-5 animate-fade-in-right">
               <a href={post.url} target="_blank" className="block">
-                <div className="aspect-[16/9] overflow-clip rounded-lg border border-border">
-                  <img
-                    src={post.image}
-                    alt={post.title}
-                    className="h-full w-full object-cover transition-opacity duration-200 fade-in hover:opacity-70"
-                  />
+                <div className="aspect-[16/9] overflow-clip rounded-xl border border-border">
+                  <figure className="bg-black overflow-hidden h-full w-full rounded-2xl">
+                    <Image
+                      src={post.image}
+                      alt={post.title}
+                      className="h-full w-full object-cover scale-105 group-hover:scale-100 group-hover:opacity-75 transition-all duration-750"
+                      width={500}
+                      height={500}
+                    />
+                  </figure>
                 </div>
               </a>
             </div>

@@ -42,9 +42,13 @@ export default function ClientAnimalsWrapper({ animals, incompatibilities }: { a
       <ExpandableFiltersBar />
       <ScrollArea color={"bg-indigo-500"} className="h-[calc(100dvh-205px)] sm:h-[calc(100dvh-120px)] z-10 px-4 sm:px-0 col-span-12 sm:col-span-6 md:col-span-7 lg:col-span-8 xl:col-span-9 3xl:col-span-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 3xl:grid-cols-5 gap-4 pb-8">
-          {filteredAnimals.map((animal, i) =>
+          {filteredAnimals.length > 0 ? filteredAnimals.map((animal, i) =>
             <div className="col-span-1" key={i}>
               <AnimalCard animal={animal} />
+            </div>
+          ) : (
+            <div className="col-span-12 flex justify-center items-center h-[calc(100dvh-205px)] sm:h-[calc(100dvh-120px)]">
+              <h2 className="text-2xl font-semibold text-center ">Aucun animal trouvé...</h2>
             </div>
           )}
         </div>

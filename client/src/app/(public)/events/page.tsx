@@ -12,7 +12,7 @@ export default function EventsPage() {
       location: "Caen",
       published: "15 Mai 2025",
       url: "",
-      image: "https://shadcnblocks.com/images/block/placeholder-dark-1.svg",
+      image: "/assets/bg-landscape.png",
       tags: ["Formation"],
     },
     {
@@ -24,7 +24,7 @@ export default function EventsPage() {
       location: "Hermanville",
       published: "22 Dec 2025",
       url: "https://shadcnblocks.com",
-      image: "https://shadcnblocks.com/images/block/placeholder-dark-1.svg",
+      image: "/assets/bg-landscape.png",
       tags: ["Marché", "Noël"],
     },
   ]
