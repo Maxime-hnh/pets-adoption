@@ -105,7 +105,7 @@ export default async function AnimalProfileMobile({ params }: AnimalProfileMobil
                 </Button>
               </div>
             </div>
-          </div>²
+          </div>
         </div>
 
         {/* About */}
