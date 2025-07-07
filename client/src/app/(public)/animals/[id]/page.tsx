@@ -1,4 +1,5 @@
 import AnimalProfile from "@/_components/AnimalProfile";
+import AnimalProfileMobile from "@/_components/AnimalProfileMobile";
 
 
 interface AnimalIdPageProps {
@@ -8,6 +9,7 @@ interface AnimalIdPageProps {
 export default async function AnimalIdPage({ params }: AnimalIdPageProps) {
 
   return (
-    <AnimalProfile params={params} />
+    // <AnimalProfile params={params} />
+    <AnimalProfileMobile params={params} />
   )
 } 

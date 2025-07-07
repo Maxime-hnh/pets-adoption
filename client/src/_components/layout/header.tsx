@@ -24,27 +24,14 @@ export default function Header() {
   const menuItems = getMenuItems(loggedUser);
 
   return (
-    <>
-      <header id="header" className={cn("hidden sm:flex fixed top-0 left-0 right-0 z-50 sm:h-[90px] items-center justify-center animate-fade-in-down")}>
-        {/* Desktop */}
+    <header id="header" className={cn("hidden sm:flex fixed top-0 left-0 right-0 z-50 sm:h-[90px] items-center justify-center animate-fade-in-down")}>
+      {/* Desktop */}
 
-        <MenuBar
-          items={menuItems}
-          activeItem={activeNavItem}
-          onItemClick={setActiveNavItem}
-        />
-      </header>
-
-      {/* Mobile */}
-      <div className="fixed w-full top-0 left-0 z-50 h-[60px] bg-indigo-500 sm:hidden">
-        <Image
-          src="/favicon.ico"
-          width={50}
-          height={50}
-          alt="logo"
-          className="m-auto"
-        />
-      </div>
-    </>
+      <MenuBar
+        items={menuItems}
+        activeItem={activeNavItem}
+        onItemClick={setActiveNavItem}
+      />
+    </header>
   );
 }

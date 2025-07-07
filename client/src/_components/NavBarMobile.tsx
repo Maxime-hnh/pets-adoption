@@ -39,7 +39,7 @@ export default function NavBarMobile() {
             >
               <Icon
                 className={cn(
-                  "w-7 h-7 text-amber-500",
+                  "w-7 h-7 text-white",
                 )}
               />
             </Link>

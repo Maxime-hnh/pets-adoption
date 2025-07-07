@@ -8,7 +8,7 @@ import { Counter } from "@/_components/ui/animaton/animated-counter";
 export default function Hero() {
 
   return (
-    <section className="relative grid grid-cols-12 lg:px-12 h-[calc(100dvh-120px)] sm:h-[calc(100dvh-90px)]">
+    <section className="relative grid grid-cols-12 lg:px-12 h-[calc(100dvh-60px)] sm:h-[calc(100dvh-90px)]">
       {/* Background green */}
       <div className="hidden sm:block absolute right-0 bottom-0 not-odd:h-[128px] w-[40%]  scale-[2] rounded-[50%] bg-custom-green blur-[100px] sm:h-[256px]"></div>
       {/* Background orange */}
