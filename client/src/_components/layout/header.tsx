@@ -25,7 +25,7 @@ export default function Header() {
 
   return (
     <>
-      <header className={cn("hidden sm:flex fixed top-0 left-0 right-0 z-50 sm:h-[120px] items-center justify-center animate-fade-in-down")}>
+      <header id="header" className={cn("hidden sm:flex fixed top-0 left-0 right-0 z-50 sm:h-[90px] items-center justify-center animate-fade-in-down")}>
         {/* Desktop */}
 
         <MenuBar

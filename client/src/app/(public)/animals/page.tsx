@@ -18,7 +18,7 @@ export default async function AnimalsPage() {
   const incompatibilities = await serverGetIncompatibilities();
 
   return (
-    <section className="relative grid grid-cols-12 sm:gap-4 lg:gap-8 h-[calc(100dvh-120px)]">
+    <section className="relative grid grid-cols-12 md:px-4 sm:gap-4 lg:gap-8 min-h-[calc(100dvh-90px)]">
       {/* Background green */}
       <div className="hidden sm:block absolute right-0 bottom-0 not-odd:h-[128px] w-[40%]  scale-[2] rounded-[50%] bg-custom-green blur-[100px] sm:h-[256px]"></div>
       {/* Background orange */}

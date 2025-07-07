@@ -34,10 +34,10 @@ export const PlacementTypeLabelMap: Record<PlacementType, string> = {
 };
 
 
-export const PlacementTypeConfigMap: Record<PlacementType, { color: string }> = {
-  [PlacementType.STANDARD]: { color: "text-green-500" },
-  [PlacementType.SOS]: { color: "text-red-500" },
-  [PlacementType.FAD]: { color: "text-blue-500" },
+export const PlacementTypeConfigMap: Record<PlacementType, { color: string; bgColor: string }> = {
+  [PlacementType.STANDARD]: { color: "text-green-500", bgColor: "bg-green-500/80" },
+  [PlacementType.SOS]: { color: "text-red-500", bgColor: "bg-red-500/80" },
+  [PlacementType.FAD]: { color: "text-blue-500", bgColor: "bg-blue-500/80" },
 }
 
 export const AnimalStatusLabelMap: Record<AnimalStatus, string> = {
@@ -49,12 +49,12 @@ export const AnimalStatusLabelMap: Record<AnimalStatus, string> = {
 };
 
 
-export const AnimalStatusConfiglMap: Record<AnimalStatus, { color: string }> = {
-  [AnimalStatus.AVAILABLE]: { color: "text-green-500" },
-  [AnimalStatus.RESERVED]: { color: "text-orange-500" },
-  [AnimalStatus.ADOPTED]: { color: "text-blue-500" },
-  [AnimalStatus.UNAVAILABLE]: { color: "text-red-500" },
-  [AnimalStatus.PENDING]: { color: "text-gray-500" },
+export const AnimalStatusConfiglMap: Record<AnimalStatus, { color: string; bgColor: string }> = {
+  [AnimalStatus.AVAILABLE]: { color: "text-green-500", bgColor: "bg-green-500/80" },
+  [AnimalStatus.RESERVED]: { color: "text-orange-500", bgColor: "bg-orange-500/80" },
+  [AnimalStatus.ADOPTED]: { color: "text-blue-500", bgColor: "bg-blue-500/80" },
+  [AnimalStatus.UNAVAILABLE]: { color: "text-red-500", bgColor: "bg-red-500/80" },
+  [AnimalStatus.PENDING]: { color: "text-gray-500", bgColor: "bg-gray-500/80" },
 }
 
 export const GenderLabelMap: Record<Gender, string> = {
@@ -62,9 +62,9 @@ export const GenderLabelMap: Record<Gender, string> = {
   [Gender.FEMALE]: 'Femelle',
 };
 
-export const GenderConfigMap: Record<Gender, { icon: React.ElementType; color: string }> = {
-  [Gender.MALE]: { icon: Mars, color: "text-blue-400" },
-  [Gender.FEMALE]: { icon: Venus, color: "text-pink-600" },
+export const GenderConfigMap: Record<Gender, { icon: React.ElementType; color: string; bgColor: string }> = {
+  [Gender.MALE]: { icon: Mars, color: "text-blue-400", bgColor: "bg-blue-400" },
+  [Gender.FEMALE]: { icon: Venus, color: "text-pink-600", bgColor: "bg-pink-600/50" },
 }
 
 export const SpeciesLabelMap: Record<Species, string> = {

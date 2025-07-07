@@ -1,19 +1,15 @@
-import { Button } from "@/_components/ui/button";
-import { Card, CardContent } from "@/_components/ui/card";
-import { Carousel, CarouselContent, CarouselItem, CarouselDots } from "@/_components/ui/carousel";
-import { calculateAgeToString } from "@/_lib/utils";
-import { GenderConfigMap, AnimalStatusConfiglMap, AnimalStatusLabelMap, SpeciesLabelMap, GenderLabelMap, PlacementTypeLabelMap, PlacementTypeConfigMap } from "@/_schemas/animal.schema";
-import { format } from "date-fns";
-import { fr } from "date-fns/locale";
-import { ArrowRight, Calendar, Heart, MapPin, Phone, PawPrint } from "lucide-react";
-import Image from "next/image";
+
+import { GenderConfigMap, AnimalStatusConfiglMap, PlacementTypeConfigMap, GenderLabelMap, PlacementTypeLabelMap, AnimalStatusLabelMap, AnimalStatus, PlacementType } from "@/_schemas/animal.schema";
+
+import { Cake, DnaIcon, Heart, PawPrint, Phone } from "lucide-react";
 import { notFound } from "next/navigation";
-import { Badge } from "@/_components/ui/badge";
-import { Suspense } from "react";
-import { IncompatibilityConfigMap } from "@/_schemas/incompatibility.schema";
-import { Tooltip, TooltipTrigger, TooltipContent } from "@/_components/ui/tooltip";
-import SuggestCardSkeleton from "./SuggestCardSkeleton";
+
 import { getById } from "@/_lib/data";
+import { calculateAgeToString } from "@/_lib/utils";
+import Image from "next/image";
+import { Badge } from "@/_components/ui/badge";
+import { AspectRatio } from "@radix-ui/react-aspect-ratio";
+import { Button } from "@/_components/ui/button";
 
 interface AnimalProfileProps {
   params: Promise<{ id: string }>
@@ -39,238 +35,116 @@ export default async function AnimalProfile({ params }: AnimalProfileProps) {
 
 
   // Obtenir l'icône de genre avec sa couleur
-  const GenderIcon = animal.gender ? GenderConfigMap[animal.gender].icon : null;
-  const genderColor = animal.gender ? GenderConfigMap[animal.gender].color : '';
+  const GenderIcon = GenderConfigMap[animal.gender].icon;
+  const genderBgColor = GenderConfigMap[animal.gender].bgColor + "/40";
+  const genderIconColor = GenderConfigMap[animal.gender].color;
 
   // Obtenir le statut de l'animal avec sa couleur
-  const statusColor = animal.status ? AnimalStatusConfiglMap[animal.status].color : '';
+  const statusBgColor = animal.status ? AnimalStatusConfiglMap[animal.status].bgColor : '';
 
-  const placementTypeColor = animal.placementType ? PlacementTypeConfigMap[animal.placementType].color : '';
-  
-  return (
-<Suspense fallback={<div className="w-full h-full bg-gray-200 animate-pulse">test</div>}>
-    <div className="min-h-screen py-8 max-w-[100dvw]">
-      {/* Partie haute */}
-      <div className="container mx-auto lg:px-4">
-        {/* Fiche d'identité principale */}
-        <Card className="relative overflow-hidden">
+  const placementTypeBgColor = animal.placementType ? PlacementTypeConfigMap[animal.placementType].bgColor : '';
 
-          <CardContent className="flex flex-col relative z-10">
-
-            <div className="flex flex-col lg:flex-row">
-              {/* Partie gauche - Photo de profil */}
-              <div className="lg:w-1/3 h-[375px] relative">
-                <Suspense fallback={<div className="w-full h-full bg-gray-200 animate-pulse"></div>}>
-                  <Carousel className="relative" opts={{ loop: true }}>
-                    <CarouselContent>
-                      {animal.photos && animal.photos.length > 0 ? (
-                        animal.photos.map((photo, index) => (
-                          <CarouselItem key={index}>
-                            <Image
-                              alt={`Photo de ${animal.name}, ${SpeciesLabelMap[animal.species]}`}
-                              src={photo}
-                              width={375}
-                              height={375}
-                              priority={index === 0}
-                              className="object-cover object-center w-full h-full  rounded-2xl"
-                            />
-                          </CarouselItem>
-                        ))
-                      ) : (
-                        <CarouselItem className="h-full">
-                          <div className="relative w-full h-full bg-gray-100 flex items-center justify-center">
-                            <div className="flex flex-col items-center gap-2">
-                              <Heart size={48} className="text-gray-300" />
-                              <p className="text-gray-400 text-sm">Aucune photo disponible</p>
-                            </div>
-                          </div>
-                        </CarouselItem>
-                      )}
-                    </CarouselContent>
-                    {animal.photos && animal.photos.length > 1 && (
-                      <div className="absolute bottom-4 left-0 right-0">
-                        <CarouselDots className="gap-2" />
-                      </div>
-                    )}
-                  </Carousel>
-                </Suspense>
-              </div>
-
-              {/* Partie droite - Informations */}
-              <div className="lg:w-2/3 p-6 lg:p-8 lg:pb-0 relative">
-                <Image
-                  src="/assets/mascot/standingPointing.png"
-                  alt="Mascot"
-                  width={125}
-                  height={125}
-                  className="scale-x-[-1] absolute bottom-0 right-0"
-
-                />
-
-                <div className="flex flex-col h-full">
-                  {/* En-tête avec nom et badges */}
-                  <div className="mb-6">
-                    <div className="flex flex-wrap items-center gap-3 mb-2">
-                      <h1 className="sr-only">
-                        {animal.name} – {SpeciesLabelMap[animal.species]} à adopter
-                      </h1>
-                      <h2 className="
-                      text-4xl 
-                      font-bold
-                      pb-[7px]
-                      mr-4
-                      bg-no-repeat
-                      bg-[length:contain]
-                      bg-[position:bottom_center]
-                      "
-                        style={{ backgroundImage: "url('https://tailwag.progressionstudios.com/wp-content/uploads/2022/04/underline.png')" }}
-                      >{animal.name}</h2>
-
-                      <div className="flex flex-wrap gap-2">
-                        <Badge className="bg-gray-100 text-gray-800 hover:bg-gray-200 text-sm px-3 py-1">
-                          {SpeciesLabelMap[animal.species]}
-                        </Badge>
-
-                        {animal.gender && (
-                          <Badge
-                            className={`bg-gray-100 hover:bg-gray-200 text-sm px-3 py-1 ${genderColor}`}
-                          >
-                            {GenderIcon && <GenderIcon className="mr-1 h-3 w-3" />}
-                            {GenderLabelMap[animal.gender]}
-                          </Badge>
-                        )}
-
-                        {animal.placementType && (
-                          <Badge
-                            className={`text-sm px-3 py-1 ${placementTypeColor} bg-gray-100 hover:bg-gray-200`}
-                          >
-                            {PlacementTypeLabelMap[animal.placementType]}
-                          </Badge>
-                        )}
-                        {animal.status && (
-                          <Badge
-                            className={`text-sm px-3 py-1 ${statusColor} bg-gray-100 hover:bg-gray-200`}
-                          >
-                            {AnimalStatusLabelMap[animal.status]}
-                          </Badge>
-                        )}
-                      </div>
-                    </div>
-
-                    <div className="flex items-center gap-2 text-gray-600 text-sm">
-                      <MapPin size={16} className="text-gray-400" />
-                      <span>Situé(e) au refuge de Paris</span>
-                    </div>
-                  </div>
-
-                  {/* Informations principales */}
-                  <div className="grid grid-cols-2 gap-6 mb-6">
-                    <div>
-                      <p className="text-sm text-gray-500 mb-1">Race</p>
-                      <p className="font-medium">{animal.breed}</p>
-                    </div>
-
-                    <div>
-                      <p className="text-sm text-gray-500 mb-1">Âge</p>
-                      <p className="font-medium flex items-center gap-2">
-                        <Calendar size={16} className="text-gray-400" />
-                        {animal.birthDate ? calculateAgeToString(animal.birthDate) : 'Non renseigné'}
-                      </p>
-                      <p className="text-xs text-gray-400">
-                        {animal.birthDate ? `Né(e) le ${format(animal.birthDate, "dd MMMM yyyy", { locale: fr })}` : ''}
-                      </p>
-                    </div>
-
-                    <div>
-                      <p className="text-sm text-gray-500 mb-1">Stérilisé(e)</p>
-                      <p className="font-medium">{animal.isSterilized ? "Oui" : "Non"}</p>
-                    </div>
-
-                    {animal.icadNumber && (
-                      <div>
-                        <p className="text-sm text-gray-500 mb-1">Numéro ICAD</p>
-                        <p className="font-medium">{animal.icadNumber}</p>
-                      </div>
-                    )}
-
-                    <div>
-                      <p className="text-sm text-gray-500 mb-1">Incompatibilité(s)</p>
-                      {animal.incompatibilityLabels
-                        && animal.incompatibilityLabels.length > 0
-                        ? <div className="flex flex-wrap gap-2">
-                          {animal.incompatibilityLabels.map((value, index) => {
-                            const config = IncompatibilityConfigMap[value]
-                            const Icon = config.icon
-                            return (
-                              <Tooltip key={index}>
-                                <TooltipTrigger>
-                                  <Icon size={40} />
-                                </TooltipTrigger>
-                                <TooltipContent
-                                  sideOffset={0}
-                                  className="bg-white border border-gray-200 px-2 py-1 rounded-lg shadow-sm text-sm"
-                                >
-                                  {config.label}
-                                </TooltipContent>
-                              </Tooltip>
-                            )
-                          })}
-                        </div>
-                        : <p className="font-medium">Aucune</p>}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Partie basse */}
-            <div className=" pt-4 border-t border-gray-100 gap-8 grid grid-cols-12">
-
-              {/* Décorations de pattes d'animaux */}
-              <div className="absolute bottom-0 right-0 transform -rotate-72 translate-x-2 -translate-y-2 z-0 hidden lg:block">
-                <div className="flex">
-                  <PawPrint size={20} color="#ff7e5f" />
-                  <PawPrint size={20} color="#ff7e5f" className="ml-4 mt-2" />
-                </div>
-
-                <div className="flex mt-2">
-                  <PawPrint size={28} color="#ff7e5f" className="ml-8" />
-                  <PawPrint size={24} color="#ff7e5f" className="ml-4 mt-1" />
-                  <PawPrint size={32} color="#ff7e5f" className="ml-4 mt-1" />
-                </div>
-              </div>
-
-              {/* Description */}
-              <div className="pt-4 flex-grow col-span-12 lg:col-span-8 ">
-                <h2 className="text-3xl font-semibold flex items-center gap-2 mb-3">
-                  <Heart size={24} className="text-rose-500" />
-                  À propos de {animal.name}
-                </h2>
-
-                <div className="prose prose-sm max-w-none">
-                  {animal.description ? (
-                    <p className="leading-relaxed text-justify px-4 lg:px-0">{animal.description}</p>
-                  ) : (
-                    <p className="text-gray-500 italic">Aucune description disponible pour {animal.name}.</p>
-                  )}
-                </div>
-              </div>
-
-              {/* Boutons d'action */}
-              <div className="gap-4 col-span-12 lg:col-span-4 flex flex-row lg:flex-col justify-center items-center lg:border-l lg:border-gray-100 h-full">
-                <Button size="lg" className="rounded-full">
-                  Adopter {animal.name} <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-
-                <Button variant="outline" size="lg" className="rounded-full border-gray-300 hover:bg-gray-50">
-                  <Phone className="mr-2 h-4 w-4" /> Nous contacter
-                </Button>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+  const infoContainer = (Icon: React.ElementType, title: string, info: string, bg: string, iconColor: string) => (
+    <div className={`h-42 w-52 bg-white rounded-3xl`} >
+      <div className={`h-full w-full ${bg} rounded-3xl`}>
+        <div className="flex flex-col justify-center gap-1 items-center h-full">
+          <Icon className={`w-10 h-10 ${iconColor}`} />
+          <p className="text-sm font-bold">{title}</p>
+          <p className="text-sm mt-2">{info}</p>
+        </div>
       </div>
     </div >
-    </Suspense>
+  )
+
+  return (
+    <section id="animalProfile_container">
+      <div className="w-full h-[calc(100vh-90px)]">
+
+        <div className="flex flex-col gap-4 w-full h-full">
+
+          <div className="bg-[#f5f3e4] h-2/3 md:px-5 lg:px-20 xl:px-50 2xl:px-75 flex justify-center items-center">
+            <div className="grid grid-cols-12 gap-12">
+
+              <div className="flex flex-col gap-8 col-span-6 xl:col-span-7">
+                <div className="flex flex-row gap-4">
+                  <Badge className={`rounded-full ${statusBgColor} !text-white text-sm font-normal px-4 py-1`}>
+                    {animal.status === AnimalStatus.AVAILABLE
+                      ? <><Heart className="fill-current mr-2" /> Prêt pour l'adoption</>
+                      : AnimalStatusLabelMap[animal.status]}
+                  </Badge>
+                  {animal.placementType !== PlacementType.STANDARD
+                    && <Badge className={`rounded-full ${placementTypeBgColor} !text-white text-sm text-semibold px-4 py-1`}>
+                      {PlacementTypeLabelMap[animal.placementType]}
+                    </Badge>
+                  }
+                </div>
+                <h1 className="font-inter font-[900] md:text-4xl lg:text-5xl">Voici {animal.name}</h1>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Similique reiciendis, ab earum quis consequuntur amet dignissimos assumenda blanditiis explicabo rem?</p>
+                <div className="flex flex-col lg:flex-row gap-4">
+
+                  <Button className="bg-indigo-500 animate-fade-in-left hover:bg-indigo-600" size={"3xl"}><PawPrint className="hidden xs:block xs:mr-2" /> Adopter {animal.name}</Button>
+                  <Button variant={"outline"} className="!border-indigo-500 !border-2 !text-indigo-500 animate-fade-in-right font-bold" size={"3xl"}><Phone strokeWidth={2.5} className="xs:mr-2" /> Nous Contacter </Button>
+                </div>
+              </div>
+
+              <div className="relative w-[20rem] h-full lg:w-[25rem] col-span-6 xl:col-span-5">
+                {animal.photos && animal.photos.length > 0 && (
+                  <AspectRatio ratio={1}>
+                    <Image
+                      src={animal.photos[0]}
+                      alt={animal.name}
+                      width={1000}
+                      height={1000}
+                      className="rounded-3xl w-full h-full object-cover"
+                    />
+                    <Button
+                      className="group absolute -bottom-6 -right-6 bg-white hover:bg-white h-14 w-12 rounded-lg shadow-2xl">
+                      <Heart className="text-red-500 !h-6 !w-6 group-hover:animate-pulse" strokeWidth={2} />
+                    </Button>
+                  </AspectRatio>
+                )}
+              </div>
+            </div>
+          </div>
+
+          <div className="h-1/3 flex flex-row gap-8 justify-center items-center">
+            {infoContainer(DnaIcon, "Race", animal.breed, "bg-indigo-500/40", "text-indigo-500")}
+            {infoContainer(Cake, "Age", calculateAgeToString(animal.birthDate), "bg-amber-500/40", "text-amber-600")}
+            {infoContainer(GenderIcon, "Sexe", GenderLabelMap[animal.gender], genderBgColor, genderIconColor)}
+          </div>
+        </div>
+
+      </div>
+
+      <div id="animalProfile_description" className="bg-[#f5e0e3] px-10 lg:px-25 xl:px-50 2xl:px-75 flex flex-col gap-16 justify-center items-center py-20">
+        <div className="flex flex-row gap-4 items-center">
+          <Heart className="fill-current text-red-500 !h-10 !w-10" />
+          <h3 className="font-inter font-[900] text-4xl">Mon histoire</h3>
+        </div>
+        <div className="bg-white shadow-2xl p-12 rounded-3xl max-w-full lg:max-w-2/3">
+          <p>{animal.description}</p>
+        </div>
+      </div>
+      {animal.photos && animal.photos.length > 1 &&
+        <div id="animalProfile_photos" className="py-20 px-10 lg:px-25 xl:px-35 2xl:px-55 flex flex-col gap-16 justify-center items-center">
+          <h3 className="font-inter font-[900] text-4xl">Plus de photos de {animal.name}</h3>
+          <div className="flex flex-row gap-4 justify-start items-center max-w-full overflow-x-auto">
+            {animal.photos.map((photo, i) => (
+              <div key={i} className="min-w-80 max-w-80">
+                <AspectRatio ratio={1}>
+                  <Image
+                    src={photo}
+                    alt={animal.name}
+                    width={1000}
+                    height={1000}
+                    className="rounded-3xl w-full h-full object-cover"
+                  />
+                </AspectRatio>
+              </div>
+            ))}
+          </div>
+        </div>
+      }
+    </section>
   )
 }
