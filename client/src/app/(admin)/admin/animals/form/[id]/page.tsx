@@ -1,6 +1,6 @@
-import { animalsService } from "@/_services/animals.service";
 import AnimalsForm from "../../AnimalsForm";
 import { notFound } from "next/navigation";
+import { animalsServerService } from "@/_services/animals-server.service";
 
 
 interface UpdateAnimalPageProps {
@@ -9,9 +9,10 @@ interface UpdateAnimalPageProps {
 
 export default async function UpdateAnimalPage({ params }: UpdateAnimalPageProps) {
 
-  const { serverGetById } = animalsService;
+  const { serverGetById } = animalsServerService;
   const { id } = await params;
   const animal = await serverGetById(Number(id), 0);
+
   if (!animal) return notFound()
 
   return (

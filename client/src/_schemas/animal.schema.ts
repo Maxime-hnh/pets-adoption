@@ -62,9 +62,9 @@ export const GenderLabelMap: Record<Gender, string> = {
   [Gender.FEMALE]: 'Femelle',
 };
 
-export const GenderConfigMap: Record<Gender, { icon: React.ElementType; color: string; bgColor: string }> = {
-  [Gender.MALE]: { icon: Mars, color: "text-blue-400", bgColor: "bg-blue-400" },
-  [Gender.FEMALE]: { icon: Venus, color: "text-pink-600", bgColor: "bg-pink-600/50" },
+export const GenderConfigMap: Record<Gender, { icon: React.ElementType; color: string; bgColor: string; bgColorTransparent: string }> = {
+  [Gender.MALE]: { icon: Mars, color: "text-blue-400", bgColor: "bg-blue-400", bgColorTransparent: "bg-blue-400/50" },
+  [Gender.FEMALE]: { icon: Venus, color: "text-pink-600", bgColor: "bg-pink-600/50", bgColorTransparent: "bg-pink-600/50" },
 }
 
 export const SpeciesLabelMap: Record<Species, string> = {

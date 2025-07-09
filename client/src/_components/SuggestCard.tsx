@@ -14,6 +14,7 @@ export default async function SuggestCard() {
     orderBy: { createdAt: 'desc' },
     take: 3,
   });
+  
 
 
   return (

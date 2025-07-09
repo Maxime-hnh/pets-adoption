@@ -9,7 +9,13 @@ interface AnimalIdPageProps {
 export default async function AnimalIdPage({ params }: AnimalIdPageProps) {
 
   return (
-    // <AnimalProfile params={params} />
-    <AnimalProfileMobile params={params} />
+    <>
+      <div className="hidden sm:block">
+        <AnimalProfile params={params} />
+      </div>
+      <div className="block sm:hidden">
+        <AnimalProfileMobile params={params} />
+      </div>
+    </>
   )
 } 

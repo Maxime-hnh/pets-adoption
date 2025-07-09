@@ -34,14 +34,11 @@ export default async function AnimalProfileMobile({ params }: AnimalProfileMobil
   const animal = await getById(Number(id));  //cache(fn)
   if (!animal) return notFound()
 
-
-
   // Obtenir l'icône de genre avec sa couleur
   const GenderIcon = GenderConfigMap[animal.gender].icon;
-  const genderBgColor = GenderConfigMap[animal.gender].bgColor + "/50";
+  const genderBgColor = GenderConfigMap[animal.gender].bgColorTransparent;
   const genderIconColor = GenderConfigMap[animal.gender].color;
 
-  // Obtenir le statut de l'animal avec sa couleur
   const statusBgColor = animal.status ? AnimalStatusConfiglMap[animal.status].bgColor : '';
 
   const placementTypeBgColor = animal.placementType ? PlacementTypeConfigMap[animal.placementType].bgColor : '';
@@ -85,7 +82,7 @@ export default async function AnimalProfileMobile({ params }: AnimalProfileMobil
           <div className="absolute -bottom-12 right-1/2 translate-x-1/2 w-7/8 h-25 bg-white rounded-3xl shadow-2xl">
             <div className="h-full flex flex-row gap-4 py-2 px-8 justify-between">
               <div className="flex flex-col justify-between">
-                <h1 className="text-2xl font-[900] font-inter">
+                <h1 className="text-3xl font-fredoka font-[700]">
                   <span className="sr-only">Fiche animal du {animal.species} {animal.name}</span>
                   {animal.name}
                 </h1>
@@ -112,7 +109,7 @@ export default async function AnimalProfileMobile({ params }: AnimalProfileMobil
         <div className="flex flex-col gap-4 pt-18 px-4">
           <div className="flex flex-row gap-2 items-center">
             <PawPrint className="!w-6 !h-6 -rotate-45 text-indigo-500" strokeWidth={2.5} />
-            <h2 className="text-xl font-bold">À propos de {animal.name}</h2>
+            <h2 className="text-2xl font-fredoka font-[700]">À propos de {animal.name}</h2>
           </div>
 
           <div className="grid grid-cols-3 gap-2">
@@ -130,7 +127,7 @@ export default async function AnimalProfileMobile({ params }: AnimalProfileMobil
         <div className="flex flex-col gap-4 py-8 px-4">
           <div className="flex flex-row gap-2 items-center">
             <Camera className="!w-6 !h-6 text-indigo-500" strokeWidth={2.5} />
-            <h2 className="text-xl font-bold">Plus de photos</h2>
+            <h2 className="text-2xl font-fredoka font-[700]">Plus de photos</h2>
           </div>
 
           {animal.photos && animal.photos.length > 1 &&

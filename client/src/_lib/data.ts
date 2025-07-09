@@ -15,7 +15,7 @@ export const getById = cache(async (id: number) => {
 })
 
 export const getIncompatibilities = cache(async () => {
-  const { serverGetAll } = incompatibilitiesServerService;
-  const incompatibilities = await serverGetAll();
+  const { serverGetIncompatibilities } = incompatibilitiesServerService;
+  const incompatibilities = await serverGetIncompatibilities();
   return incompatibilities;
 })

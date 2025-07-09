@@ -1,15 +1,4 @@
-import { Geist, Geist_Mono, Poppins, Sora, IBM_Plex_Sans, Inter } from "next/font/google";
-import { AuthenticatedUser } from "@/_types/authenticated-user.interface.ts";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import { Poppins, Sora, IBM_Plex_Sans, Inter, Fredoka, Nunito } from "next/font/google";
 
 const poppins = Poppins({
   weight: ['400', '500', '600', '700', '800', '900'],
@@ -33,12 +22,24 @@ const inter = Inter({
   subsets: ['latin']
 });
 
-export function CommonLayoutWrapper({ children, user }: { children: React.ReactNode, user?: AuthenticatedUser | null }) {
+const fredoka = Fredoka({
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-fredoka',
+  subsets: ['latin']
+});
+
+const nunito = Nunito({
+  weight: ['400', '500', '600', '700', '800', '900'],
+  variable: '--font-nunito',
+  subsets: ['latin']
+});
+
+export function CommonLayoutWrapper({ children }: { children: React.ReactNode }) {
 
   return (
     <html lang="fr" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} ${sora.variable} ${ibmPlexSans.variable} ${inter.variable} light`}
+        className={`${poppins.variable} ${sora.variable} ${ibmPlexSans.variable} ${inter.variable} ${fredoka.variable} ${nunito.variable} light`}
       >
         {children}
       </body>

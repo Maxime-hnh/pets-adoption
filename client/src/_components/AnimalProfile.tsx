@@ -36,7 +36,7 @@ export default async function AnimalProfile({ params }: AnimalProfileProps) {
 
   // Obtenir l'icône de genre avec sa couleur
   const GenderIcon = GenderConfigMap[animal.gender].icon;
-  const genderBgColor = GenderConfigMap[animal.gender].bgColor + "/40";
+  const genderBgColor = GenderConfigMap[animal.gender].bgColorTransparent;
   const genderIconColor = GenderConfigMap[animal.gender].color;
 
   // Obtenir le statut de l'animal avec sa couleur
@@ -78,7 +78,7 @@ export default async function AnimalProfile({ params }: AnimalProfileProps) {
                     </Badge>
                   }
                 </div>
-                <h1 className="font-inter font-[900] md:text-4xl lg:text-5xl">Voici {animal.name}</h1>
+                <h1 className="font-fredoka font-[700] md:text-4xl lg:text-5xl">Voici {animal.name}</h1>
                 <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Similique reiciendis, ab earum quis consequuntur amet dignissimos assumenda blanditiis explicabo rem?</p>
                 <div className="flex flex-col lg:flex-row gap-4">
 
@@ -108,7 +108,7 @@ export default async function AnimalProfile({ params }: AnimalProfileProps) {
           </div>
 
           <div className="h-1/3 flex flex-row gap-8 justify-center items-center">
-            {infoContainer(DnaIcon, "Race", animal.breed, "bg-indigo-500/40", "text-indigo-500")}
+            {infoContainer(DnaIcon, "Race", animal.breed, "bg-emerald-500/40", "text-emerald-500")}
             {infoContainer(Cake, "Age", calculateAgeToString(animal.birthDate), "bg-amber-500/40", "text-amber-600")}
             {infoContainer(GenderIcon, "Sexe", GenderLabelMap[animal.gender], genderBgColor, genderIconColor)}
           </div>
@@ -119,7 +119,7 @@ export default async function AnimalProfile({ params }: AnimalProfileProps) {
       <div id="animalProfile_description" className="bg-[#f5e0e3] px-10 lg:px-25 xl:px-50 2xl:px-75 flex flex-col gap-16 justify-center items-center py-20">
         <div className="flex flex-row gap-4 items-center">
           <Heart className="fill-current text-red-500 !h-10 !w-10" />
-          <h3 className="font-inter font-[900] text-4xl">Mon histoire</h3>
+          <h3 className="font-fredoka font-[700] text-4xl">Mon histoire</h3>
         </div>
         <div className="bg-white shadow-2xl p-12 rounded-3xl max-w-full lg:max-w-2/3">
           <p>{animal.description}</p>
@@ -127,7 +127,7 @@ export default async function AnimalProfile({ params }: AnimalProfileProps) {
       </div>
       {animal.photos && animal.photos.length > 1 &&
         <div id="animalProfile_photos" className="py-20 px-10 lg:px-25 xl:px-35 2xl:px-55 flex flex-col gap-16 justify-center items-center">
-          <h3 className="font-inter font-[900] text-4xl">Plus de photos de {animal.name}</h3>
+          <h3 className="font-fredoka font-[700] text-4xl">Plus de photos de {animal.name}</h3>
           <div className="flex flex-row gap-4 justify-start items-center max-w-full overflow-x-auto">
             {animal.photos.map((photo, i) => (
               <div key={i} className="min-w-80 max-w-80">
