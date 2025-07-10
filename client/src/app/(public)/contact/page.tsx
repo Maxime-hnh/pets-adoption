@@ -11,7 +11,7 @@ export default function ContactPage() {
         <MapPinIcon className="w-4 h-4 text-gray-500" />
         <p className="text-xs md:text-md text-gray-500">Route de Saint-Manvieu-Norrey, 14790 VERSON</p>
       </div>
-      <div className="w-full h-[200px] md:h-[400px] rounded-xl overflow-hidden">
+      <div className="w-full h-[200px] md:h-[300px] rounded-xl overflow-hidden">
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3155.304556211199!2d-0.4829757959198738!3d49.17255980663466!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480a45602ef51ec1%3A0x66f4bf61f229acfd!2sSPA%20de%20Basse-Normandie%20(Verson)!5e1!3m2!1sfr!2sfr!4v1752084358421!5m2!1sfr!2sfr"
           width="100%"
@@ -26,9 +26,9 @@ export default function ContactPage() {
   )
 
   return (
-    <section className="grid grid-cols-12 gap-6  min-h-[calc(100dvh-90px)] px-4 pt-4 md:px-25 md:gap-24 md:pt-10">
+    <section className="flex flex-col md:flex-row gap-6  min-h-[calc(100dvh-90px)] px-4 pt-4 lg:px-15 xl:px-50 2xl:px-75 3xl:px-90 lg:gap-16 md:pt-10">
 
-      <div className="col-span-12 md:col-span-6 flex flex-col gap-8">
+      <div className=" flex flex-col gap-8">
         <div className="flex flex-col gap-6">
           <h1 className="text-4xl font-fredoka font-[700]">
             <span className="sr-only">Contactez-nous !</span>
@@ -43,9 +43,9 @@ export default function ContactPage() {
           {addressContent}
         </div>
       </div>
-      <div className="col-span-12 md:col-span-6 flex flex-col gap-8">
+      <div className=" flex flex-col gap-8 md:min-w-1/2 lg:items-end">
         <ContactForm />
-        <div className="flex flex-col gap-4 bg-gray-200 py-4 px-6 rounded-2xl shadow-2xl border border-gray-300">
+        <div className="flex flex-col gap-4 bg-gray-200 py-4 px-6 rounded-2xl shadow-2xl border border-gray-300 lg:w-[450px]">
           <h3 className="font-fredoka font-[700] text-lg">
             Contribuez à notre mission
           </h3>

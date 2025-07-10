@@ -35,7 +35,7 @@ export default function ContactForm() {
   const { handleSubmit, control, formState: { errors } } = form;
   return (
     <Form {...form}>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-8 bg-white p-8 rounded-2xl shadow-2xl border border-gray-300">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-8 bg-white p-8 rounded-2xl shadow-2xl border border-gray-300 lg:w-[450px]">
         <FormField
           control={control}
           name="subject"
@@ -92,7 +92,7 @@ export default function ContactForm() {
               <FormLabel>Message</FormLabel>
               <FormControl>
                 <Textarea
-                  className="!bg-white border-gray-300 h-10 rounded-xl"
+                  className="!bg-white border-gray-300 h-30 rounded-xl"
                   {...field} />
               </FormControl>
               <FormMessage />
@@ -100,7 +100,7 @@ export default function ContactForm() {
           )}
         />
         <div className="flex justify-center">
-          <Button className="bg-indigo-500">Envoyer <SendHorizontal className="w-4 h-4 ml-2"/></Button>
+          <Button className="bg-indigo-500">Envoyer <SendHorizontal className="w-4 h-4 ml-2" /></Button>
         </div>
       </form>
     </Form>
