@@ -35,7 +35,10 @@ export default function ContactForm() {
   const { handleSubmit, control, formState: { errors } } = form;
   return (
     <Form {...form}>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-8 bg-white p-8 rounded-2xl shadow-2xl border border-gray-300 lg:w-[450px]">
+      <form 
+      onSubmit={handleSubmit(onSubmit)} 
+      className="space-y-8 bg-white p-8 rounded-2xl shadow-2xl border border-gray-300 w-full lg:w-[450px]"
+      >
         <FormField
           control={control}
           name="subject"

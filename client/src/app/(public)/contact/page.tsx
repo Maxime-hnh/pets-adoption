@@ -26,37 +26,46 @@ export default function ContactPage() {
   )
 
   return (
-    <section className="flex flex-col md:flex-row gap-6  min-h-[calc(100dvh-90px)] px-4 pt-4 lg:px-15 xl:px-50 2xl:px-75 3xl:px-90 lg:gap-16 md:pt-10">
+    <section className="flex flex-col md:flex-col gap-6  min-h-[calc(100dvh-90px)]">
 
-      <div className=" flex flex-col gap-8">
-        <div className="flex flex-col gap-6">
-          <h1 className="text-4xl font-fredoka font-[700]">
-            <span className="sr-only">Contactez-nous !</span>
-            Écrivez-nous, on vous répond vite !
-          </h1>
-          <p className="text-gray-500">
-            Vous avez des questions, des suggestions ou des idées ? Nous sommes là pour vous aider.
-          </p>
-        </div>
-
-        <div className="hidden md:flex flex-col gap-2">
-          {addressContent}
-        </div>
+      {/* Header */}
+      <div className="flex flex-col gap-6 bg-indigo-500 py-5 md:py-10 px-4">
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-fredoka font-[700] text-center text-white">
+          <span className="sr-only">Contactez-nous !</span>
+          Écrivez-nous, on vous répond vite !
+        </h1>
+        <p className="text-white text-center">
+          Vous avez des questions, des suggestions ou des idées ? Nous sommes là pour vous aider.
+        </p>
       </div>
-      <div className=" flex flex-col gap-8 md:min-w-1/2 lg:items-end">
-        <ContactForm />
-        <div className="flex flex-col gap-4 bg-gray-200 py-4 px-6 rounded-2xl shadow-2xl border border-gray-300 lg:w-[450px]">
-          <h3 className="font-fredoka font-[700] text-lg">
-            Contribuez à notre mission
-          </h3>
-          <p className="text-sm">Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
 
-          <div className="w-full flex justify-center">
-            <Button className="bg-indigo-500"><HeartHandshake className="w-4 h-4" /> Donation</Button>
+      {/* Content */}
+      <div className="flex flex-col-reverse pb-10 gap-12 px-4 lg:px-10 xl:px-50 2xl:px-75 3xl:px-90 md:gap-8 md:flex-row md:justify-center">
+
+        {/* Left */}
+        <div className="flex flex-col gap-12">
+          {/* Address */}
+          <div>
+            {addressContent}
+          </div>
+
+          {/* Donation */}
+          <div className="flex flex-col gap-4 bg-white py-4 px-6 rounded-2xl shadow-2xl border border-gray-300 lg:w-[450px]">
+            <h3 className="font-fredoka font-[700] text-lg">
+              Contribuez à notre mission
+            </h3>
+            <p className="text-sm">Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
+
+            <div className="w-full flex justify-center">
+              <Button className="bg-indigo-500"><HeartHandshake className="w-4 h-4" /> Donation</Button>
+            </div>
           </div>
         </div>
-        <div className="pb-12 flex md:hidden flex-col gap-2">
-          {addressContent}
+
+
+        {/* Right */}
+        <div className="flex gap-8 md:min-w-1/2 lg:justify-end">
+          <ContactForm />
         </div>
       </div>
     </section>
