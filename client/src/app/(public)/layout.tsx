@@ -19,8 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   return (
     <CommonLayoutWrapper>
-      <AuthStoreHydrator user={user} />
-      <PublicProviders>
+      <PublicProviders user={user}>
         {children}
       </PublicProviders>
     </CommonLayoutWrapper>

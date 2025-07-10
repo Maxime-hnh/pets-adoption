@@ -8,7 +8,6 @@ import { useEffect, useRef, useState } from "react";
 import AnimalCard from "@/_components/AnimalCard";
 import Image from "next/image";
 import ExpandableFiltersBar from "./ExpandableFiltersBar";
-import { ScrollArea } from "@/_components/ui/scroll-area";
 import { Button } from "@/_components/ui/button";
 import { Rocket } from "lucide-react";
 
@@ -28,7 +27,6 @@ export default function ClientAnimalsWrapper({ animals, incompatibilities }: { a
     })
   }, [filteredAnimals])
 
-  console.log(filterDesktopContainerHeight)
 
   useEffect(() => {
     setAnimals(animals)
@@ -37,7 +35,6 @@ export default function ClientAnimalsWrapper({ animals, incompatibilities }: { a
 
   const handleClick = () => {
     const target = document.querySelector("main")
-    console.log(target)
     if (target) {
       target.scrollIntoView({ behavior: "smooth" });
     }

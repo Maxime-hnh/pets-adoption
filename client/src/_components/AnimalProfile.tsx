@@ -10,6 +10,7 @@ import Image from "next/image";
 import { Badge } from "@/_components/ui/badge";
 import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 import { Button } from "@/_components/ui/button";
+import HandleFavoriteButton from "./HandleFavoriteButton";
 
 interface AnimalProfileProps {
   params: Promise<{ id: string }>
@@ -97,10 +98,15 @@ export default async function AnimalProfile({ params }: AnimalProfileProps) {
                       height={1000}
                       className="rounded-3xl w-full h-full object-cover"
                     />
-                    <Button
+                    {/* <Button
                       className="group absolute -bottom-6 -right-6 bg-white hover:bg-white h-14 w-12 rounded-lg shadow-2xl">
-                      <Heart className="text-red-500 !h-6 !w-6 group-hover:animate-pulse" strokeWidth={2} />
-                    </Button>
+                      <Heart className="text-red-500 !h-6 !w-6 group-hover:animate-bounce" strokeWidth={2} />
+                    </Button> */}
+                    <HandleFavoriteButton
+                      buttonClassName="group absolute -bottom-6 -right-6 bg-white hover:bg-white h-14 w-12 rounded-lg shadow-2xl"
+                      iconClassName="text-red-500 !h-6 !w-6 group-hover:animate-bounce"
+                      animal={animal}
+                    />
                   </AspectRatio>
                 )}
               </div>

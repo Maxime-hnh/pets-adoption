@@ -113,3 +113,5 @@ export const AnimalSchema = z.object({
 
 
 export type Animal = z.infer<typeof AnimalSchema>;
+
+export type PublicAnimal = Pick<Animal, "id" | "name" | "species" | "gender" | "status" | "placementType" | "photos">;

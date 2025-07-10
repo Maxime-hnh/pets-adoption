@@ -5,12 +5,11 @@ import { notFound } from "next/navigation";
 import { getById } from "@/_lib/data";
 import Image from "next/image";
 import { AspectRatio } from "@radix-ui/react-aspect-ratio";
-import { Badge } from "./ui/badge";
-import { ArrowLeft, Cake, Camera, DnaIcon, Heart, MapPin, PawPrint, Share2 } from "lucide-react";
-import { cn } from "@/_lib/cn";
+import { Cake, Camera, DnaIcon, MapPin, PawPrint, Share2 } from "lucide-react";
 import { calculateAgeToString } from "@/_lib/utils";
 import { Button } from "./ui/button";
-import { Arrow } from "@radix-ui/react-tooltip";
+import HandleFavoriteButton from "./HandleFavoriteButton";
+import BackButton from "./BackButton";
 
 interface AnimalProfileMobileProps {
   params: Promise<{ id: string }>
@@ -63,12 +62,12 @@ export default async function AnimalProfileMobile({ params }: AnimalProfileMobil
         {/* Image */}
         <div className="relative">
           <div className="absolute top-8 z-10 w-full px-4 flex justify-between">
-            <Button size="icon" className="rounded-full !bg-white/15 backdrop-blur-xl hover:bg-white/50">
-              <ArrowLeft className="!w-6 !h-6" />
-            </Button>
-            <Button size="icon" className="rounded-full !bg-white/15 backdrop-blur-xl hover:bg-white/50">
-              <Heart className="!w-6 !h-6" />
-            </Button>
+            <BackButton />
+            <HandleFavoriteButton
+              buttonClassName="rounded-full !bg-white/15 backdrop-blur-xl hover:bg-white/50"
+              iconClassName="!w-6 !h-6"
+              animal={animal}
+            />
           </div>
           <AspectRatio ratio={1}>
             <Image
