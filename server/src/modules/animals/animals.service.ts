@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { AnimalDto, CreateAnimalDto, UpdateAnimalDto } from './dto';
-import { AnimalStatus, AuditAction, AuditEntity, Prisma, Species } from '@prisma/client';
+import { AuditAction, AuditEntity, Prisma, Species } from '@prisma/client';
 import { toDto } from 'src/utils/dto-transformer';
 import { toDtos } from 'src/utils/dtos-transfomer';
 import { AnimalsWithIncompatibility } from './animals.type';

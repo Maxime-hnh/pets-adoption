@@ -1,6 +1,6 @@
 import { MessageStatus } from '@prisma/client';
 import { Exclude, Expose, Type } from 'class-transformer';
-import { IsEmail, IsEnum, IsInt, IsNotEmpty, IsOptional, IsString, IsUUID } from 'class-validator';
+import { IsArray, ArrayNotEmpty, IsEmail, IsEnum, IsInt, IsNotEmpty, IsOptional, IsString, IsUUID } from 'class-validator';
 import { UserDto } from 'src/modules/users/dto/user.dto';
 
 export class MessageDto {
@@ -125,4 +125,23 @@ export class UpdateMessageDto {
   @IsInt()
   @IsOptional()
   userId?: number;
+}
+
+export class UpdateStatusDto {
+  @IsEnum(MessageStatus)
+  status: MessageStatus;
+}
+
+export class UpdateNoteDto {
+  @IsString()
+  internalNotes: string;
+}
+
+
+export class DeleteManyDto {
+  @IsArray()
+  @ArrayNotEmpty()
+  @IsInt({ each: true })
+  @Type(() => Number)
+  ids: number[];
 }
