@@ -7,7 +7,7 @@ export default function ContactPage() {
   const addressContent = (
     <>
       <h2 className="text-2xl font-fredoka font-[700] mb-4">Où nous trouver ?</h2>
-      <div className="flex gap-2 items-center">
+      <div className="flex gap-2 items-center mb-1">
         <MapPinIcon className="w-4 h-4 text-gray-500" />
         <p className="text-xs md:text-md text-gray-500">Route de Saint-Manvieu-Norrey, 14790 VERSON</p>
       </div>
