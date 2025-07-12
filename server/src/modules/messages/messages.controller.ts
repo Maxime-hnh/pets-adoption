@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Req, UseGuards } from '@nestjs/common';
 import { MessagesService } from './messages.service';
 import { JwtAuthGuard } from '../auth/security-road/auth.guard';
 import { RolesGuard } from '../auth/security-road/roles.guard';
@@ -6,7 +6,6 @@ import { CreateMessageDto, DeleteManyDto, MessageDto, UpdateNoteDto, UpdateStatu
 import { CurrentUser } from '../auth/decorator/current-user.decorator';
 import { UserWithRole } from '../users/users.types';
 import { Roles } from '../auth/decorator/roles.decorator';
-import { MessageStatus } from '@prisma/client';
 
 @Controller('messages')
 export class MessagesController {
@@ -16,13 +15,9 @@ export class MessagesController {
   ) { }
 
 
-  @UseGuards(JwtAuthGuard)
   @Post()
-  async create(
-    @Body() body: CreateMessageDto,
-    @CurrentUser() user: UserWithRole
-  ): Promise<MessageDto> {
-    return await this.messagesService.create(body, user.id)
+  async create(@Body() body: CreateMessageDto): Promise<MessageDto> {
+    return await this.messagesService.create(body)
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)

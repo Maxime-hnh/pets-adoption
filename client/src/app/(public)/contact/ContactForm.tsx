@@ -1,43 +1,46 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { Form, FormControl, FormItem, FormLabel, FormField, FormMessage } from "@/_components/ui/form";
 import { Input } from "@/_components/ui/input";
 import { Textarea } from "@/_components/ui/textarea";
 import { Button } from "@/_components/ui/button";
 import { SendHorizontal } from "lucide-react";
+import { CreateMessageEntity, MessageSchema } from "@/_schemas/message.schema";
+import { useCreateMessage } from "@/_mutations/messages/useCreateMessage";
+import { useAuthStore } from "@/_stores/auth.store";
 
 export default function ContactForm() {
 
-  const formSchema = z.object({
-    subject: z.string().min(2).max(50),
-    fullName: z.string().min(2).max(50),
-    email: z.string().min(2).max(50).email("Adresse email non valide"),
-    message: z.string().min(2).max(500),
-  })
-
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const createMessage = useCreateMessage();
+  const loggedUser = useAuthStore(state => state.loggedUser);
+  
+  const form = useForm<CreateMessageEntity>({
+    resolver: zodResolver(MessageSchema),
     defaultValues: {
       subject: "",
-      fullName: "",
-      email: "",
-      message: "",
+      content: "",
+      emailSender: "",
+      nameSender: "",
+      userId: loggedUser?.id || undefined,
     },
   })
 
-  function onSubmit(data: z.infer<typeof formSchema>) {
-    console.log(data);
+  function onSubmit(data: CreateMessageEntity) {
+    createMessage.mutate(data, {
+      onSuccess: () => {
+        form.reset();
+      }
+    });
   }
 
   const { handleSubmit, control, formState: { errors } } = form;
   return (
     <Form {...form}>
-      <form 
-      onSubmit={handleSubmit(onSubmit)} 
-      className="space-y-8 bg-white p-8 rounded-2xl shadow-2xl border border-gray-300 w-full lg:w-[450px]"
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="space-y-8 bg-white p-8 rounded-2xl shadow-2xl border border-gray-300 w-full lg:w-[450px]"
       >
         <FormField
           control={control}
@@ -56,7 +59,7 @@ export default function ContactForm() {
         />
         <FormField
           control={control}
-          name="fullName"
+          name="nameSender"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Nom complet</FormLabel>
@@ -73,7 +76,7 @@ export default function ContactForm() {
         />
         <FormField
           control={control}
-          name="email"
+          name="emailSender"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Email</FormLabel>
@@ -89,7 +92,7 @@ export default function ContactForm() {
         />
         <FormField
           control={control}
-          name="message"
+          name="content"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Message</FormLabel>
@@ -103,7 +106,7 @@ export default function ContactForm() {
           )}
         />
         <div className="flex justify-center">
-          <Button className="bg-indigo-500">Envoyer <SendHorizontal className="w-4 h-4 ml-2" /></Button>
+          <Button className="bg-indigo-500" type="submit">Envoyer <SendHorizontal className="w-4 h-4 ml-2" /></Button>
         </div>
       </form>
     </Form>

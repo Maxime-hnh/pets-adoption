@@ -32,7 +32,7 @@ export const useQuickPropsUpdate = () => {
     onError: (error, { id }, context) => {
       // Roll back to the previous data in case of error
       queryClient.setQueryData(['animals', 'all'], context?.backupData);
-      toast.error(`Une erreur est survenue pendan la modification de l'animal ${id}`)
+      toast.error(`Une erreur est survenue pendant la modification de l'animal ${id}`)
     },
     onSettled: () => {
       // Invalidate the animal list query so it's marked stale

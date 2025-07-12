@@ -1,8 +1,6 @@
 import { Animal } from "@/_schemas/animal.schema";
 import { authHeader } from "@/_lib/auth-header";
 import { handleResponse } from "@/_lib/handle-response";
-import { baseUrl } from "@/_lib/constants";
-
 
 class AnimalsService {
 

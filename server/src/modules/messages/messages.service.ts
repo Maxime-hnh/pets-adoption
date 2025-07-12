@@ -14,8 +14,8 @@ export class MessagesService {
     private readonly auditLogsService: AuditLogsService
   ) { }
 
-  async create(data: CreateMessageDto, userId: number): Promise<MessageDto> {
-    const dataToSave = { ...data, userId, status: MessageStatus.RECEIVED }
+  async create(data: CreateMessageDto): Promise<MessageDto> {
+    const dataToSave = { ...data, status: MessageStatus.RECEIVED }
     const message = await this.prisma.message.create({ data: dataToSave });
     return toDto(MessageDto, message)
   }
