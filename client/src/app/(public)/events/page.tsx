@@ -33,7 +33,7 @@ export default function EventsPage() {
   return (
     <section className="container flex flex-col items-center pb-16 gap-16 w-full min-w-full">
       <div className="text-center">
-        <h2 className="mx-auto mb-6 text-pretty text-3xl font-[900] font-inter md:text-4xl lg:text-5xl lg:max-w-3xl animate-fade-in-down">
+        <h2 className="mx-auto mb-6 text-pretty text-3xl md:text-4xl lg:text-5xl lg:max-w-3xl animate-fade-in-down">
           Evènements
         </h2>
         <p className="mx-auto max-w-2xl text-muted-foreground md:text-lg animate-fade-in-up">

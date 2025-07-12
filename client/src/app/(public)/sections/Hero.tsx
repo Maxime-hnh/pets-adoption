@@ -22,14 +22,14 @@ console.log("hero")
       {/* Text Bottom Center */}
       <div className="hidden w-max  items-end absolute bottom-0 left-1/2 -translate-x-1/2 -translate-y-1/2  sm:flex">
         <Counter
-          className="text-7xl font-inter font-[900] animate-fade-in-up pb-8 text-amber-500"
+          className="text-7xl font-fredoka font-[700] animate-fade-in-up pb-8 text-amber-500"
           start={0}
           end={42}
           duration={2}
           fontSize={65}
         />
         <p
-          className="text-2xl font-inter font-[900] animate-fade-in-up pb-8 bg-no-repeat bg-[length:contain] bg-[position:bottom_center]"
+          className="text-2xl font-fredoka font-[700] animate-fade-in-up pb-8 bg-no-repeat bg-[length:contain] bg-[position:bottom_center]"
           style={{ backgroundImage: "url('https://tailwag.progressionstudios.com/wp-content/uploads/2022/04/underline.png')" }}
         >
 
@@ -43,7 +43,7 @@ console.log("hero")
         <div className="flex flex-col h-full gap-8 justify-between sm:pt-24 lg:pt-12 xl:pt-24 sm:justify-start 2xl:gap-12">
 
           <h1 className="sr-only">Un refuge temporaire, un amour éternel.</h1>
-          <SparklesText text={" Un refuge temporaire, un amour éternel."} className="font-inter animate-fade-in-down pl-2 pt-4 sm:pl-0 sm:pt-0" />
+          <SparklesText text={" Un refuge temporaire, un amour éternel."} className="font-fredoka animate-fade-in-down pl-2 pt-4 sm:pl-0 sm:pt-0" />
           <p className="hidden animate-fade-in-up text-muted-foreground text-xl sm:block lg:text-lg xl:text-xl">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia alias soluta id veritatis
             quaerat libero doloremque accusamus aperiam, repellendus maiores animi dolor ad

@@ -34,7 +34,7 @@ export default function Shelter() {
     <section className="px-8 pb-16 md:pb-32">
       <div className="container mx-auto">
         <div className="text-center">
-          <h2 className="text-balance text-4xl font-[900] lg:text-5xl font-inter">Le refuge SPA de Verson</h2>
+          <h2 className="text-balance text-4xl lg:text-5xl">Le refuge SPA de Verson</h2>
           <p className="mt-4">Une association reconnue d'utilité publique.</p>
         </div>
         <div className="flex items-center flex-col md:flex-row justify-center gap-2 md:gap-8 mt-8 md:h-[351px] md:max-h-[351px] lg:h-80 lg:max-h-80">

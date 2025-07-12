@@ -104,7 +104,7 @@ export default function Cta() {
       <div className="min-w-full sm:container sm:min-w-0 sm:mx-auto">
         <div className="flex flex-col items-center gap-4 text-center">
           <Badge variant="outline">SPA de Verson</Badge>
-          <h2 className="max-w-2xl text-3xl font-[900] font-inter md:text-4xl lg:text-5xl">
+          <h2 className="max-w-2xl text-3xl md:text-4xl lg:text-5xl">
             J'agis pour les animaux
           </h2>
           <p className="text-muted-foreground">

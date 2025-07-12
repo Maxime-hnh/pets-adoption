@@ -27,7 +27,7 @@ export default async function AnimalsPage() {
         style={{ transform: "translate(-35%, -40%)" }}
       />
       <div className="col-span-12 sm:sr-only py-6">
-        <h2 className=" min-w-full text-center text-pretty text-3xl font-[900] font-inter md:text-4xl lg:text-5xl lg:max-w-3xl animate-fade-in-down">
+        <h2 className=" min-w-full text-center text-pretty text-3xl md:text-4xl lg:text-5xl lg:max-w-3xl animate-fade-in-down">
           Animaux à adopter
         </h2>
       </div>

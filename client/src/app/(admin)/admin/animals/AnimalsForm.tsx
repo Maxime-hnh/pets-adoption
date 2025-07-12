@@ -172,7 +172,7 @@ export default function AnimalsForm({ mode = "create", values }: AnimalsFomProps
         <div className="flex flex-row justify-between">
 
           <div className="flex flex-col">
-            <h2 className="text-4xl font-inter font-[900]">{mode === "create" ? "Ajouter un animal" : "Modifier un animal"}</h2>
+            <h2 className="text-4xl">{mode === "create" ? "Ajouter un animal" : "Modifier un animal"}</h2>
             <p className="text-muted-foreground">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptate, a!</p>
           </div>
 

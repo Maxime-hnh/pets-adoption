@@ -189,7 +189,7 @@ export default function FiltersBar() {
       </div>
 
       <div className="flex flex-col gap-2 border-b-1 border-gray-200 pb-4">
-        <label className="font-inter font-[900] text-lg">Espèces</label>
+        <label className="font-fredoka font-[700] text-lg">Espèces</label>
         <div className="flex flex-row gap-2">
           {speciesChips}
         </div>
@@ -206,12 +206,12 @@ export default function FiltersBar() {
         placeholder="Sélectionner des races..."
         // emptyMessage="Aucune race trouvée"
         className="border-gray-200 border-b-1 pb-4"
-        labelClassName="font-inter font-[900] text-lg"
+        labelClassName="font-fredoka font-[700] text-lg"
       />
 
       {/* Sexe */}
       <div className="flex flex-col gap-2 border-b-1 border-gray-200 pb-4">
-        <label className="font-inter font-[900] text-lg">Sexe</label>
+        <label className="font-fredoka font-[700] text-lg">Sexe</label>
         <div className="flex flex-row gap-2">
           {sexeChips}
         </div>
@@ -219,7 +219,7 @@ export default function FiltersBar() {
 
       {/* Filtres d'âge */}
       <div className="flex flex-col gap-2 border-b-1 border-gray-200 pb-4">
-        <label className="font-inter font-[900] text-lg">Âge</label>
+        <label className="font-fredoka font-[700] text-lg">Âge</label>
         <div className="flex flex-row flex-wrap gap-2">
           {ageChips}
         </div>
@@ -227,7 +227,7 @@ export default function FiltersBar() {
 
       {/* Type de placement */}
       <div className="flex flex-col gap-2 border-b-1 border-gray-200 pb-4">
-        <label className="font-inter font-[900] text-lg">Type de placement</label>
+        <label className="font-fredoka font-[700] text-lg">Type de placement</label>
         <div className="flex flex-row gap-2">
           {placementTypeChips}
         </div>
@@ -235,7 +235,7 @@ export default function FiltersBar() {
 
       {/* OK avec */}
       <div className="flex flex-col gap-2">
-        <label className="font-inter font-[900] text-lg">OK avec</label>
+        <label className="font-fredoka font-[700] text-lg">OK avec</label>
         <div className="flex flex-row gap-2">
           {incompatibilityChips}
         </div>
