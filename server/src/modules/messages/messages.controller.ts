@@ -2,10 +2,11 @@ import { Body, Controller, Delete, Get, Param, Patch, Post, Req, UseGuards } fro
 import { MessagesService } from './messages.service';
 import { JwtAuthGuard } from '../auth/security-road/auth.guard';
 import { RolesGuard } from '../auth/security-road/roles.guard';
-import { CreateMessageDto, DeleteManyDto, MessageDto, UpdateNoteDto, UpdateStatusDto } from './dto/message.dto';
+import { CreateMessageDto, MessageDto, UpdateNoteDto, UpdateStatusDto } from './dto/message.dto';
 import { CurrentUser } from '../auth/decorator/current-user.decorator';
 import { UserWithRole } from '../users/users.types';
 import { Roles } from '../auth/decorator/roles.decorator';
+import { DeleteManyDto } from 'src/common/dto/delete-many.dto';
 
 @Controller('messages')
 export class MessagesController {

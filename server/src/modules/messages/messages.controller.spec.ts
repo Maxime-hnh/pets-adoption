@@ -1,9 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { MessagesController } from './messages.controller';
 import { MessagesService } from './messages.service';
-import { CreateMessageDto, UpdateStatusDto, UpdateNoteDto, DeleteManyDto } from './dto/message.dto';
+import { CreateMessageDto, UpdateStatusDto, UpdateNoteDto } from './dto/message.dto';
 import { MessageStatus } from '@prisma/client';
 import { UserWithRole } from '../users/users.types';
+import { DeleteManyDto } from 'src/common/dto/delete-many.dto';
 
 describe('MessagesController', () => {
   let controller: MessagesController;
