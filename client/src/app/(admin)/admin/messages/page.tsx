@@ -1,6 +1,7 @@
 import MessagesList from "./MessagesList";
 import SearchBar from "./SearchBar";
 import SelectedMessage from "./SelectedMessage";
+import MessagesSegmentedControl from "./MessagesSegmentedControl";
 
 export default function MessagesPage() {
 
@@ -15,7 +16,7 @@ export default function MessagesPage() {
         <div className="flex flex-row w-full min-h-[50px] h-[50px] border-b border-r">
           <div className="flex flex-1 justify-between items-center p-2">
             <h2 className="text-2xl">Boîte de réception</h2>
-
+            <MessagesSegmentedControl/>
           </div>
         </div>
 
