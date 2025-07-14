@@ -44,11 +44,6 @@ export const UpdateNoteSchema = MessageSchema.pick({
   internalNotes: true,
 })
 
-export const DeleteManySchema = z.object({
-  ids: z.array(z.number()),
-})
-
 export type CreateMessageEntity = z.infer<typeof CreateMessageSchema>;
 export type UpdateStatusEntity = z.infer<typeof UpdateStatusSchema>;
 export type UpdateNoteEntity = z.infer<typeof UpdateNoteSchema>;
-export type DeleteManyEntity = z.infer<typeof DeleteManySchema>;

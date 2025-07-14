@@ -1,6 +1,7 @@
 import { authHeader } from "@/_lib/auth-header";
 import { handleResponse } from "@/_lib/handle-response";
-import { CreateMessageEntity, DeleteManyEntity, MessageEntity, UpdateNoteEntity, UpdateStatusEntity } from "@/_schemas/message.schema";
+import { DeleteManyEntity } from "@/_schemas/common.schema";
+import { CreateMessageEntity, MessageEntity, UpdateNoteEntity, UpdateStatusEntity } from "@/_schemas/message.schema";
 
 class MessagesService {
 

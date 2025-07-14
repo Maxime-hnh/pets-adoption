@@ -8,7 +8,7 @@ import { Textarea } from "@/_components/ui/textarea";
 import { Button } from "@/_components/ui/button";
 import { SendHorizontal } from "lucide-react";
 import { CreateMessageEntity, MessageSchema } from "@/_schemas/message.schema";
-import { useCreateMessage } from "@/_mutations/messages/useCreateMessage";
+import { useCreateMessage } from "@/_hooks/messages/useCreateMessage";
 import { useAuthStore } from "@/_stores/auth.store";
 
 export default function ContactForm() {

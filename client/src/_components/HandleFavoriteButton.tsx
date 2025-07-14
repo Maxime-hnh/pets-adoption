@@ -2,11 +2,11 @@
 
 import { Heart } from "lucide-react";
 import { Button } from "@/_components/ui/button";
-import { useCreateFavorite } from "@/_mutations/favorites/useCreateFavorite";
+import { useCreateFavorite } from "@/_hooks/favorites/useCreateFavorite";
 import { Animal } from "@/_schemas/animal.schema";
 import { cn } from "@/_lib/cn";
-import { useDeleteFavorite } from "@/_mutations/favorites/useDeleteFavorite";
-import { useFavoritesQuery } from "@/_queries/favorites/useFavoritesQuery";
+import { useDeleteFavorite } from "@/_hooks/favorites/useDeleteFavorite";
+import { useFavoritesQuery } from "@/_hooks/favorites/useFavoritesQuery";
 import { useAuthStore } from "@/_stores/auth.store";
 import { toast } from "sonner";
 

@@ -1,4 +1,4 @@
-import { DeleteManyEntity } from "@/_schemas/message.schema";
+import { DeleteManyEntity } from "@/_schemas/common.schema";
 import { messagesService } from "@/_services/messages.service";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
