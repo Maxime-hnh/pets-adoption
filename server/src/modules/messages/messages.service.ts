@@ -90,6 +90,16 @@ export class MessagesService {
     return toDto(MessageDto, message)
   };
 
+  async findById(id: number): Promise<MessageDto> {
+    const message = await this.prisma.message.findUnique({
+      where: { id },
+      include: {
+        user: true
+      }
+    });
+    return toDto(MessageDto, message)
+  };
+
   async findAll(): Promise<MessageDto[]> {
     const messages = await this.prisma.message.findMany(
       {
