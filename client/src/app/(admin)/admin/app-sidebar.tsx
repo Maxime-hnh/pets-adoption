@@ -12,7 +12,7 @@ import {
   SidebarMenuButton,
   SidebarFooter,
 } from "@/_components/ui/sidebar"
-import { LayoutDashboard, Calendar, User, Settings, PawPrint } from "lucide-react"
+import { LayoutDashboard, Calendar, Settings, PawPrint, Mail, Users } from "lucide-react"
 import { usePathname, useRouter } from 'next/navigation'
 import { useState, useTransition } from "react"
 import { cn } from "@/_lib/cn"
@@ -49,9 +49,14 @@ export function AppSidebar() {
       icon: Calendar,
     },
     {
+      title: "Messages",
+      url: "/admin/messages",
+      icon: Mail,
+    },
+    {
       title: "Utilisateurs",
       url: "/admin/users",
-      icon: User,
+      icon: Users,
     },
     {
       title: "Paramètres",

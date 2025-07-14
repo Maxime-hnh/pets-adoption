@@ -1,4 +1,10 @@
 import { z } from "zod";
+import { DollarSign } from "lucide-react";
+import { House } from "lucide-react";
+import { Ticket } from "lucide-react";
+import { Dog } from "lucide-react";
+
+
 
 export enum EventType {
   FUNDRAISING = "FUNDRAISING",
@@ -8,11 +14,28 @@ export enum EventType {
   OTHER = "OTHER"
 }
 
+export const EventTypeLabelMap = {
+  [EventType.FUNDRAISING]: "Fondation",
+  [EventType.OPEN_HOUSE]: "Open House",
+  [EventType.RAFFLE]: "Tombola",
+  [EventType.TRAINING_SESSION]: "Session d'entraînement",
+  [EventType.OTHER]: "Autre"
+}
+
+export const EventTypeConfigMap = {
+  [EventType.FUNDRAISING]: { color: "text-green-500", bgColor: "bg-green-500/80", icon: DollarSign },
+  [EventType.OPEN_HOUSE]: { color: "text-orange-500", bgColor: "bg-orange-500/80", icon: House },
+  [EventType.RAFFLE]: { color: "text-blue-500", bgColor: "bg-blue-500/80", icon: Ticket },
+  [EventType.TRAINING_SESSION]: { color: "text-purple-500", bgColor: "bg-purple-500/80", icon: Dog },
+  [EventType.OTHER]: { color: "text-gray-500", bgColor: "bg-gray-500/80", icon: Dog },
+}
+
+
 export const EventTypeSchema = z.nativeEnum(EventType);
 
 export const EventSchema = z.object({
-  id: z.number(),
-  uid: z.string(),
+  id: z.number().optional(),
+  uid: z.string().optional(),
   title: z.string(),
   description: z.string().optional(),
   type: EventTypeSchema,

@@ -14,26 +14,25 @@ import {
 } from "@/_components/ui/table";
 import { Input } from "@/_components/ui/input";
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/_components/ui/dropdown-menu";
-import { Calendar, ChevronDown, PawPrint } from "lucide-react";
+import { Calendar, CalendarPlus, ChevronDown } from "lucide-react";
 import { Button } from "@/_components/ui/button";
 import { useState, useMemo } from "react";
 import { cn } from "@/_lib/cn";
-import { useAllAnimalsQuery } from "@/_hooks/animals/useAnimalsQuery";
 import { Skeleton } from "@/_components/ui/skeleton";
 import { Group } from "@/_components/ui/group";
-import { useQuickPropsUpdate } from "@/_hooks/animals/useQuickPropsUpdate";
-import { useDeleteAnimal } from "@/_hooks/animals/useDeleteAnimal";
+
 import { ColumnFiltersState, ColumnPinningState, SortingState, VisibilityState } from "@tanstack/react-table";
-import { Animal, AnimalStatusConfiglMap, AnimalStatusLabelMap, Gender, GenderConfigMap, PlacementTypeConfigMap, PlacementTypeLabelMap, Species, SpeciesConfigMap, SpeciesLabelMap } from "@/_schemas/animal.schema";
 import { Checkbox } from "@/_components/ui/checkbox";
 import { ArrowUpDown, Eye, MoreHorizontal, PenLine, Trash2 } from "lucide-react";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/_components/ui/alert-dialog";
-import SelectCell from "./SelectCell";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { formatDate } from "@/_lib/utils";
 import { useRouter } from "next/navigation";
+import { useDeleteEvent } from "@/_hooks/events/useDeleteEvent";
+import { EventEntity, EventType, EventTypeConfigMap, EventTypeLabelMap } from "@/_schemas/events.schema";
+import { useAllEventsQuery } from "@/_hooks/events/useEventsQuery";
 
 export default function AnimalsTable() {
 
@@ -43,12 +42,11 @@ export default function AnimalsTable() {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
-  const { data, isLoading } = useAllAnimalsQuery();
+  const { data, isLoading } = useAllEventsQuery();
   const pathName = usePathname();
 
   //hooks
-  const quickUpdateAnimal = useQuickPropsUpdate();
-  const deleteAnimal = useDeleteAnimal();
+  const deleteEvent = useDeleteEvent();
 
   //columns
   const columns = useMemo(() => [
@@ -75,11 +73,11 @@ export default function AnimalsTable() {
       accessorKey: "photos",
       header: "",
       cell: ({ row }) => {
-        const animal = row.original;
-        if (animal.photos && animal.photos?.length > 0) {
+        const event = row.original;
+        if (event.photos && event.photos?.length > 0) {
           return (
             <Image
-              alt={`${animal.species}`}
+              alt={`Image de l'événement ${event.title}`}
               src={row.original.photos![0]}
               className="max-h-[50px] max-w-[75px] rounded-lg object-cover"
               width={75}
@@ -96,93 +94,72 @@ export default function AnimalsTable() {
       },
     },
     {
-      accessorKey: "icadNumber",
-      header: "N° Icad",
+      accessorKey: "title",
+      header: "Titre",
     },
     {
-      accessorKey: "name",
-      header: "Nom",
-    },
-    {
-      accessorKey: "species",
+      accessorKey: "type",
       header: ({ column }) => (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Espèce
+          Type
           <ArrowUpDown />
         </Button>
       ),
       cell: ({ row }) => {
-        const { icon: Icon, color } = SpeciesConfigMap[row.original.species as Species]
+        const { icon: Icon, color } = EventTypeConfigMap[row.original.type as EventType]
 
-        return <div className="flex gap-2 items-center">
+        return <div className={`flex gap-2 items-center ${color}`}>
           <Icon className={`${color} h-5 w-5`} />
-          {SpeciesLabelMap[row.original.species as Species]}
+          {EventTypeLabelMap[row.original.type as EventType]}
         </div>
       }
     },
     {
-      accessorKey: "breed",
-      header: "Race",
-    },
-    {
-      accessorKey: "gender",
-      header: "Sexe",
-      cell: ({ row }) => {
-        const { icon: Icon, color } = GenderConfigMap[row.original.gender as Gender];
-        return <Icon className={`${color}`} />;
-      }
-    },
-    {
-      accessorKey: "birthDate",
-      header: "Date de naissance",
+      accessorKey: "startDate",
+      header: "Date de début",
       cell: ({ row }) => (
         <div className="flex items-center gap-2">
           <Calendar className="h-4 w-4" />
-          {formatDate(row.original.birthDate!)}
+          {formatDate(row.original.startDate!)}
         </div>
       )
     },
     {
-      accessorKey: "status",
-      header: "Statut",
+      accessorKey: "endDate",
+      header: "Date de fin",
       cell: ({ row }) => (
-        <SelectCell
-          animal={row.original}
-          initialValue={row.original.status}
-          keyName="status"
-          labelMap={AnimalStatusLabelMap}
-          configMap={AnimalStatusConfiglMap}
-          updateFn={quickUpdateAnimal}
-        />
-      ),
+        <div className="flex items-center gap-2">
+          <Calendar className="h-4 w-4" />
+          {formatDate(row.original.endDate!)}
+        </div>
+      )
     },
     {
-      accessorKey: "placementType",
-      header: "Type",
+      accessorKey: "city",
+      header: "Ville",
+    },
+    {
+      accessorKey: "price",
+      header: "Prix",
       cell: ({ row }) => (
-        <SelectCell
-          animal={row.original}
-          initialValue={row.original.placementType}
-          keyName="placementType"
-          labelMap={PlacementTypeLabelMap}
-          configMap={PlacementTypeConfigMap}
-          updateFn={quickUpdateAnimal}
-        />
-      ),
+        <div className="flex items-center gap-2">
+          {row.original.price && row.original.price > 0 ? `${row.original.price} €` : "Gratuit"}
+        </div>
+      )
     },
     {
       id: "actions",
       enableHiding: false,
       enablePinning: true,
       cell: ({ row }) => {
-        const animal = row.original as Animal;
+        const event = row.original as EventEntity;
         const [open, setOpen] = useState(false);
 
         const handleDelete = (id: number) => {
-          return deleteAnimal.mutate(id);
+          return deleteEvent.mutate(id);
         };
 
         return (
@@ -192,12 +169,12 @@ export default function AnimalsTable() {
                 <AlertDialogHeader>
                   <AlertDialogTitle>Confirmation requise</AlertDialogTitle>
                   <AlertDialogDescription>
-                    {`Cette action est irréversible. Elle supprimera définitivement les données de l'animal nommé ${animal.name}.`}
+                    {`Cette action est irréversible. Elle supprimera définitivement les données de l'événement ${event.title}.`}
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                   <AlertDialogCancel>Annuler</AlertDialogCancel>
-                  <AlertDialogAction className="bg-red-500" onClick={() => handleDelete(animal.id!)}>
+                  <AlertDialogAction className="bg-red-500" onClick={() => handleDelete(event.id!)}>
                     Supprimer
                   </AlertDialogAction>
                 </AlertDialogFooter>
@@ -206,7 +183,7 @@ export default function AnimalsTable() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
-                  onMouseEnter={() => router.prefetch(`/admin/animals/form/${animal.id}`)}
+                  onMouseEnter={() => router.prefetch(`/admin/events/form/${event.id}`)}
                   aria-label="Open menu"
                   variant="ghost"
                   className="h-8 w-8 p-0"
@@ -216,7 +193,7 @@ export default function AnimalsTable() {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem asChild className="text-orange-500 cursor-pointer">
-                  <Link href={`${pathName}/form/${animal.id}`}>
+                  <Link href={`${pathName}/form/${event.id}`}>
                     <PenLine className="text-orange-500" />
                     Modifier
                   </Link>
@@ -226,7 +203,7 @@ export default function AnimalsTable() {
                   Supprimer
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <Link href={`/admin/animals/${animal.id}`}>
+                <Link href={`/admin/events/${event.id}`}>
                   <DropdownMenuItem className="text-indigo-500 cursor-pointer">
                     <Eye className="text-indigo-500" />
                     Afficher
@@ -238,7 +215,7 @@ export default function AnimalsTable() {
         );
       },
     },
-  ] as ColumnDef<Partial<Animal>>[], [quickUpdateAnimal, deleteAnimal]
+  ] as ColumnDef<Partial<EventEntity>>[], [deleteEvent]
   );
 
   const table = useReactTable({
@@ -269,7 +246,7 @@ export default function AnimalsTable() {
         <Group>
           <Button asChild className="mr-4">
             <Link prefetch href={`${pathName}/form`} className="!text-white">
-              <PawPrint />
+              <CalendarPlus />
               Nouveau
             </Link>
           </Button>
@@ -277,12 +254,12 @@ export default function AnimalsTable() {
             <Skeleton className="rounded-xl w-[300px] h-[36px]" />
           ) : (
             <Input
-              placeholder="Rechercher un nom..."
-              value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+              placeholder="Rechercher un évènement..."
+              value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
               onChange={(event) =>
-                table.getColumn("name")?.setFilterValue(event.target.value)
+                table.getColumn("title")?.setFilterValue(event.target.value)
               }
-              className="max-w-sm"
+              className="w-xs max-w-sm"
             />
           )}
         </Group>

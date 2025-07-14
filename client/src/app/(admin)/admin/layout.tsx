@@ -28,6 +28,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const pathNameLabelMap: Record<string, string> = {
     'admin': 'Dashboard',
     'events': 'Événements',
+    'messages': 'Messages',
     'users': 'Utilisateurs',
     'settings': 'Paramètres',
 

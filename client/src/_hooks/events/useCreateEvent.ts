@@ -14,5 +14,8 @@ export const useCreateEvent = () => {
       queryClient.refetchQueries({ queryKey: ['events', 'all'] });
       toast.success(`Création réussie de l'événement`)
     },
+    onError: (error) => {
+      toast.error(error.message || "Une erreur est survenue lors de la création de l'évènement")
+    }
   })
 }
