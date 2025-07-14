@@ -1,7 +1,30 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react"
 import { describe, expect, beforeEach, test, vi } from "vitest"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
-import AnimalsForm from "@/app/[locale]/(admin)/admin/animals/AnimalsForm"
+import AnimalsForm from "@/app/(admin)/admin/animals/AnimalsForm"
+import { AnimalStatus, PlacementType, Species } from "@/_schemas/animal.schema"
+import { Gender } from "@/_schemas/animal.schema"
+
+
+const defaultValues = {
+  icadNumber: "",
+  name: "",
+  species: Species.DOG,
+  breed: "",
+  gender: Gender.MALE,
+  birthDate: new Date(),
+  description: "",
+  adoptionDate: undefined,
+  status: AnimalStatus.AVAILABLE,
+  placementType: PlacementType.STANDARD,
+  photos: [],
+  internalNotes: "",
+  isArchived: false,
+  isSterilized: false,
+  incompatibilityIds: [],
+}
+
+
 
 // Mock du store zustand si nécessaire
 vi.mock("@/_stores/animalForm.store", () => ({
@@ -42,7 +65,7 @@ describe("AnimalForm (mode création)", () => {
   })
 
   test("affiche les champs et bloque si vide", async () => {
-    renderWithProviders(<AnimalsForm />)
+    renderWithProviders(<AnimalsForm mode="create" values={defaultValues} />)
 
     // Vérifie qu'un champ est présent
     expect(screen.getByLabelText(/Nom/i)).toBeInTheDocument()
@@ -59,7 +82,7 @@ describe("AnimalForm (mode création)", () => {
 
   test("envoie les données valides à la mutation", async () => {
     const onSuccess = vi.fn()
-    renderWithProviders(<AnimalsForm />)
+    renderWithProviders(<AnimalsForm mode="create" values={defaultValues} />)
 
     fireEvent.input(screen.getByLabelText(/Nom/i), {
       target: { value: "Rex" },
