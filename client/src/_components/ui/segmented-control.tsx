@@ -65,7 +65,7 @@ function SegmentedControl({
             value={option.value}
             className={cn(
               'relative flex-1 z-10 px-4 py-2 text-sm font-medium rounded-md transition-colors cursor-pointer',
-              'data-[state=on]:text-white data-[state=off]:text-muted-foreground'
+              'data-[state=on]:text-white data-[state=off]:text-muted-foreground whitespace-nowrap'
             )}
           >
             {option.label}
