@@ -7,7 +7,6 @@ export enum MessagesTab {
 }
 
 interface AdminStore {
-  // État UI seulement - pas de duplication des données
   selectedMessage: MessageEntity | null;
   setSelectedMessage: (message: MessageEntity | null) => void;
   activeMessagesTab: MessagesTab;

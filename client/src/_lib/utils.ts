@@ -46,15 +46,27 @@ export function scrollToId(id: string): void {
   }
 }
 
-export function formatDate(value: Date | string): string {
+export function formatDate(value: Date | string, withTime: boolean = false): string {
   const date = new Date(value)
-  return new Intl.DateTimeFormat(
-    'fr-FR',
-    {
-      year: "numeric",
-      month: "numeric",
-      day: "numeric"
-    }).format(date)
+  if (withTime) {
+    return new Intl.DateTimeFormat(
+      'fr-FR',
+      {
+        year: "numeric",
+        month: "numeric",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric"
+      }).format(date)
+  } else {
+    return new Intl.DateTimeFormat(
+      'fr-FR',
+      {
+        year: "numeric",
+        month: "numeric",
+        day: "numeric"
+      }).format(date)
+  }
 }
 
 export function formatElapsedTime(date: Date | string): string {

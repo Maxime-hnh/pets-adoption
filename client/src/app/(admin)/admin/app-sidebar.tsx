@@ -16,6 +16,9 @@ import { LayoutDashboard, Calendar, Settings, PawPrint, Mail, Users } from "luci
 import { usePathname, useRouter } from 'next/navigation'
 import { useState, useTransition } from "react"
 import { cn } from "@/_lib/cn"
+import { useAllMessagesQuery } from "@/_hooks/messages/useMessagesQuery";
+import { MessageStatus } from "@/_schemas/message.schema";
+import { Badge } from "@/_components/ui/badge"
 
 export function AppSidebar() {
 
@@ -23,6 +26,8 @@ export function AppSidebar() {
   const router = useRouter();
   const [activeItem, setActiveItem] = useState<string>(pathname);
   const [isPending, startTransition] = useTransition();
+  const { data: messages } = useAllMessagesQuery();
+  const receivedCount = messages?.filter((m) => m.status === MessageStatus.RECEIVED).length ?? 0;
 
   const handleClick = (url: string) => {
     setActiveItem(url);
@@ -84,7 +89,12 @@ export function AppSidebar() {
                   >
                     <div className="flex items-center gap-2">
                       <item.icon />
-                      <span>{item.title}</span>
+                      <span className="w-full flex items-center justify-between">
+                        {item.title}
+                        {item.url === "/admin/messages"
+                          && receivedCount > 0
+                          && <Badge className="h-5 w-5 rounded-full text-xs bg-red-500 text-white">{receivedCount}</Badge>}
+                      </span>
                     </div>
                   </SidebarMenuButton>
                 </SidebarMenuItem>

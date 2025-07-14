@@ -27,7 +27,7 @@ export const useUpdateStatusMessage = () => {
     mutationFn: ({ id, values }: { id: number; values: Partial<MessageEntity> }) =>
       updateStatus(id, values),
     onSuccess: (data, { id }) => {
-      toast.success(`Le statut du message ${id} a bien été mis à jour`)
+      // toast.success(`Le statut du message ${id} a bien été mis à jour`)
     },
     onError: (error, { id }, context) => {
       queryClient.setQueryData(['messages', 'all'], context?.backupData);
