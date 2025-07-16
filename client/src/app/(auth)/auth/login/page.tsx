@@ -16,15 +16,15 @@ export default function AuthPage() {
       <div className="grid grid-cols-12 h-full relative">
         <div className="col-span-12 flex flex-col relative xl:col-span-4">
           <div className="pt-4  pl-4 flex items-center gap-4">
-            <Link href="/" className="flex items-center gap-2">
+            <Link href="/">
               <Button
                 size="icon"
                 className="rounded-full bg-[#5f2858] hover:bg-[#5f2858]/90"
               >
                 <ArrowLeft className="w-4 h-4" />
               </Button>
-              <h1 className="block text-2xl font-extrabold">Refuge de Lorem</h1>
             </Link>
+            <h1 className="block text-2xl font-extrabold">Refuge de Lorem</h1>
           </div>
           <div className="absolute top-1/2 left-1/2 -translate-1/2">
             <SignInForm />
