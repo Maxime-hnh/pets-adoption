@@ -85,13 +85,14 @@ export default function SignUpForm() {
     <Form {...form}>
       <div className="h-full relative p-6 w-dvw sm:w-[450px] sm:h-fit sm:bg-white sm:border sm:border-gray-300 sm:rounded-lg sm:shadow-md lg:shadow-none lg:border-none lg:rounded-none">
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5 flex flex-col items-center justify-center gap-2">
-          <Button
-            size="icon"
-            className="rounded-full bg-[#5f2858] hover:bg-[#5f2858]/90 absolute top-4 left-4 sm:hidden"
-            onClick={() => router.push("/")}
-          >
-            <ArrowLeft className="w-4 h-4" />
-          </Button>
+          <Link href="/">
+            <Button
+              size="icon"
+              className="rounded-full bg-[#5f2858] hover:bg-[#5f2858]/90 absolute top-4 left-4 sm:hidden"
+            >
+              <ArrowLeft className="w-4 h-4" />
+            </Button>
+          </Link>
           <div className="flex flex-col items-center justify-center gap-2">
             <h1 className="text-3xl lg:text-2xl font-bold">Inscription</h1>
             <p className="text-sm text-gray-500">Accédez à toutes nos fonctionnalités</p>

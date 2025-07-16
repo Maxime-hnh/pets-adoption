@@ -6,25 +6,25 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import Image from "next/image";
 import { Button } from "@/_components/ui/button";
 import { ArrowLeft } from "lucide-react";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function AuthPage() {
 
-  const router = useRouter();
 
   return (
     <QueryClientProvider client={queryClient}>
       <div className="grid grid-cols-12 h-full relative">
         <div className="col-span-12 flex flex-col relative xl:col-span-4">
           <div className="pt-4  pl-4 flex items-center gap-4">
-            <Button
-              size="icon"
-              className="rounded-full bg-[#5f2858] hover:bg-[#5f2858]/90"
-              onClick={() => router.push("/")}
-            >
-              <ArrowLeft className="w-4 h-4" />
-            </Button>
-            <h1 className="block text-2xl font-extrabold">Refuge de Lorem</h1>
+            <Link href="/" className="flex items-center gap-2">
+              <Button
+                size="icon"
+                className="rounded-full bg-[#5f2858] hover:bg-[#5f2858]/90"
+              >
+                <ArrowLeft className="w-4 h-4" />
+              </Button>
+              <h1 className="block text-2xl font-extrabold">Refuge de Lorem</h1>
+            </Link>
           </div>
           <div className="absolute top-1/2 left-1/2 -translate-1/2">
             <SignInForm />
