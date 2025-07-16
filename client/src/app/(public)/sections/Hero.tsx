@@ -4,7 +4,7 @@ import { SparklesText } from "@/_components/ui/animaton/sparkles-text";
 import { ArrowRight, ChartNoAxesGantt, Heart, MessageCircleHeart, PawPrint, Sparkles, Star } from "lucide-react";
 import Image from "next/image";
 import { Counter } from "@/_components/ui/animaton/animated-counter";
-import ContactButton from "@/_components/ContactButton";
+import Link from "next/link";
 
 export default function Hero() {
   console.log("hero")
@@ -53,12 +53,11 @@ export default function Hero() {
 
           <div className="flex justify-center sm:justify-start gap-2 sm:gap-4 pb-4 sm:pb-0">
             <Button className="bg-indigo-500 animate-fade-in-left hover:bg-indigo-600" size={"3xl"}><PawPrint className="hidden xs:block xs:mr-2" /> J'adopte</Button>
-            <ContactButton
-              className="bg-amber-500 animate-fade-in-right hover:bg-amber-600"
-              icon={<ArrowRight className="xs:ml-2" />}
-              size={"3xl"}
-              iconPosition="right"
-            />
+            <Link href="/contact" className="animate-fade-in-right">
+              <Button className="bg-amber-500 animate-fade-in-right hover:bg-amber-600" size={"3xl"}>
+                Nous Contacter <ArrowRight className="xs:ml-2" />
+              </Button>
+            </Link>
           </div>
         </div>
 
