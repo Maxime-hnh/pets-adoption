@@ -16,14 +16,15 @@ export default function AuthPage() {
       <div className="grid grid-cols-12 h-full">
         <div className="col-span-12  flex flex-col relative lg:col-span-6 lg:bg-white lg:border-r lg:border-gray-300 xl:col-span-5 ">
           <div className="hidden pt-4 pl-4 sm:flex items-center gap-4">
-            <Link href="/">
-              <Button
-                size="icon"
-                className="rounded-full bg-[#5f2858] hover:bg-[#5f2858]/90"
-              >
-                <ArrowLeft className="w-4 h-4" />
-              </Button>
-            </Link>
+            <Button
+              size="icon"
+              className="rounded-full bg-[#5f2858] hover:bg-[#5f2858]/90"
+              asChild
+            >
+              <Link href="/">
+                <ArrowLeft className="w-4 h-4 !text-white" />
+              </Link>
+            </Button>
             <h1 className="hidden sm:block text-2xl font-extrabold">Refuge de Lorem</h1>
           </div>
           <div className="flex items-center justify-center h-full">

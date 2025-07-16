@@ -1,6 +1,7 @@
 import { animalsServerService } from "@/_services/animals-server.service";
 import { incompatibilitiesServerService } from "@/_services/incompatibilities-server.service";
 import ClientAnimalsWrapper from "./ClientAnimalsWrapper";
+import { AnimalStatus } from "@/_schemas/animal.schema";
 
 export async function generateMetadata() {
   return {
@@ -12,9 +13,9 @@ export async function generateMetadata() {
 
 export default async function AnimalsPage() {
 
-  const { serverGetAll } = animalsServerService;
+  const { serverGetAllWithFilters } = animalsServerService;
   const { serverGetIncompatibilities } = incompatibilitiesServerService;
-  const animals = await serverGetAll();
+  const animals = await serverGetAllWithFilters({ where: { status: AnimalStatus.AVAILABLE }, orderBy: { createdAt: 'desc' } });
   const incompatibilities = await serverGetIncompatibilities();
 
   return (

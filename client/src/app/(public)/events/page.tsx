@@ -1,46 +1,43 @@
 import { Blog, Post } from "@/_components/blog";
+import { eventsServerService } from "@/_services/events-server.service";
 
-export default function EventsPage() {
 
-  const posts: Post[] = [
-    {
-      id: "post-1",
-      title:
-        "Formation d'aptitudes chiens catégorisés",
-      summary: "Venez passer la journée en compagnie d'Educ-canis dans le cadre d'une formation pour la délivrance de l'Attestation de chiens de 1ère et 2ème catégorie !",
-      label: "Web Design",
-      location: "Caen",
-      published: "15 Mai 2025",
-      url: "",
-      image: "/assets/bg-landscape.png",
-      tags: ["Formation"],
-    },
-    {
-      id: "post-2",
-      title: "Marché de Noël",
-      summary:
-        "Nous vous attendons nombreux à notre stand ou des créations faites par nos bénévoles seront en vente au profit du refuge ! 🐾 L'occasion de faire plaisir à votre entourage ou de vous faire plaisir pour Noël ! 🎁🎄",
-      label: "Web Design",
-      location: "Hermanville",
-      published: "22 Dec 2025",
-      url: "https://shadcnblocks.com",
-      image: "/assets/bg-landscape.png",
-      tags: ["Marché", "Noël"],
-    },
-  ]
+export async function generateMetadata() {
+  return {
+    title: "Evènements | SPA de Verson",
+    description: "Découvrez tous nos évènements : formations, ateliers, sorties et plus encore. Trouvez votre futur compagnon à la SPA de Verson !",
+  }
+}
+
+export default async function EventsPage() {
+
+  const { serverGetAll } = eventsServerService;
+  const events = await serverGetAll();
+  if (!events || events.length === 0) return <section className="container flex flex-col items-center pb-16 gap-16 w-full min-w-full">
+    <div className="text-center">
+      <h2 className="mx-auto mb-6 text-pretty text-3xl md:text-4xl lg:text-5xl lg:max-w-3xl animate-fade-in-down">
+        Evènements
+      </h2>
+      <p className="mx-auto max-w-2xl text-muted-foreground md:text-lg animate-fade-in-up">
+        Découvrez tous nos évènements : formations, ateliers, sorties et plus encore.
+      </p>
+    </div>
+    <p className="text-muted-foreground md:text-lg animate-fade-in-up">Aucun évènement trouvé</p>
+  </section>
 
 
   return (
     <section className="container flex flex-col items-center pb-16 gap-16 w-full min-w-full">
-      <div className="text-center">
-        <h2 className="mx-auto mb-6 text-pretty text-3xl md:text-4xl lg:text-5xl lg:max-w-3xl animate-fade-in-down">
+
+      <div className="flex flex-col gap-6 bg-[#5f2858] py-5 md:py-10 px-4 w-full">
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-fredoka font-[700] text-center text-white">
           Evènements
-        </h2>
-        <p className="mx-auto max-w-2xl text-muted-foreground md:text-lg animate-fade-in-up">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis, doloremque.
+        </h1>
+        <p className="text-white text-center">
+          Découvrez tous nos évènements : formations, ateliers, sorties et plus encore.
         </p>
       </div>
-      <Blog posts={posts} />
+      <Blog events={events} />
     </section>
   )
 }
