@@ -4,9 +4,10 @@ import { SparklesText } from "@/_components/ui/animaton/sparkles-text";
 import { ArrowRight, ChartNoAxesGantt, Heart, MessageCircleHeart, PawPrint, Sparkles, Star } from "lucide-react";
 import Image from "next/image";
 import { Counter } from "@/_components/ui/animaton/animated-counter";
+import ContactButton from "@/_components/ContactButton";
 
 export default function Hero() {
-console.log("hero")
+  console.log("hero")
   return (
     <section className="relative grid grid-cols-12 lg:px-12 h-[calc(100dvh-60px)] sm:h-[calc(100dvh-90px)]">
       {/* Background green */}
@@ -52,7 +53,12 @@ console.log("hero")
 
           <div className="flex justify-center sm:justify-start gap-2 sm:gap-4 pb-4 sm:pb-0">
             <Button className="bg-indigo-500 animate-fade-in-left hover:bg-indigo-600" size={"3xl"}><PawPrint className="hidden xs:block xs:mr-2" /> J'adopte</Button>
-            <Button className="bg-amber-500 animate-fade-in-right" size={"3xl"}>Nous Contacter <ArrowRight className="xs:ml-2" /></Button>
+            <ContactButton
+              className="bg-amber-500 animate-fade-in-right hover:bg-amber-600"
+              icon={<ArrowRight className="xs:ml-2" />}
+              size={"3xl"}
+              iconPosition="right"
+            />
           </div>
         </div>
 

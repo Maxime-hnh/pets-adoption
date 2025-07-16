@@ -11,6 +11,7 @@ import { Badge } from "@/_components/ui/badge";
 import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 import { Button } from "@/_components/ui/button";
 import HandleFavoriteButton from "./HandleFavoriteButton";
+import ContactButton from "./ContactButton";
 
 interface AnimalProfileProps {
   params: Promise<{ id: string }>
@@ -84,7 +85,14 @@ export default async function AnimalProfile({ params }: AnimalProfileProps) {
                 <div className="flex flex-col lg:flex-row gap-4">
 
                   <Button className="bg-indigo-500 animate-fade-in-left hover:bg-indigo-600" size={"3xl"}><PawPrint className="hidden xs:block xs:mr-2" /> Adopter {animal.name}</Button>
-                  <Button variant={"outline"} className="!border-indigo-500 !border-2 !text-indigo-500 animate-fade-in-right font-bold" size={"3xl"}><Phone strokeWidth={2.5} className="xs:mr-2" /> Nous Contacter </Button>
+
+                  <ContactButton
+                    className="!border-indigo-500 !border-2 !text-indigo-500 animate-fade-in-right font-bold"
+                    icon={<Phone strokeWidth={2.5} className="xs:mr-2" />}
+                    size={"3xl"}
+                    variant="outline"
+                    iconPosition="left"
+                  />
                 </div>
               </div>
 
