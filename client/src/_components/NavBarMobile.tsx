@@ -25,8 +25,8 @@ export default function NavBarMobile() {
       <div className="flex items-center justify-around h-full">
         {menuItems.map((item, index) => {
           const Icon = item.icon;
-          const isActive = activeNavItem === item.href;
-
+          const isActive = activeNavItem === item.href ||
+            (item.href !== '/' && activeNavItem?.startsWith(item.href));
           return (
             <Link
               key={index}
@@ -34,13 +34,14 @@ export default function NavBarMobile() {
               onClick={() => setActiveNavItem(item.href)}
               className={cn(
                 "flex flex-col items-center justify-center p-2 rounded-lg transition-all duration-200",
-
               )}
             >
               <Icon
                 className={cn(
                   "w-7 h-7 text-white",
+                  isActive && "text-orange-500"
                 )}
+                strokeWidth={isActive ? 2.5 : 1.5}
               />
             </Link>
           );
