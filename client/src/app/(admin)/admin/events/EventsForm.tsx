@@ -35,8 +35,6 @@ import { Label } from "@/_components/ui/label";
 import { Textarea } from "@/_components/ui/textarea";
 import { useState } from "react";
 import { DatePicker } from "@/_components/DatePicker";
-import { useIncompatibilitiesQuery } from "@/_hooks/incompatibilities/useIncompatibilitiesQuery";
-import { useFullUpdateAnimal } from "@/_hooks/animals/useFullUpdateAnimal";
 import { useUploadManyFiles } from "@/_hooks/upload/useUploadManyFiles";
 import Image from "next/image";
 import { useDeleteFile } from "@/_hooks/upload/useDeleteFile";
@@ -48,6 +46,7 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import Link from "next/link";
 import { EventEntity, EventSchema, EventType, EventTypeConfigMap, EventTypeLabelMap } from "@/_schemas/events.schema";
 import { useCreateEvent } from "@/_hooks/events/useCreateEvent";
+import { useFullUpdateEvent } from "@/_hooks/events/useFullUpdateEvent";
 
 interface EventsFomProps {
   mode: string;
@@ -59,10 +58,9 @@ export default function EventsForm({ mode = "create", values }: EventsFomProps) 
   const [photos, setPhotos] = useState<string[]>(values.photos ?? []);
   const [openSuccessModal, setOpenSuccessModal] = useState<boolean>(false);
   const router = useRouter();
-  const { data: incompatibilities } = useIncompatibilitiesQuery();
-  const uploadManyFiles = useUploadManyFiles();
+  const uploadManyFiles = useUploadManyFiles("images/events");
   const createEvent = useCreateEvent();
-  const updateEvent = useFullUpdateAnimal();
+  const updateEvent = useFullUpdateEvent();
   const deleteFile = useDeleteFile();
   const { isPending: isUploadPending } = uploadManyFiles;
   const { isPending: isCreatePending } = createEvent;
@@ -72,7 +70,9 @@ export default function EventsForm({ mode = "create", values }: EventsFomProps) 
     resolver: zodResolver(EventSchema),
     defaultValues: values
   });
-
+console.log(form.formState.errors)
+console.log(form.formState.isValid)
+console.log(form.formState.isDirty)
   const handleUpload = async (files: any[]) => {
     const newUrls = await uploadManyFiles.mutateAsync(files)
     const currentUrls = form.getValues("photos") || [];
@@ -98,6 +98,7 @@ export default function EventsForm({ mode = "create", values }: EventsFomProps) 
     }
     else {
       const id = values.id!
+      console.log(values)
       updateEvent.mutate({ id, values }, {
         onSuccess: () => {
           router.back();
@@ -131,7 +132,7 @@ export default function EventsForm({ mode = "create", values }: EventsFomProps) 
     />
   );
 
-  return (
+  return (  
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-11/12 2xl:w-10/12">
         <div className="flex flex-row justify-between">
@@ -455,7 +456,7 @@ export default function EventsForm({ mode = "create", values }: EventsFomProps) 
           <DialogHeader>
             <DialogTitle>Création réussie ! ✅ </DialogTitle>
             <DialogDescription>
-              La fiche de l&apos;animal a bien été créé
+              La fiche de l&apos;évènement a bien été créé
             </DialogDescription>
           </DialogHeader>
 
@@ -472,7 +473,7 @@ export default function EventsForm({ mode = "create", values }: EventsFomProps) 
               <PlusCircle />Nouveau
             </Button>
             <Button asChild type="button" className="bg-emerald-500 hover:bg-emerald-500 !text-white">
-              <Link href={"/admin/animals"}>
+              <Link href={"/admin/events"}>
                 Continuer <ArrowRight />
               </Link>
             </Button>

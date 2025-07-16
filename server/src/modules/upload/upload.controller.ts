@@ -13,24 +13,19 @@ export class UploadController {
   @Post('image')
   @UseInterceptors(FileInterceptor('file'))
   async uploadFile(
-    @UploadedFile(
-      new ParseFilePipe({
-        validators: [
-
-        ]
-      })
-    )
-    file: Express.Multer.File,
+    @UploadedFile(new ParseFilePipe({ validators: [] })) file: Express.Multer.File,
+    @Body('folder') folder: string
   ): Promise<string | void> {
-    return await this.uploadService.upload(file.originalname, file.buffer)
+    return await this.uploadService.upload(file.originalname, file.buffer, folder)
   }
 
   @Post('images')
   @UseInterceptors(FilesInterceptor('files'))
   async uploadMany(
-    @UploadedFiles() files: Express.Multer.File[]
+    @UploadedFiles() files: Express.Multer.File[],
+    @Body('folder') folder: string
   ): Promise<string[] | void> {
-    return await this.uploadService.uploadMany(files)
+    return await this.uploadService.uploadMany(files, folder)
   }
 
 

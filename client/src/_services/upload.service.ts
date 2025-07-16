@@ -5,22 +5,23 @@ class UploadService {
 
   constructor() { }
 
-  upload = async (file: File) => {
+  upload = async (file: File, folder: string) => {
     const formData = new FormData();
     formData.append('file', file)
+    formData.append('folder', folder)
 
     const requestOptions = {
       method: 'POST',
       headers: authHeader('form'),
       body: formData
     }
-    return await handleResponse(await fetch('/api/upload'))
-
+    return await handleResponse(await fetch('/api/upload', requestOptions))
   }
 
-  uploadMany = async (files: File[]): Promise<string[]> => {
+  uploadMany = async (files: File[], folder: string): Promise<string[]> => {
     const formData = new FormData();
     Array.from(files).forEach(file => formData.append('files', file));
+    formData.append('folder', folder)
     const requestOptions = {
       method: 'POST',
       headers: authHeader('form'),

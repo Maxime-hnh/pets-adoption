@@ -16,7 +16,6 @@ export default function RefreshRedirectPage() {
     const handleRefresh = async () => {
       try {
         const user = await refreshToken();
-        debugger
         if (!user) return router.replace('/auth/login');
 
         if (requireAdmin && !hasRole(user.role)) {

@@ -39,17 +39,17 @@ export const EventSchema = z.object({
   title: z.string(),
   description: z.string().optional(),
   type: EventTypeSchema,
-  startDate: z.date().optional(),
-  endDate: z.date().optional(),
+  startDate: z.coerce.date().optional(),
+  endDate: z.coerce.date().optional(),
   startTime: z.string().optional(),
   endTime: z.string().optional(),
-  price: z.number().optional(),
+  price: z.coerce.number().optional(),
   address: z.string().optional(),
   city: z.string().optional(),
   zipCode: z.string().optional(),
   photos: z.array(z.string()).optional(),
-  createdAt: z.date().optional(),
-  updatedAt: z.date().optional(),
+  createdAt: z.coerce.date().optional(),
+  updatedAt: z.coerce.date().optional(),
 });
 
 export const CreateEventSchema = EventSchema.omit({
