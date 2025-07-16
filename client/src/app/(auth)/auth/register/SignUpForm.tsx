@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useMutation } from "@tanstack/react-query";
 import { authService } from "@/_services/auth.service";
 import { toast } from "sonner";
-import { Eye, EyeOff, Loader2 } from "lucide-react";
+import { ArrowLeft, Eye, EyeOff, Loader2 } from "lucide-react";
 import { useAuthStore } from "@/_stores/auth.store";
 import { useRouter } from 'next/navigation';
 import { Role } from "@/_types/role.interface";
@@ -83,10 +83,17 @@ export default function SignUpForm() {
   return (
 
     <Form {...form}>
-      <div className="p-6 w-dvw sm:w-[450px] sm:bg-white sm:border sm:border-gray-300 sm:rounded-lg sm:shadow-md lg:shadow-none lg:border-none lg:rounded-none">
+      <div className="h-full relative p-6 w-dvw sm:w-[450px] sm:h-fit sm:bg-white sm:border sm:border-gray-300 sm:rounded-lg sm:shadow-md lg:shadow-none lg:border-none lg:rounded-none">
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5 flex flex-col items-center justify-center gap-2">
+          <Button
+            size="icon"
+            className="rounded-full bg-[#5f2858] hover:bg-[#5f2858]/90 absolute top-4 left-4 sm:hidden"
+            onClick={() => router.push("/")}
+          >
+            <ArrowLeft className="w-4 h-4" />
+          </Button>
           <div className="flex flex-col items-center justify-center gap-2">
-            <h1 className="text-3xl lg:text-xl font-bold">Inscription</h1>
+            <h1 className="text-3xl lg:text-2xl font-bold">Inscription</h1>
             <p className="text-sm text-gray-500">Accédez à toutes nos fonctionnalités</p>
           </div>
           <div className="flex flex-row flex-nowrap gap-2 w-full">
@@ -211,16 +218,16 @@ export default function SignUpForm() {
             control={form.control}
             name="acceptTerms"
             render={({ field }) => (
-              <FormItem className="flex flex-row items-start space-x-3 space-y-0 w-full">
+              <FormItem className="flex flex-row items-center space-x-2 sm:space-x-3 space-y-0 w-full">
                 <FormControl>
                   <Checkbox
                     checked={field.value}
                     onCheckedChange={field.onChange}
-                    className="data-[state=checked]:bg-orange-500 data-[state=checked]:border-orange-500"
+                    className="data-[state=checked]:bg-orange-500 data-[state=checked]:border-orange-500 h-4 w-4 sm:h-5 sm:w-5"
                   />
                 </FormControl>
                 <div className="space-y-1 leading-none">
-                  <FormLabel className="text-sm font-normal text-brand-orange">
+                  <FormLabel className="text-xs sm:text-sm font-normal text-brand-orange">
                     J'accepte les <Link href="/terms" className="!text-orange-500 hover:!underline">conditions générales d'utilisation</Link>
                   </FormLabel>
                   <FormMessage />

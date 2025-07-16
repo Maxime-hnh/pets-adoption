@@ -81,8 +81,8 @@ export const MenuBar = forwardRef<HTMLDivElement, MenuBarProps>(
         <ul className="flex items-center gap-2 relative z-10">
           {items.map((item) => {
             const Icon = item.icon
-            const isActive = item.href === activeItem
-
+            const isActive = activeItem === item.href ||
+              (item.href !== '/' && activeItem?.startsWith(item.href));
             return (
               <motion.li key={item.label} className="relative">
                 <Link

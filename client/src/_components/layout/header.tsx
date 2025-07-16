@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import { useEffect } from 'react';
 import { cn } from "@/_lib/cn"
 import { MenuBar } from '../ui/glow-menu'
