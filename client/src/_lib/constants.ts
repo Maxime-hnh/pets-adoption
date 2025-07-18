@@ -21,3 +21,14 @@ export const ageRanges: AgeRange[] = [
   { min: 9, max: 12, label: "9-12 ans" },
   { min: 12, max: 30, label: "12+" },
 ];
+
+export const ROUTES = {
+  ANIMALS: '/nos-animaux-a-adopter',
+  EVENTS: '/nos-evenements',
+  CONTACT: '/contact',
+  PROFILE: '/profile',
+  ADMIN: '/admin',
+  AUTH: '/auth',
+  LOGIN: '/login',
+  REGISTER: '/register',
+};
