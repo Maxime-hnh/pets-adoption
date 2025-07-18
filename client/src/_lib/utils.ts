@@ -94,3 +94,13 @@ export function formatElapsedTime(date: Date | string): string {
     return `il y a ${diffYears} an${diffYears > 1 ? "s" : ""}`;
   }
 }
+
+export function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .normalize('NFD') 
+    .replace(/[\u0300-\u036f]/g, '') 
+    .replace(/[^a-z0-9]+/g, '-') 
+    .replace(/^-+|-+$/g, '') 
+    .substring(0, 80); 
+}

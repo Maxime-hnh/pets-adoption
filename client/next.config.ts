@@ -27,6 +27,10 @@ const nextConfig: NextConfig = {
         source: '/nos-evenements',
         destination: '/events',
       },
+      {
+        source: '/evenement/:path*',
+        destination: '/events/:path*',
+      },
     ]
   },
 };

@@ -25,6 +25,7 @@ export const ageRanges: AgeRange[] = [
 export const ROUTES = {
   ANIMALS: '/nos-animaux-a-adopter',
   EVENTS: '/nos-evenements',
+  EVENT: '/evenement',
   CONTACT: '/contact',
   PROFILE: '/profile',
   ADMIN: '/admin',

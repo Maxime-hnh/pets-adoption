@@ -5,7 +5,8 @@ import Link from "next/link";
 import { Badge } from "./ui/badge";
 import Image from "next/image";
 import { EventEntity, EventTypeLabelMap } from "@/_schemas/events.schema";
-import { formatDate } from "@/_lib/utils";
+import { formatDate, slugify } from "@/_lib/utils";
+import { ROUTES } from "@/_lib/constants";
 
 
 interface BlogProps {
@@ -51,7 +52,7 @@ const Blog = ({ events }: BlogProps) => {
               </div>
               <h3 className="text-xl font-semibold 2xl:text-2xl lg:text-3xl">
                 <Link
-                  href={`/events/${event.id}`}
+                  href={`${ROUTES.EVENT}/${slugify(event.title)}-${event.id}`}
                   className="hover:underline"
                 >
                   {event.title}
@@ -63,7 +64,7 @@ const Blog = ({ events }: BlogProps) => {
               </p>
               <div className="flex justify-start items-center ">
                 <Link
-                  href={`/events/${event.id}`}
+                  href={`${ROUTES.EVENT}/${slugify(event.title)}-${event.id}`}
                   className="mt-4 inline-flex items-center font-semibold hover:underline !text-amber-500 "
                 >
                   En savoir plus

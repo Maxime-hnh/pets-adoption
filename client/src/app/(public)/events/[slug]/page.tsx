@@ -1,11 +1,12 @@
 import { getEventById } from "@/_lib/data";
 
 interface EventIdPageProps {
-  params: Promise<{ id: string }>
+  params: Promise<{ slug: string }>
 }
 
 export async function generateMetadata({ params }: EventIdPageProps) {
-  const { id } = await params;
+  const { slug } = await params;
+  const id = slug.split('-').at(-1);
   const event = await getEventById(Number(id));
 
   return {
@@ -15,13 +16,14 @@ export async function generateMetadata({ params }: EventIdPageProps) {
 }
 
 export default async function EventIdPage({ params }: EventIdPageProps) {
-  const { id } = await params;
+  const { slug } = await params;
+  const id = slug.split('-').at(-1);
   const event = await getEventById(Number(id));
 
   return (
-    <div>
+    <section className="min-h-[calc(100vh-90px)]">
       <h1>{event.title}</h1>
       <p>{event.description}</p>
-    </div>
+    </section>
   )
 }
