@@ -4,7 +4,7 @@ import { GenderConfigMap, AnimalStatusConfiglMap, PlacementTypeConfigMap, Gender
 import { Cake, DnaIcon, Heart, PawPrint, Phone } from "lucide-react";
 import { notFound } from "next/navigation";
 
-import { getById } from "@/_lib/data";
+import { getAnimalById } from "@/_lib/data";
 import { calculateAgeToString } from "@/_lib/utils";
 import Image from "next/image";
 import { Badge } from "@/_components/ui/badge";
@@ -20,7 +20,7 @@ interface AnimalProfileProps {
 
 export async function generateMetadata({ params }: AnimalProfileProps) {
   const { id } = await params;
-  const animal = await getById(Number(id)); //cache(fn)
+  const animal = await getAnimalById(Number(id)); //cache(fn)
 
   return {
     title: `${animal.name} – À adopter | SPA de Verson`,
@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: AnimalProfileProps) {
 export default async function AnimalProfile({ params }: AnimalProfileProps) {
 
   const { id } = await params;
-  const animal = await getById(Number(id));  //cache(fn)
+  const animal = await getAnimalById(Number(id));  //cache(fn)
   if (!animal) return notFound()
 
 

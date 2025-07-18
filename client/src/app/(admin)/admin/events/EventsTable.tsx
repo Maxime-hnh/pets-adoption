@@ -245,7 +245,7 @@ export default function AnimalsTable() {
       <div className="flex items-center justify-between py-4">
         <Group>
           <Button asChild className="mr-4">
-            <Link prefetch href={`${pathName}/form`} className="!text-white">
+            <Link href={`${pathName}/form`} className="!text-white">
               <CalendarPlus />
               Nouveau
             </Link>

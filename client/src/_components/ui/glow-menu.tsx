@@ -89,7 +89,6 @@ export const MenuBar = forwardRef<HTMLDivElement, MenuBarProps>(
                   href={item.href}
                   onClick={() => onItemClick?.(item.href)}
                   className="block w-full cursor-pointer"
-                  prefetch
                 >
 
                   <motion.div
