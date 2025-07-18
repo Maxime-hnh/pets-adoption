@@ -1,12 +1,13 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
 import { EventsService } from './events.service';
-import { CreateEventDto, EventDto, UpdateEventDto } from './dto/event.dto';
+import { CreateEventDto, EventDto, GetAllEventsQueryDto, UpdateEventDto } from './dto/event.dto';
 import { JwtAuthGuard } from '../auth/security-road/auth.guard';
 import { RolesGuard } from '../auth/security-road/roles.guard';
 import { Roles } from '../auth/decorator/roles.decorator';
 import { CurrentUser } from '../auth/decorator/current-user.decorator';
 import { UserWithRole } from '../users/users.types';
 import { DeleteManyDto } from 'src/common/dto/delete-many.dto';
+import { EventType } from '@prisma/client';
 
 @Controller('events')
 export class EventsController {
@@ -52,12 +53,14 @@ export class EventsController {
   }
 
   @Get('all')
-  async findAll(): Promise<EventDto[]> {
-    return await this.eventsService.findAll();
+  async findAll(@Query() query: GetAllEventsQueryDto): Promise<EventDto[]> {
+    return await this.eventsService.findAll(query);
   }
 
   @Get(':id')
   async findById(@Param('id') id: string): Promise<EventDto> {
     return await this.eventsService.findByIdOrThrow(+id);
   }
+
+
 }

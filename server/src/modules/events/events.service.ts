@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { CreateEventDto, EventDto, UpdateEventDto } from './dto/event.dto';
+import { CreateEventDto, EventDto, GetAllEventsQueryDto, UpdateEventDto } from './dto/event.dto';
 import { PrismaService } from '../prisma/prisma.service';
 import { toDto } from 'src/utils/dto-transformer';
 import { toDtos } from 'src/utils/dtos-transfomer';
 import { AuditLogsService } from '../audit-logs/audit-logs.service';
-import { AuditAction, AuditEntity } from '@prisma/client';
+import { AuditAction, AuditEntity, EventType } from '@prisma/client';
 
 @Injectable()
 export class EventsService {
@@ -72,8 +72,20 @@ export class EventsService {
     })
   }
 
-  async findAll(): Promise<EventDto[]> {
-    const events = await this.prisma.event.findMany({ orderBy: { createdAt: 'desc' } });
+  async findAll(query: GetAllEventsQueryDto): Promise<EventDto[]> {
+
+    const events = await this.prisma.event.findMany({
+      where: {
+        ...(query.type && { type: { in: query.type.split(',') as EventType[] } }),
+        title: {
+          contains: query.title,
+          mode: 'insensitive'
+        },
+        city: query.city,
+        price: query.price
+      },
+      orderBy: { createdAt: 'desc' }
+    });
     return toDtos(EventDto, events);
   }
 

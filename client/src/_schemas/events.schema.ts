@@ -16,7 +16,7 @@ export enum EventType {
 
 export const EventTypeLabelMap = {
   [EventType.FUNDRAISING]: "Fondation",
-  [EventType.OPEN_HOUSE]: "Open House",
+  [EventType.OPEN_HOUSE]: "Porte ouverte",
   [EventType.RAFFLE]: "Tombola",
   [EventType.TRAINING_SESSION]: "Session d'entraînement",
   [EventType.OTHER]: "Autre"
@@ -61,3 +61,11 @@ export const CreateEventSchema = EventSchema.omit({
 
 export type EventEntity = z.infer<typeof EventSchema>;
 export type CreateEventEntity = z.infer<typeof CreateEventSchema>;
+
+export type EventFilters = {
+  type?: string;
+  title?: string;
+  city?: number;
+  price?: number;
+  orderBy?: 'asc' | 'desc';
+};

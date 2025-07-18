@@ -1,6 +1,7 @@
+import { PartialType, PickType } from '@nestjs/mapped-types';
 import { EventType } from '@prisma/client';
 import { Exclude, Expose, Type } from 'class-transformer';
-import { IsArray, IsEnum, IsInt, IsNotEmpty, IsOptional, IsString, IsUUID, IsDateString } from 'class-validator';
+import { IsArray, IsEnum, IsInt, IsNotEmpty, IsOptional, IsString, IsUUID, IsDateString, IsIn } from 'class-validator';
 
 export class EventDto {
   @Expose()
@@ -178,4 +179,12 @@ export class UpdateEventDto {
   @IsArray()
   @IsOptional()
   photos?: string[];
+}
+
+export class GetAllEventsQueryDto extends PartialType(
+  PickType(CreateEventDto, ['type', 'title', 'city', 'price'] as const)
+) {
+  @IsOptional()
+  @IsIn(['asc', 'desc'])
+  orderBy?: 'asc' | 'desc';
 }

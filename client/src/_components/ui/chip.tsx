@@ -25,18 +25,23 @@ const chipVariants = cva(
         full: "rounded-full"
       },
       variant: {
-        filled:
-          "border-transparent bg-gray-100 text-gray-900 hover:bg-gray-200 data-[checked]:bg-indigo-500 data-[checked]:text-white data-[checked]:hover:bg-indigo-600",
-        outline:
-          "border-gray-300 bg-transparent text-gray-700 hover:bg-gray-50 data-[checked]:bg-indigo-500 data-[checked]:text-white data-[checked]:border-indigo-500 data-[checked]:hover:bg-indigo-600",
-        light:
-          "border-transparent bg-indigo-50 text-indigo-700 hover:bg-indigo-100 data-[checked]:bg-indigo-500 data-[checked]:text-white data-[checked]:hover:bg-indigo-600",
+        filled: "border-transparent bg-gray-100 text-gray-900 hover:bg-gray-200",
+        outline: "border-gray-300 bg-transparent text-gray-700 hover:bg-gray-50",
+        light: "border-transparent bg-indigo-50 text-indigo-700 hover:bg-indigo-100",
       },
+      color: {
+        indigo: "data-[checked]:bg-indigo-500 data-[checked]:text-white data-[checked]:hover:bg-indigo-600",
+        emerald: "data-[checked]:bg-emerald-500 data-[checked]:text-white data-[checked]:hover:bg-emerald-600",
+        red: "data-[checked]:bg-red-500 data-[checked]:text-white data-[checked]:hover:bg-red-600",
+        yellow: "data-[checked]:bg-yellow-500 data-[checked]:text-white data-[checked]:hover:bg-yellow-600",
+        purple: "data-[checked]:bg-[#5f2858] data-[checked]:text-white data-[checked]:hover:bg-[#5f2858]/80",
+      }
     },
     defaultVariants: {
       variant: "outline",
       size: "md",
-      rounded: "sm"
+      rounded: "sm",
+      color: "indigo"
     },
   }
 )
@@ -70,6 +75,9 @@ export interface ChipProps
 
   /** Use as child component */
   asChild?: boolean;
+
+  /** Color variant */
+  color?: "indigo" | "emerald" | "red" | "yellow" | "purple";
 }
 
 const Chip = React.forwardRef<HTMLInputElement, ChipProps>(
@@ -87,6 +95,7 @@ const Chip = React.forwardRef<HTMLInputElement, ChipProps>(
     value,
     name,
     asChild = false,
+    color = "indigo",
     ...props
   }, ref) => {
     const [_checked, handleChange] = useUncontrolled({
@@ -104,7 +113,7 @@ const Chip = React.forwardRef<HTMLInputElement, ChipProps>(
       <Comp
         htmlFor={inputId}
         className={cn(
-          chipVariants({ variant, size, rounded }),
+          chipVariants({ variant, size, rounded, color }),
           className
         )}
         data-checked={_checked || undefined}
