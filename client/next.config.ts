@@ -28,7 +28,7 @@ const nextConfig: NextConfig = {
         destination: '/events',
       },
       {
-        source: '/evenement/:path*',
+        source: '/nos-evenements/:path*',
         destination: '/events/:path*',
       },
     ]

@@ -23,7 +23,7 @@ const Blog = ({ events }: BlogProps) => {
         >
           <div className="grid gap-y-6 sm:gap-x-5 lg:gap-x-12">
             <div className="animate-fade-in-down">
-              <Link href={`/events/${event.id}`} className="block">
+              <Link href={`${ROUTES.EVENTS}/${slugify(event.title)}-${event.id}`} className="block">
                 <div className="aspect-[16/9] overflow-clip rounded-xl">
                   <figure className="bg-black overflow-hidden h-full w-full rounded-2xl">
                     <Image
@@ -52,7 +52,7 @@ const Blog = ({ events }: BlogProps) => {
               </div>
               <h3 className="text-xl font-semibold 2xl:text-2xl lg:text-3xl">
                 <Link
-                  href={`${ROUTES.EVENT}/${slugify(event.title)}-${event.id}`}
+                  href={`${ROUTES.EVENTS}/${slugify(event.title)}-${event.id}`}
                   className="hover:underline"
                 >
                   {event.title}
@@ -64,7 +64,7 @@ const Blog = ({ events }: BlogProps) => {
               </p>
               <div className="flex justify-start items-center ">
                 <Link
-                  href={`${ROUTES.EVENT}/${slugify(event.title)}-${event.id}`}
+                  href={`${ROUTES.EVENTS}/${slugify(event.title)}-${event.id}`}
                   className="mt-4 inline-flex items-center font-semibold hover:underline !text-amber-500 "
                 >
                   En savoir plus

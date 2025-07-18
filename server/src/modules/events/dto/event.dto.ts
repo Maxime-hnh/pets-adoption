@@ -187,4 +187,9 @@ export class GetAllEventsQueryDto extends PartialType(
   @IsOptional()
   @IsIn(['asc', 'desc'])
   orderBy?: 'asc' | 'desc';
+
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
+  take?: number;
 }

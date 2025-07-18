@@ -84,7 +84,8 @@ export class EventsService {
         city: query.city,
         price: query.price
       },
-      orderBy: { createdAt: 'desc' }
+      orderBy: { createdAt: 'desc' },
+      take: query.take
     });
     return toDtos(EventDto, events);
   }

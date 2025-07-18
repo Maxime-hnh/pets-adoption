@@ -68,4 +68,5 @@ export type EventFilters = {
   city?: number;
   price?: number;
   orderBy?: 'asc' | 'desc';
+  take?: number;
 };
