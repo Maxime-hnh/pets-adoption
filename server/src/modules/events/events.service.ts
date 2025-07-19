@@ -76,7 +76,7 @@ export class EventsService {
 
     const events = await this.prisma.event.findMany({
       where: {
-        ...(query.type && { type: { in: query.type.split(',') as EventType[] } }),
+        ...(query.type && { type: { in: query.type } }),
         title: {
           contains: query.title,
           mode: 'insensitive'

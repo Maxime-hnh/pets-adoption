@@ -26,7 +26,7 @@ export function PublicProviders(props: PropsWithChildren<{ user: AuthenticatedUs
       <ReactQueryDevtools />
 
       <AuthStoreHydrator user={props.user} />
-      <AuthProvider>
+      {/* <AuthProvider> */}
         <IsMobileObserver />
         <Toaster richColors />
         <Header />
@@ -35,7 +35,7 @@ export function PublicProviders(props: PropsWithChildren<{ user: AuthenticatedUs
         </main>
         <NavBarMobile />
         <Footer />
-      </AuthProvider>
+      {/* </AuthProvider> */}
     </QueryClientProvider>
   );
 }
