@@ -7,7 +7,6 @@ interface AnimalIdPageProps {
 }
 
 export default async function AnimalIdPage({ params }: AnimalIdPageProps) {
-  await new Promise(resolve => setTimeout(resolve, 10000));
 
   return (
     <>
