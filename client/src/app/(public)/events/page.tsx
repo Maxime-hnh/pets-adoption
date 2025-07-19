@@ -32,8 +32,8 @@ export default async function EventsPage({ searchParams }: EventsPageProps) {
   });
   
   return (
-    <section className="min-h-[calc(100vh-90px)] container flex flex-col items-center pb-16 gap-16 w-full min-w-full">
-      <div className="flex flex-col gap-6 bg-[#5f2858] py-5 md:py-10 px-4 w-full">
+    <section className="min-h-[100dvh] px-4 xl:px-8 2xl:px-12  container flex flex-col items-center pb-16 gap-8 w-full min-w-full">
+      <div className="flex flex-col gap-6 bg-[#5f2858] py-5 md:pb-10 px-4 w-full sm:pt-[110px] rounded-b-[3rem]">
         <h1 className="text-3xl md:text-4xl lg:text-5xl font-fredoka font-[700] text-center text-white">
           Evènements
         </h1>
@@ -42,7 +42,7 @@ export default async function EventsPage({ searchParams }: EventsPageProps) {
         </p>
       </div>
 
-      <div className="w-full px-4 sm:px-10 md:px-4 lg:px-10 xl:px-30 2xl:px-20 3xl:px-35">
+      <div className="w-full sm:px-6 md:px-0 lg:px-6 xl:px-20 2xl:px-16 3xl:px-30">
         <h2 className="text-3xl mb-4">Tous les évènements</h2>
         <ChipFilterBar />
 

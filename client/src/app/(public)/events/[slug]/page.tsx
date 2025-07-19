@@ -37,7 +37,7 @@ export default async function EventIdPage({ params }: EventIdPageProps) {
   };
 
   return (
-    <section className="min-h-[calc(100vh-90px)] grid grid-cols-12 px-4 gap-4 lg:px-8 lg:gap-8 xl:px-16 2xl:px-26 xl:gap-12 2xl:gap-16 py-8">
+    <section className="min-h-[100dvh] grid grid-cols-12 px-4 gap-4 lg:px-8 lg:gap-8 xl:px-16 2xl:px-26 xl:gap-12 2xl:gap-16 py-8 sm:pt-[110px]">
       <div className="col-span-12 lg:col-span-8 xl:col-span-9">
         <div className="flex flex-col gap-6">
           <div className="flex flex-col gap-2">
@@ -58,17 +58,17 @@ export default async function EventIdPage({ params }: EventIdPageProps) {
               </div>
             </div>
           </div>
-          <div className="aspect-[16/9] h-[200px] sm:h-[300px] md:h-[400px] lg:h-[450px] 2xl:h-[550px] overflow-clip rounded-xl">
-            <figure>
-              <Image
-                src={event.photos?.[0] ?? '/assets/bg-event.png'}
-                width={1280}
-                height={720}
-                alt="Image de l'évènement"
-                className="h-full w-full object-fill"
-              />
-            </figure>
-          </div>
+          {/* <div className="aspect-[16/9]"> */}
+          <figure className="h-[200px] sm:h-[300px] md:h-[400px] lg:h-[450px] 2xl:h-[550px] overflow-clip rounded-xl">
+            <Image
+              src={event.photos?.[0] ?? '/assets/bg-event.png'}
+              width={1280}
+              height={720}
+              alt="Image de l'évènement"
+              className="h-full w-full object-fill"
+            />
+          </figure>
+          {/* </div> */}
           <div>
             <p>{event.description}</p>
           </div>

@@ -59,8 +59,8 @@ export default async function AnimalProfile({ params }: AnimalProfileProps) {
   )
 
   return (
-    <section id="animalProfile_container">
-      <div className="w-full h-[calc(100vh-90px)]">
+    <section id="animalProfile_container" className="sm:pt-[90px]">
+      <div className="w-full h-[calc(100dvh-90px)]">
 
         <div className="flex flex-col gap-4 w-full h-full">
 

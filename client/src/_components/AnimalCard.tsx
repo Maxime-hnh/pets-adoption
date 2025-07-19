@@ -8,6 +8,7 @@ import { cn } from "@/_lib/cn";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/_components/ui/tooltip";
 import { IncompatibilityConfigMap } from "@/_schemas/incompatibility.schema";
 import Link from "next/link";
+import { ROUTES } from "@/_lib/constants";
 
 export default function AnimalCard({ animal, className }: { animal: Animal, className?: string }) {
 
@@ -18,7 +19,7 @@ export default function AnimalCard({ animal, className }: { animal: Animal, clas
   const placementTypeColor = animal.placementType ? PlacementTypeConfigMap[animal.placementType].color : 'text-blue-500';
 
   return (
-    <Link href={`/animals/${animal.id}`}>
+    <Link href={`${ROUTES.ANIMALS}/${animal.id}`}>
       <div
         key={animal.id}
         className={cn(

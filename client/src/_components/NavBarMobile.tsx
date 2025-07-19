@@ -2,22 +2,13 @@
 
 import Link from "next/link";
 import { cn } from "@/_lib/cn";
-import { useUIStore } from "@/_stores/ui.store";
 import { useAuthStore } from "@/_stores/auth.store";
 import { usePathname } from 'next/navigation';
-import { useEffect } from 'react';
 import { getMenuItems } from '@/_core/navigation';
 
 export default function NavBarMobile() {
   const pathname = usePathname();
-  const activeNavItem = useUIStore((state) => state.activeNavItem);
-  const setActiveNavItem = useUIStore((state) => state.setActiveNavItem);
   const loggedUser = useAuthStore((state) => state.loggedUser);
-
-  useEffect(() => {
-    setActiveNavItem(pathname);
-  }, [pathname, setActiveNavItem]);
-
   const menuItems = getMenuItems(loggedUser);
 
   return (
@@ -25,13 +16,12 @@ export default function NavBarMobile() {
       <div className="flex items-center justify-around h-full">
         {menuItems.map((item, index) => {
           const Icon = item.icon;
-          const isActive = activeNavItem === item.href ||
-            (item.href !== '/' && activeNavItem?.startsWith(item.href));
+          const isActive = pathname === item.href ||
+            (item.href !== '/' && pathname?.startsWith(item.href));
           return (
             <Link
               key={index}
               href={item.href}
-              onClick={() => setActiveNavItem(item.href)}
               className={cn(
                 "flex flex-col items-center justify-center p-2 rounded-lg transition-all duration-200",
               )}

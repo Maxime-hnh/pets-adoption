@@ -24,6 +24,10 @@ const nextConfig: NextConfig = {
         destination: '/animals',
       },
       {
+        source: '/nos-animaux-a-adopter/:path*',
+        destination: '/animals/:path*',
+      },
+      {
         source: '/nos-evenements',
         destination: '/events',
       },

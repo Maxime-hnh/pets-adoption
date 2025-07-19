@@ -30,7 +30,7 @@ export function PublicProviders(props: PropsWithChildren<{ user: AuthenticatedUs
         <IsMobileObserver />
         <Toaster richColors />
         <Header />
-        <main className="flex-1 sm:pt-[90px] sm:px-1 md:px-0 overflow-hidden bg-custom-dots">
+        <main className="flex-1 sm:px-1 md:px-0 overflow-hidden bg-custom-dots">
           {props.children}
         </main>
         <NavBarMobile />
