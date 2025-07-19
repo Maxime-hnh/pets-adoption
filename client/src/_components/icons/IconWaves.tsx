@@ -2,7 +2,7 @@ type Props = React.SVGProps<SVGSVGElement> & {
   color?: string;
 };
 
-const IconWaves = ({ color = "#fff9f5", ...props }: Props) => {
+const IconWaves = ({ color = "#fff9f5" }: Props) => {
   return (
     <div className="absolute -bottom-8 w-full rotate-180" data-negative="false">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 283.5 27.8" preserveAspectRatio="none">

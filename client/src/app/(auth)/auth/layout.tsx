@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { CommonLayoutWrapper } from "@/_components/layout/common-layout-wrapper";
 import '../../globals.css';
-import Image from "next/image";
 
 export const metadata: Metadata = {
   title: 'Connexion',

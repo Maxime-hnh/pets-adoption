@@ -35,7 +35,7 @@ export default function ContactForm() {
     });
   }
 
-  const { handleSubmit, control, formState: { errors } } = form;
+  const { handleSubmit, control } = form;
   return (
     <Form {...form}>
       <form

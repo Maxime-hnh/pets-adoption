@@ -105,7 +105,7 @@ export default function Cta() {
         <div className="flex flex-col items-center gap-4 text-center">
           <Badge variant="outline">SPA de Verson</Badge>
           <h2 className="max-w-2xl text-3xl md:text-4xl lg:text-5xl">
-            J'agis pour les animaux
+            J&apos;agis pour les animaux
           </h2>
           <p className="text-muted-foreground">
             Chaque geste compte. Que ce soit par un don, un parrainage ou du temps, vous pouvez changer leur vie.

@@ -7,7 +7,6 @@ import { Separator } from "./ui/separator";
 import { cn } from "@/_lib/cn";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/_components/ui/tooltip";
 import { IncompatibilityConfigMap } from "@/_schemas/incompatibility.schema";
-import { Button } from "@/_components/ui/button";
 import Link from "next/link";
 
 export default function AnimalCard({ animal, className }: { animal: Animal, className?: string }) {

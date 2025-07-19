@@ -52,7 +52,7 @@ export default function Hero() {
           </p>
 
           <div className="flex justify-center sm:justify-start gap-2 sm:gap-4 pb-4 sm:pb-0">
-            <Button className="bg-indigo-500 animate-fade-in-left hover:bg-indigo-600" size={"3xl"}><PawPrint className="hidden xs:block xs:mr-2" /> J'adopte</Button>
+            <Button className="bg-indigo-500 animate-fade-in-left hover:bg-indigo-600" size={"3xl"}><PawPrint className="hidden xs:block xs:mr-2" /> J&apos;adopte</Button>
             <Link href="/contact" className="animate-fade-in-right">
               <Button className="bg-amber-500 animate-fade-in-right hover:bg-amber-600" size={"3xl"}>
                 Nous Contacter <ArrowRight className="xs:ml-2" />

@@ -230,7 +230,7 @@ export default function SignUpForm() {
                 </FormControl>
                 <div className="space-y-1 leading-none">
                   <FormLabel className="text-xs sm:text-sm font-normal text-brand-orange">
-                    J'accepte les <Link href="/terms" className="!text-orange-500 hover:!underline">conditions générales d'utilisation</Link>
+                    J&apos;accepte les <Link href="/terms" className="!text-orange-500 hover:!underline">conditions générales d&apos;utilisation</Link>
                   </FormLabel>
                   <FormMessage />
                 </div>

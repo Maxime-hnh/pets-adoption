@@ -2,7 +2,7 @@ export default function AdminPage() {
 
   return (
     <div>
-      Bienvenue dans l'admin
+      Bienvenue dans l&apos;admin
     </div>
   )
 };

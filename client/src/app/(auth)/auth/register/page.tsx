@@ -34,7 +34,7 @@ export default function AuthPage() {
         <div className="relative hidden lg:col-span-6 lg:grid lg:grid-cols-12 xl:col-span-7">
           <div className="hidden xl:block xl:col-span-4">
             <div className="absolute right-[55%] w-[240px] top-[22%] flex flex-col justify-center items-center gap-4 2xl:w-[275px]">
-              <h2 className="font-bold xl:text-5xl 2xl:text-6xl">J'agis, j'adopte.</h2>
+              <h2 className="font-bold xl:text-5xl 2xl:text-6xl">J&apos;agis, j&apos;adopte.</h2>
               <p>Un geste pour tout changer. Offrez une seconde chance à ceux qui n&apos;attendent que vous.</p>
             </div>
           </div>

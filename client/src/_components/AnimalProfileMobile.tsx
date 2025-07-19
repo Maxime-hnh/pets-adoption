@@ -1,8 +1,7 @@
 
-import { GenderConfigMap, AnimalStatusConfiglMap, PlacementTypeConfigMap, GenderLabelMap, PlacementTypeLabelMap, AnimalStatusLabelMap, AnimalStatus, PlacementType } from "@/_schemas/animal.schema";
+import { GenderConfigMap, AnimalStatusConfiglMap, PlacementTypeConfigMap, GenderLabelMap } from "@/_schemas/animal.schema";
 import { notFound } from "next/navigation";
 
-import { getById } from "@/_lib/data";
 import Image from "next/image";
 import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 import { Cake, Camera, DnaIcon, MapPin, PawPrint, Share2 } from "lucide-react";
@@ -10,6 +9,7 @@ import { calculateAgeToString } from "@/_lib/utils";
 import { Button } from "./ui/button";
 import HandleFavoriteButton from "./HandleFavoriteButton";
 import BackButton from "./BackButton";
+import { getAnimalById } from "@/_lib/data";
 
 interface AnimalProfileMobileProps {
   params: Promise<{ id: string }>
@@ -19,7 +19,7 @@ interface AnimalProfileMobileProps {
 
 export async function generateMetadata({ params }: AnimalProfileMobileProps) {
   const { id } = await params;
-  const animal = await getById(Number(id)); //cache(fn)
+  const animal = await getAnimalById(Number(id)); //cache(fn)
 
   return {
     title: `${animal.name} – À adopter | SPA de Verson`,
@@ -30,17 +30,14 @@ export async function generateMetadata({ params }: AnimalProfileMobileProps) {
 export default async function AnimalProfileMobile({ params }: AnimalProfileMobileProps) {
 
   const { id } = await params;
-  const animal = await getById(Number(id));  //cache(fn)
+  const animal = await getAnimalById(Number(id));  //cache(fn)
   if (!animal) return notFound()
 
   // Obtenir l'icône de genre avec sa couleur
   const GenderIcon = GenderConfigMap[animal.gender].icon;
   const genderBgColor = GenderConfigMap[animal.gender].bgColorTransparent;
   const genderIconColor = GenderConfigMap[animal.gender].color;
-
-  const statusBgColor = animal.status ? AnimalStatusConfiglMap[animal.status].bgColor : '';
-
-  const placementTypeBgColor = animal.placementType ? PlacementTypeConfigMap[animal.placementType].bgColor : '';
+  // const placementTypeBgColor = animal.placementType ? PlacementTypeConfigMap[animal.placementType].bgColor : '';
 
 
   const infoContainer = (Icon: React.ElementType, title: string, info: string, bg: string, iconColor: string) => (

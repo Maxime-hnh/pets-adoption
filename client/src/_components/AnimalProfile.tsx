@@ -71,7 +71,7 @@ export default async function AnimalProfile({ params }: AnimalProfileProps) {
                 <div className="flex flex-row gap-4">
                   <Badge className={`rounded-full ${statusBgColor} !text-white text-sm font-normal px-4 py-1`}>
                     {animal.status === AnimalStatus.AVAILABLE
-                      ? <><Heart className="fill-current mr-2" /> Prêt pour l'adoption</>
+                      ? <><Heart className="fill-current mr-2" /> Prêt pour l&apos;adoption</>
                       : AnimalStatusLabelMap[animal.status]}
                   </Badge>
                   {animal.placementType !== PlacementType.STANDARD

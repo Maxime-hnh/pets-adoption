@@ -4,7 +4,7 @@ import { Button } from "@/_components/ui/button";
 import { Badge } from "@/_components/ui/badge";
 import { CornerUpLeft, CornerUpRight, Trash2, User, X } from "lucide-react";
 import { useAdminStore } from "@/_stores/admin.store";
-import { formatDate, formatElapsedTime } from "@/_lib/utils";
+import { formatDate } from "@/_lib/utils";
 import { useDeleteMessage } from "@/_hooks/messages/useDeleteMessage";
 
 export default function SelectedMessage() {

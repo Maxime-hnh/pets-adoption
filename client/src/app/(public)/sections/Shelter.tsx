@@ -35,7 +35,7 @@ export default function Shelter() {
       <div className="container mx-auto">
         <div className="text-center">
           <h2 className="text-balance text-4xl lg:text-5xl">Le refuge SPA de Verson</h2>
-          <p className="mt-4">Une association reconnue d'utilité publique.</p>
+          <p className="mt-4">Une association reconnue d&apos;utilité publique.</p>
         </div>
         <div className="flex items-center flex-col md:flex-row justify-center gap-2 md:gap-8 mt-8 md:h-[351px] md:max-h-[351px] lg:h-80 lg:max-h-80">
           {content.map((item, index) => (

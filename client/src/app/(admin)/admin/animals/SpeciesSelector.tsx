@@ -95,7 +95,7 @@ export const SpeciesSelector = () => {
     <div className="space-y-4">
       <div className="flex items-center gap-2 mb-2">
         <h3 className="text-lg font-medium">Espèce</h3>
-        <span className="text-sm text-gray-500 dark:text-gray-400">Sélectionnez l'espèce de l'animal</span>
+        <span className="text-sm text-gray-500 dark:text-gray-400">Sélectionnez l&apos;espèce de l&apos;animal</span>
       </div>
       
       <div className="grid grid-cols-3 gap-4">

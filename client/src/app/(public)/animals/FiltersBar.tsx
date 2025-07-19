@@ -2,7 +2,7 @@
 import React from "react";
 import { Input } from "@/_components/ui/input"
 import { MultipleSelector } from "@/_components/ui/multiple-selector";
-import { Search, X } from "lucide-react";
+import { Search } from "lucide-react";
 import { SpeciesLabelMap, Species, GenderLabelMap, Gender, PlacementTypeLabelMap, PlacementType } from "@/_schemas/animal.schema";
 import { useAnimalsStore } from "@/_stores/animals.store";
 import { Chip } from "@/_components/ui/chip";

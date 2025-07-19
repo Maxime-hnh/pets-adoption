@@ -2,7 +2,7 @@
 import { authHeader } from "@/_lib/auth-header";
 import { handleResponse } from "@/_lib/handle-response";
 import { baseUrl } from "@/_lib/constants";
-import { EventEntity, EventFilters, EventType } from "@/_schemas/events.schema";
+import { EventEntity, EventFilters } from "@/_schemas/events.schema";
 
 
 class EventsServerService {

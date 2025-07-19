@@ -115,7 +115,7 @@ export default function AnimalsForm({ mode = "create", values }: AnimalsFomProps
             if (error.message.includes("icadNumber")) {
               form.setError("icadNumber", { message: error.message });
             } else {
-              toast.error(error.message || "Une erreur est survenue lors de la création de l'animal")
+              toast.error(error.message || "Une erreur est survenue lors de la création de l&apos;animal")
             }
           }
         },
@@ -133,7 +133,7 @@ export default function AnimalsForm({ mode = "create", values }: AnimalsFomProps
             if (error.message.includes("icadNumber")) {
               form.setError("icadNumber", { message: error.message });
             } else {
-              toast.error(error.message || "Une erreur est survenue lors de la mise à jour de l'animal")
+              toast.error(error.message || "Une erreur est survenue lors de la mise à jour de l&apos;animal")
             }
           }
         },
@@ -227,7 +227,7 @@ export default function AnimalsForm({ mode = "create", values }: AnimalsFomProps
                     <FormItem className="w-full gap-0">
                       <FormLabel className="text-base font-medium">Numéro ICAD</FormLabel>
                       <FormDescription className="text-xs font-light mb-1">
-                        Numéro d'identification unique de l'animal (optionnel)
+                        Numéro d'identification unique de l&apos;animal (optionnel)
                       </FormDescription>
                       <FormControl>
                         <Input
@@ -391,11 +391,11 @@ export default function AnimalsForm({ mode = "create", values }: AnimalsFomProps
                     <FormItem className="gap-0">
                       <FormLabel className="text-base font-medium">Description</FormLabel>
                       <FormDescription className="text-xs font-light mb-1">
-                        Description détaillée de l'animal (comportement, caractère, etc.)
+                        Description détaillée de l&apos;animal (comportement, caractère, etc.)
                       </FormDescription>
                       <FormControl>
                         <Textarea
-                          placeholder="Décrivez l'animal..."
+                          placeholder="Décrivez l&apos;animal..."
                           className="min-h-[120px] bg-background"
                           {...field}
                           value={field.value ?? ""}
@@ -415,7 +415,7 @@ export default function AnimalsForm({ mode = "create", values }: AnimalsFomProps
                         <div className="space-y-0.5">
                           <FormLabel className="text-base">Stérilisé</FormLabel>
                           <FormDescription>
-                            L'animal est-il stérilisé ?
+                            L&apos;animal est-il stérilisé ?
                           </FormDescription>
                         </div>
                         <FormControl>
@@ -451,7 +451,7 @@ export default function AnimalsForm({ mode = "create", values }: AnimalsFomProps
                 </div>
 
                 {form.watch("status") === AnimalStatus.ADOPTED &&
-                  datePickerComponent("adoptionDate", "Date d'adoption", "Date à laquelle l'animal a été adopté")}
+                  datePickerComponent("adoptionDate", "Date d&apos;adoption", "Date à laquelle l&apos;animal a été adopté")}
               </div>
             </CardContent>
           </Card>
@@ -551,7 +551,7 @@ export default function AnimalsForm({ mode = "create", values }: AnimalsFomProps
                     <div className="mb-4">
                       <FormLabel className="text-base font-medium">Incompatibilités</FormLabel>
                       <FormDescription className="text-xs font-light mb-2">
-                        Sélectionnez les types d'incompatibilités pour cet animal
+                        Sélectionnez les types d&apos;incompatibilités pour cet animal
                       </FormDescription>
                     </div>
                     <div className="flex flex-row gap-12">

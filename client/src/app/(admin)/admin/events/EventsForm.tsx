@@ -209,7 +209,7 @@ console.log(form.formState.isDirty)
                   name="type"
                   render={({ field }) => (
                     <FormItem className="w-full gap-1">
-                      <FormLabel className="text-base font-medium">Type d'évènement</FormLabel>
+                      <FormLabel className="text-base font-medium">Type d&apos;évènement</FormLabel>
                       <FormControl>
                         <Select value={field.value} onValueChange={field.onChange}>
                           <SelectTrigger className="w-full">

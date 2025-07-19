@@ -1,6 +1,5 @@
 import { baseUrl } from "@/_lib/constants";
 import { AuthenticatedUser } from "@/_types/authenticated-user.interface.ts";
-import { Role } from "@/_types/role.interface";
 import { cookies } from "next/headers";
 
 class AuthServerService {
