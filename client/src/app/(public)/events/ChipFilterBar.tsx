@@ -75,9 +75,11 @@ export default function ChipFilterBar() {
           value={title}
           onChange={handleSearchChange}
         />
-        <Button variant="ghost" className="absolute right-0 top-0" onClick={handleClearTitle}>
-          <X className="h-4 w-4" />
-        </Button>
+        {title.length > 0
+          && <Button variant="ghost" className="absolute right-0 top-0" onClick={handleClearTitle} size="icon">
+            <X className="h-4 w-4" />
+          </Button>
+        }
       </div>
       <div className="flex flex-wrap gap-2 xl:gap-4">
         <Chip
