@@ -106,7 +106,7 @@ export default function ContactForm() {
           )}
         />
         <div className="flex justify-center">
-          <Button className="bg-indigo-500" type="submit">Envoyer <SendHorizontal className="w-4 h-4 ml-2" /></Button>
+          <Button className="bg-emerald-500" type="submit">Envoyer <SendHorizontal className="w-4 h-4 ml-2" /></Button>
         </div>
       </form>
     </Form>

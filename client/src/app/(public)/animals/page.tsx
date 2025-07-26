@@ -19,7 +19,7 @@ export default async function AnimalsPage() {
   const incompatibilities = await serverGetIncompatibilities();
 
   return (
-    <section className="relative grid grid-cols-12 md:px-4 sm:gap-4 lg:gap-8 min-h-[100dvh] sm:pt-[90px]">
+    <section className="relative flex flex-col sm:gap-4 lg:gap-8 min-h-[100dvh] px-4 xl:px-8 2xl:px-12">
       {/* Background green */}
       <div className="hidden sm:block absolute right-0 bottom-0 not-odd:h-[128px] w-[40%]  scale-[2] rounded-[50%] bg-custom-green blur-[100px] sm:h-[256px]"></div>
       {/* Background orange */}
@@ -27,10 +27,15 @@ export default async function AnimalsPage() {
         className="hidden sm:block absolute top-0 left-0 not-odd:h-[210px] w-[40%] rotate-[35deg]  scale-[2] rounded-[50%] bg-custom-orange blur-[50px] sm:h-[256px]"
         style={{ transform: "translate(-35%, -40%)" }}
       />
-      <div className="col-span-12 sm:sr-only py-6">
-        <h2 className=" min-w-full text-center text-pretty text-3xl md:text-4xl lg:text-5xl lg:max-w-3xl animate-fade-in-down">
-          Animaux à adopter
-        </h2>
+      {/* Header */}
+      <div className="flex flex-col gap-6 bg-indigo-500 py-5 md:pb-10 mb-4 md:mb-0 px-4 w-full sm:pt-[110px] rounded-b-[3rem]">
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-fredoka font-[700] text-center text-white">
+          <span className="sr-only">Nos animaux à adopter au refuge de Bayeux</span>
+          Nos animaux à adopter
+        </h1>
+        <p className="text-white text-center">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.
+        </p>
       </div>
       <ClientAnimalsWrapper animals={animals} incompatibilities={incompatibilities} />
     </section>

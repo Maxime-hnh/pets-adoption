@@ -40,7 +40,7 @@ export default function ClientAnimalsWrapper({ animals, incompatibilities }: { a
     }
   }
   return (
-    <>
+    <div className="grid grid-cols-12  sm:gap-4 lg:gap-8">
       <div ref={filterDesktopContainer} className="relative hidden sm:block sm:col-span-6 md:col-span-5 lg:col-span-4 xl:col-span-3 3xl:col-span-2">
         <Image
           src="/assets/mascot/mascot_face_paw.png"
@@ -78,6 +78,6 @@ export default function ClientAnimalsWrapper({ animals, incompatibilities }: { a
           )}
         </div>
       </div>
-    </>
+    </div>
   )
 }

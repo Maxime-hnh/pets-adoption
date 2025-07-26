@@ -26,10 +26,10 @@ export default function ContactPage() {
   )
 
   return (
-    <section className="flex flex-col md:flex-col gap-6  min-h-[calc(100dvh-90px)]">
+    <section className="flex flex-col gap-6 min-h-[100dvh] px-4 xl:px-8 2xl:px-12">
 
       {/* Header */}
-      <div className="flex flex-col gap-6 bg-indigo-500 py-5 md:py-10 px-4">
+      <div className="flex flex-col gap-6 bg-emerald-500 py-5 md:pb-10 px-4 w-full sm:pt-[110px] rounded-b-[3rem]">
         <h1 className="text-3xl md:text-4xl lg:text-5xl font-fredoka font-[700] text-center text-white">
           <span className="sr-only">Contactez-nous !</span>
           Écrivez-nous, on vous répond vite !
@@ -40,7 +40,7 @@ export default function ContactPage() {
       </div>
 
       {/* Content */}
-      <div className="flex flex-col-reverse pb-10 gap-12 px-4 lg:px-10 xl:px-50 2xl:px-75 3xl:px-90 md:gap-8 md:flex-row md:justify-center">
+      <div className="flex flex-col-reverse pb-10 gap-12 lg:px-6 xl:px-42 2xl:px-63 3xl:px-78 md:gap-8 md:flex-row md:justify-center">
 
         {/* Left */}
         <div className="flex flex-col gap-12">
@@ -57,7 +57,7 @@ export default function ContactPage() {
             <p className="text-sm">Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
 
             <div className="w-full flex justify-center">
-              <Button className="bg-indigo-500"><HeartHandshake className="w-4 h-4" /> Donation</Button>
+              <Button className="bg-emerald-500"><HeartHandshake className="w-4 h-4" /> Donation</Button>
             </div>
           </div>
         </div>

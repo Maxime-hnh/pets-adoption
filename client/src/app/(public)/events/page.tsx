@@ -35,7 +35,7 @@ export default async function EventsPage({ searchParams }: EventsPageProps) {
     <section className="min-h-[100dvh] px-4 xl:px-8 2xl:px-12  container flex flex-col items-center pb-16 gap-8 w-full min-w-full">
       <div className="flex flex-col gap-6 bg-[#5f2858] py-5 md:pb-10 px-4 w-full sm:pt-[110px] rounded-b-[3rem]">
         <h1 className="text-3xl md:text-4xl lg:text-5xl font-fredoka font-[700] text-center text-white">
-          Evènements
+          Nos évènements
         </h1>
         <p className="text-white text-center">
           Découvrez tous nos évènements : formations, ateliers, sorties et plus encore.
